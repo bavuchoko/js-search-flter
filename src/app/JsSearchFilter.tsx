@@ -16,18 +16,38 @@ const JsSearchFilter: FC<FilterProps> =({filter =[], onSearch=undefined})=>{
 
     return (
         <div style={{width:"100%"}}>
-            <FilterIcon
-                style={{
-                    width:'30px',
-                    height:'30px',
-                    padding:'6px',
-                    cursor:'pointer',
-                    border:'1px solid',
-                    borderColor: `${values ? 'black': 'var(--border)'}`,
-                    borderRadius:'3px',
-                }}
-                onClick={toggle}
-            />
+            <div style={{display:'flex'}}>
+                <FilterIcon
+                    style={{
+                        width:'30px',
+                        height:'30px',
+                        padding:'6px',
+                        cursor:'pointer',
+                        border:'1px solid',
+                        borderColor: `${values ? 'black': 'var(--border)'}`,
+                        borderRadius:'3px',
+                    }}
+                    onClick={toggle}
+                />
+
+                {filter.map(el=>(
+                    <span
+                        style={{
+                            padding:'4px 8px',
+                            margin:'0 5px',
+                            cursor:'pointer',
+                            fontWeight:'bold',
+                            display:'flex',
+                            fontSize:'12px',
+                            alignItems:'center',
+                            color:  'var(--grayText)',
+                            border:'1px solid var(--border)'
+                        }}
+                        onClick={toggle}
+                    >{el.label}</span>
+                ))}
+            </div>
+
             { isOpen && <Modal close={close} filter={filter} /> }
 
             { values &&
