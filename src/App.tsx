@@ -1,24 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import JsSearchFilter from "./app/JsSearchFilter";
 
 function App() {
+
+    const user =[
+        {id:1, name:'홍길동'},
+        {id:2, name:'김길동'},
+        {id:3, name:'최길동'},
+        {id:4, name:'박길동'},
+    ]
+    const company =[
+        {id:1, name:'NC'},
+        {id:2, name:'네이버'},
+        {id:3, name:'다음'},
+        {id:4, name:'MSN'},
+    ]
+    const createdBy ={
+        label:"등록자",
+        data: user
+    }
+
+    const mngCompany ={
+        label:"업체",
+        data: company
+    }
+
+    const filters =[createdBy, mngCompany];
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={{width:'100%', display:"flex"}}>
+
+        {/*left*/}
+        <div style={{width:'200PX', background:"#dbbbbb"}}>
+            <p>
+              TEST
+            </p>
+        </div>
+
+        {/*right*/}
+        <div style={{width:'100%'}}>
+            <div style={{width:'100%', height:'150px', background:"#b2a8a8"}}></div>
+            <JsSearchFilter  filter={filters}/>
+        </div>
     </div>
   );
 }

@@ -11,3 +11,38 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  --vh: 100%;
+  --border: rgb(179, 179, 179);
+  --font-size:12px;
+  --hover: rgb(124, 124, 124);
+}
+
+
+.js-option {
+  border: 1px solid var(--border);
+  font-size: var(--font-size);
+  padding: 5px 10px;
+  border-radius: 3px;
+  margin: 2px 5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  gap: 4px;
+  user-select: none;
+}
+.js-option:hover {
+  border-color: var(--hover);
+}
+.js-option:active {
+  scale: 97%;
+}
+
+.js-option .chevron {
+  font-size: 0.7em;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateY(1px);
+}
