@@ -33,6 +33,8 @@ code {
   --hover: rgb(124, 124, 124);
   --tw-bg-opacity:0.6;
   --modalBackground: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+  --grayText: rgb(140, 140, 140);
+  --background: rgb(234, 235, 236);
 }
 
 

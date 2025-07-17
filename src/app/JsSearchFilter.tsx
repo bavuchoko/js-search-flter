@@ -28,7 +28,7 @@ const JsSearchFilter: FC<FilterProps> =({filter =[], onSearch=undefined})=>{
                 }}
                 onClick={toggle}
             />
-            { isOpen && <Modal close={close} /> }
+            { isOpen && <Modal close={close} filter={filter} /> }
 
             { values &&
             <div className={`no-scroll`} style={{width:'100%', background:'green' , overflowY:'auto', padding:'5px 0'}} >

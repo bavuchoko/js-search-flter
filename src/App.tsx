@@ -20,12 +20,27 @@ function App() {
         data: user
     }
 
-    const mngCompany ={
-        label:"업체",
+    const updatedBy ={
+        label:"수정자",
+        data: user
+    }
+
+    const requestedBy ={
+        label:"요청자",
+        data: user
+    }
+
+    const fistMngCompany ={
+        label:"1차 업체",
         data: company
     }
 
-    const filters =[createdBy, mngCompany];
+
+    const secondMngCompany ={
+        label:"2차 업체",
+        data: company
+    }
+    const filters =[createdBy, requestedBy, updatedBy, fistMngCompany, secondMngCompany];
   return (
     <div className="App" style={{width:'100%', display:"flex"}}>
 
