@@ -39,7 +39,10 @@ function App() {
         {/*right*/}
         <div style={{width:'100%'}}>
             <div style={{width:'100%', height:'150px', background:"#b2a8a8"}}></div>
-            <JsSearchFilter  filter={filters}/>
+            {/*<div style={{width:'200px', background:"beige"}}>*/}
+            <div>
+                <JsSearchFilter  filter={filters}/>
+            </div>
         </div>
     </div>
   );

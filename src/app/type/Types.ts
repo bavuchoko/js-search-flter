@@ -1,3 +1,4 @@
+import React from "react";
 
 export type Element ={
     id : number;
@@ -9,10 +10,20 @@ export type Filter = {
     data : Element[];
 }
 
+type ObjectType = {
+    [key: string]: string | number;
+};
+
 export type ValueType = {
-    [key: string]: string | number | number[] | object | undefined;
+    [key: string]: string | number | number[] | ObjectType | undefined;
 }
 export type FilterProps ={
     filter? : Filter[]
     onSearch ?: (value : ValueType) => void;
+}
+
+
+export type IconProps = {
+    style?: React.CSSProperties;
+    onClick?: ()=>void;
 }

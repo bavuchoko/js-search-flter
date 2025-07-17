@@ -5,6 +5,20 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+}
+
+.no-scroll {
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 code {
@@ -14,9 +28,11 @@ code {
 
 :root {
   --vh: 100%;
-  --border: rgb(179, 179, 179);
+  --border: rgb(204, 204, 204);
   --font-size:12px;
   --hover: rgb(124, 124, 124);
+  --tw-bg-opacity:0.6;
+  --modalBackground: rgb(0 0 0 / var(--tw-bg-opacity, 1));
 }
 
 
@@ -36,9 +52,8 @@ code {
   border-color: var(--hover);
 }
 .js-option:active {
-  scale: 97%;
+  scale: 98%;
 }
-
 .js-option .chevron {
   font-size: 0.7em;
   line-height: 1;
