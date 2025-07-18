@@ -37,7 +37,9 @@ code {
   --background: rgb(234, 235, 236);
 }
 
-
+.no-drag {
+  user-select: none;
+}
 .js-option {
   border: 1px solid var(--border);
   font-size: var(--font-size);
@@ -62,4 +64,61 @@ code {
   display: inline-block;
   vertical-align: middle;
   transform: translateY(1px);
+}
+.js-search-modal-selected-options{
+  overflow: hidden;
+  width: 100%;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+}
+.js-search-modal-selected-options > div.each-options{
+  margin-right: 12px;
+  display: inline-flex;
+  white-space: nowrap;
+  font-size: var(--font-size);
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+}
+.js-search-modal-selected-options > div.each-options > button{
+  padding: 0;
+  background-color: transparent;
+  line-height: inherit;
+  background-image: none;
+  margin: 2px 0 0;
+  height: 17px;
+  width: 17px;
+  align-items: center;
+  display: inline-flex;
+  text-transform: none;
+  border-width: 0;
+}
+.js-search-reset-modal {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-right: 16px;
+}
+.js-search-reset-modal::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgb(245, 245, 245) 70.1%);
+  transform: translateX(-100%);
+  content: "";
+}
+.js-search-reset-modal > button {
+  height: 18px;
+  width: 34px;
+  box-shadow: rgb(102, 102, 102) 0px -1px 0px inset;
+  white-space: nowrap;
+  text-transform: none;
+  border-width: 0;
+  padding: 0;
+  margin: 0;
+
 }

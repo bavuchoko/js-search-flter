@@ -1,18 +1,18 @@
 import {FC, useState} from "react";
 import {FilterProps, ValueType} from "./type/Types";
 import '../index.css';
-import {useToggleModal} from "./hook/useToggleModal";
+import {useFilterHandle} from "./hook/useToggleModal";
 import FilterIcon from "./uitls/FilterIcon";
 import Modal from "./uitls/Modal";
+import {useToggleModal} from "./hook/useFilterHandle";
 
 
 
 
 const JsSearchFilter: FC<FilterProps> =({filter =[], onSearch=undefined})=>{
 
-    const [values, setValue] =useState<ValueType | null>(null)
-
     const { isOpen, open, close, toggle } = useToggleModal();
+    const { values, handle,  } = useFilterHandle();
 
     return (
         <div style={{width:"100%"}}>

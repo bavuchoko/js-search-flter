@@ -1,16 +1,15 @@
 import { useState, useCallback } from "react";
+import {Element, ValueType} from "../type/Types";
 
-export const useToggleModal = () => {
-    const [isOpen, setIsOpen] = useState(false);
+export const useFilterHandle = () => {
 
-    const open = useCallback(() => setIsOpen(true), []);
-    const close = useCallback(() => setIsOpen(false), []);
-    const toggle = useCallback(() => setIsOpen(prev => !prev), []);
+
+    const [values, setValue] =useState<ValueType | null>(null)
+
+    const handle = useCallback((v: Element) => setValue(v), []);
 
     return {
-        isOpen,
-        open,
-        close,
-        toggle,
+        values,
+        handle,
     };
 };
