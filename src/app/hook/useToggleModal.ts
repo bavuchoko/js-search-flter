@@ -1,5 +1,5 @@
-import { useState, useCallback } from "react";
-import {Element, ValueType} from "../type/Types";
+import {useCallback, useState} from "react";
+import {ValueType} from "../type/Types";
 
 export const useFilterHandle = () => {
 
@@ -34,9 +34,13 @@ export const useFilterHandle = () => {
         });
     }, []);
 
+    const reset =()=>{
+        setValue(null)
+    }
 
     return {
         values,
         handle,
+        reset,
     };
 };

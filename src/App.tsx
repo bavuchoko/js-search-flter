@@ -17,27 +17,32 @@ function App() {
     ]
     const createdBy ={
         label:"등록자",
+        key:'createdBy',
         data: user
     }
 
     const updatedBy ={
         label:"수정자",
+        key: 'updatedBy',
         data: user
     }
 
     const requestedBy ={
         label:"요청자",
+        key:'requestedBy',
         data: user
     }
 
     const fistMngCompany ={
         label:"1차 업체",
+        key:'fistMngCompany',
         data: company
     }
 
 
     const secondMngCompany ={
         label:"2차 업체",
+        key:'secondMngCompany',
         data: company
     }
     const filters =[createdBy, requestedBy, updatedBy, fistMngCompany, secondMngCompany];

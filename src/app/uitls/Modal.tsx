@@ -1,4 +1,4 @@
-import React, {FC, useRef, useState} from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import CloseIcon from "./CloseIcon";
 import {Filter, ValueType} from "../type/Types";
 import useDragScroll from "../hook/useDragScroll";
@@ -8,14 +8,22 @@ type ModalProps ={
     filter?: Filter[];
     values?: ValueType | null;
     handle?: (key: string, val: number) => void;
+    reset?: () => void;
 }
 
-const Modal:FC<ModalProps> =({close=undefined, filter, values, handle})=>{
+const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset})=>{
 
     const [clicked, setClicked] = useState<Filter | null>(null)
     const optionsRef = useRef<HTMLDivElement>(null);
     useDragScroll(optionsRef);
 
+
+    useEffect(() => {
+        if (!clicked && filter && filter.length > 0) {
+            setClicked(filter[0]);
+        }
+    }, [clicked, filter]);
+    console.log(values)
     return(
         <>
             <div
@@ -66,12 +74,12 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle})=>{
                                 color: clicked?.label === el.label ? 'black' : 'var(--grayText)',
 
                             }}
-                            onClick={()=>{console.log(clicked); setClicked(el)}}
+                            onClick={()=>{setClicked(el)}}
                         >{el.label}</span>
                         ))}
                 </div>
 
-                {/*검색된 조건*/}
+                {/*선택된 조건*/}
                 <div
                     style={{
                         height:'42px',
@@ -91,47 +99,65 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle})=>{
                             className={`no-scroll js-search-modal-selected-options`}
                             >
 
-                                {Object.entries(values).map(([key, val]) => {
+                                {Object.entries(values).flatMap(([key, val]) => {
+                                    const filterForKey = filter?.find(f => f.key === key);
+                                    if (!Array.isArray(val) || !filterForKey) return [];
 
-                                const filterForKey = filter?.find(f => f.label === key);
-
-                                if (Array.isArray(val) && filterForKey) {
-                                    const names = val.map(id => {
+                                    return val.map(id => {
                                         const el = filterForKey.data.find(d => d.id === id);
-                                        return el ? el.name : id;
-                                    });
+                                        const name = el ? el.name : id;
 
-                                    return (
-                                        <div key={key} className="each-options">
-                                            <div style={{display: 'flex', alignItems: 'center', padding: '0', margin: '0'}}>
-                                                {names.map(name => (
-                                                    <span key={name} className="no-drag" style={{marginRight: '6px'}}>{name}</span>
-                                                ))}
+                                        return (
+                                            <div key={`${key}-${id}`}
+                                                 className="each-options"
+                                                 style={{ display: 'flex', alignItems: 'center', margin: '4px 0' }}
+                                                 onClick={() => handle?.(key, Number(id))}
+                                            >
+                                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                    <span className="no-drag" style={{ marginRight: '6px' }}>{name}</span>
+                                                </div>
+                                                <button >
+                                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <line x1="5" y1="5" x2="19" y2="19" stroke="black" strokeWidth="1"/>
+                                                        <line x1="19" y1="5" x2="5" y2="19" stroke="black" strokeWidth="1"/>
+                                                    </svg>
+                                                </button>
                                             </div>
-                                            <button>
-                                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <line x1="5" y1="5" x2="19" y2="19" stroke="black" strokeWidth="1"/>
-                                                    <line x1="19" y1="5" x2="5" y2="19" stroke="black" strokeWidth="1"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    );
-                                }
-
-                                return null;
-                            })}
+                                        );
+                                    });
+                                })}
 
 
                             </div>
-                            <div className={`js-search-reset-modal`}>
+                            <div className={`js-search-reset-modal`} onClick={reset}>
                                 <button className={``}>
                                     <span>초기화</span>
                                 </button>
                             </div>
                         </>
                     )}
-
                 </div>
+
+                {/*선택한 옵션값*/}
+                <div>
+                    {clicked?.data.map(el => (
+                        <div key={el.id} className={`no-drag`} style={{ marginBottom: '6px', fontSize: '14px', display: 'flex', alignItems: 'center', cursor:'pointer' }}
+                             onClick={() => handle?.(clicked.key, el.id)}>
+                            <span style={{ marginRight: '8px' }}>{el.name}</span>
+                            <button
+                                style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}
+
+                            >
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="5" y1="5" x2="19" y2="19" stroke="black" strokeWidth="1"/>
+                                    <line x1="19" y1="5" x2="5" y2="19" stroke="black" strokeWidth="1"/>
+                                </svg>
+                            </button>
+                        </div>
+                    ))}
+                </div>
+
+
             </div>
         </>
     )

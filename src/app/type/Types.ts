@@ -3,10 +3,12 @@ import React from "react";
 export type Element ={
     id : number;
     name : string;
+
 }
 
 export type Filter = {
     label : string;
+    key: string;
     data : Element[];
 }
 

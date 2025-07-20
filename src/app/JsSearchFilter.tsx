@@ -10,7 +10,7 @@ import {useToggleModal} from "./hook/useFilterHandle";
 const JsSearchFilter: FC<FilterProps> =({filter =[], onSearch=undefined})=>{
 
     const { isOpen, open, close, toggle } = useToggleModal();
-    const { values, handle,  } = useFilterHandle();
+    const { values, handle, reset } = useFilterHandle();
 
     return (
         <div style={{width:"100%"}}>
@@ -46,7 +46,7 @@ const JsSearchFilter: FC<FilterProps> =({filter =[], onSearch=undefined})=>{
                 ))}
             </div>
 
-            { isOpen && <Modal close={close} filter={filter} values={values}  handle={handle} /> }
+            { isOpen && <Modal close={close} filter={filter} values={values}  handle={handle} reset={reset}/> }
 
             { values &&
             <div className={`no-scroll`} style={{width:'100%', background:'green' , overflowY:'auto', padding:'5px 0'}} >
