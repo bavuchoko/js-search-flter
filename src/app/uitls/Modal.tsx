@@ -2,6 +2,7 @@ import React, {FC, useEffect, useRef, useState} from "react";
 import CloseIcon from "./CloseIcon";
 import {Filter, ValueType} from "../type/Types";
 import useDragScroll from "../hook/useDragScroll";
+import SelectedOption from "./SelectedOption";
 
 type ModalProps ={
     close?:()=>void;
@@ -141,19 +142,7 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset})=>
                 {/*선택한 옵션값*/}
                 <div>
                     {clicked?.data.map(el => (
-                        <div key={el.id} className={`no-drag`} style={{ marginBottom: '6px', fontSize: '14px', display: 'flex', alignItems: 'center', cursor:'pointer' }}
-                             onClick={() => handle?.(clicked.key, el.id)}>
-                            <span style={{ marginRight: '8px' }}>{el.name}</span>
-                            <button
-                                style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}
-
-                            >
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <line x1="5" y1="5" x2="19" y2="19" stroke="black" strokeWidth="1"/>
-                                    <line x1="19" y1="5" x2="5" y2="19" stroke="black" strokeWidth="1"/>
-                                </svg>
-                            </button>
-                        </div>
+                        <SelectedOption option={el} handle={handle} clicked={clicked} />
                     ))}
                 </div>
 

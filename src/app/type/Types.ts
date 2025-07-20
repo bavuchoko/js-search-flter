@@ -1,6 +1,6 @@
 import React from "react";
 
-export type Element ={
+export type Data ={
     id : number;
     name : string;
 
@@ -9,7 +9,7 @@ export type Element ={
 export type Filter = {
     label : string;
     key: string;
-    data : Element[];
+    data : Data[];
 }
 
 type ObjectType = {
@@ -21,7 +21,8 @@ export type ValueType = {
 }
 export type FilterProps ={
     filter? : Filter[]
-    onSearch ?: (value : ValueType) => void;
+    onValueChange ?: (value: ValueType | null) => void;
+    onSearch ?: (value: ValueType | null) => void;
 }
 
 

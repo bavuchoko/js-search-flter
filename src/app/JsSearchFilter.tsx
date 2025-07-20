@@ -7,10 +7,10 @@ import Modal from "./uitls/Modal";
 import {useToggleModal} from "./hook/useFilterHandle";
 
 
-const JsSearchFilter: FC<FilterProps> =({filter =[], onSearch=undefined})=>{
+const JsSearchFilter: FC<FilterProps> =({filter =[], onValueChange=undefined, onSearch=undefined})=>{
 
     const { isOpen, open, close, toggle } = useToggleModal();
-    const { values, handle, reset } = useFilterHandle();
+    const { values, handle, reset } = useFilterHandle(onValueChange);
 
     return (
         <div style={{width:"100%"}}>
