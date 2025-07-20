@@ -2,7 +2,8 @@ import React, {FC, useEffect, useRef, useState} from "react";
 import CloseIcon from "./CloseIcon";
 import {Filter, ValueType} from "../type/Types";
 import useDragScroll from "../hook/useDragScroll";
-import SelectedOption from "./SelectedOption";
+import GroupData from "./GroupData";
+import Group from "./Group";
 
 type ModalProps ={
     close?:()=>void;
@@ -12,9 +13,10 @@ type ModalProps ={
     reset?: () => void;
     clicked?:Filter | null;
     setClicked?:(click:Filter) =>void;
+    onSearch?:(values: ValueType | null )=>void;
 }
 
-const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, clicked,setClicked})=>{
+const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, clicked,setClicked, onSearch})=>{
 
 
     const optionsRef = useRef<HTMLDivElement>(null);
@@ -26,7 +28,7 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, cl
             setClicked?.(filter[0]);
         }
     }, [clicked, filter]);
-    console.log(values)
+
     return(
         <>
             <div
@@ -49,7 +51,7 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, cl
                     backgroundColor:'white',
                     width:'480px',
                     height:'580px',
-                    borderRadius:'8px',
+                    borderRadius:'3px',
                     top:'50%',
                     left:'50%',
                     transform:'translate(-50%, -50%)',
@@ -141,20 +143,34 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, cl
                     )}
                 </div>
 
-                {/*선택한 옵션값*/}
+                {/* 조회된 옵션값 */}
+                {clicked && (
+                    <Group clicked={clicked} handle={handle}/>
+                )}
+
                 <div
                     style={{
-                        display: 'grid',
-                        gridTemplateColumns: '1fr 1fr',
-                        gap: '8px',
-                        padding:'16px 16px'
+                        height: '70px',
+                        borderTop:'1px solid var(--innerBorder)',
+                        padding:'12px 16px'
                     }}
                 >
-                    {clicked?.data.map(el => (
-                        <SelectedOption option={el} handle={handle} clicked={clicked} />
-                    ))}
-                </div>
+                    <button
+                        className={`active`}
+                        style={{
+                            width:'100%',
+                            height:'100%',
+                            background:'black',
+                            borderRadius:'4px',
+                            color:'white',
+                            cursor:'pointer',
+                        }}
+                        onClick={()=>onSearch?.(values ?? null)}
+                    >
+                        검색하기
+                    </button>
 
+                </div>
 
             </div>
         </>

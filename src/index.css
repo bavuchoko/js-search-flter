@@ -29,6 +29,7 @@ code {
 :root {
   --vh: 100%;
   --border: rgb(204, 204, 204);
+  --innerBorder: rgb(236, 236, 236);
   --font-size:12px;
   --hover: rgb(124, 124, 124);
   --tw-bg-opacity:0.6;
@@ -121,4 +122,7 @@ code {
   padding: 0;
   margin: 0;
 
+}
+.active:active{
+  scale: 99.5%;
 }

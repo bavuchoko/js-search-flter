@@ -1,13 +1,37 @@
 import React from 'react';
 import JsSearchFilter from "./app/JsSearchFilter";
+import {Filter} from "./app/type/Types";
 
 function App() {
 
     const user =[
-        {id:1, name:'홍길동'},
-        {id:2, name:'김길동'},
-        {id:3, name:'최길동'},
-        {id:4, name:'박길동'},
+        {id:1, name:'홍길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:2, name:'김길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:3, name:'최길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:4, name:'송길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:5, name:'김나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:6, name:'박나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:7, name:'홍나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:8, name:'유나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:9, name:'김호떡', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:10, name:'박호떡', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:11, name:'유호떡', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:12, name:'최호떡', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:13, name:'유재길', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:14, name:'김재길', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:15, name:'황재길', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:16, name:'김태리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:17, name:'박태리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:18, name:'유태리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:19, name:'황태리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:20, name:'강산수', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:21, name:'홍산수', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:22, name:'최산수', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:23, name:'박산수', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:24, name:'이길순', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:25, name:'김길순', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:25, name:'황길순', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:25, name:'나길순', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
     ]
     const company =[
         {id:1, name:'NC'},
@@ -18,7 +42,8 @@ function App() {
     const createdBy ={
         label:"등록자",
         key:'createdBy',
-        data: user
+        data: user,
+        groupBy:["departments", "company"]
     }
 
     const updatedBy ={
@@ -45,7 +70,7 @@ function App() {
         key:'secondMngCompany',
         data: company
     }
-    const filters =[createdBy, requestedBy, updatedBy, fistMngCompany, secondMngCompany];
+    const filters:Filter[] =[createdBy, requestedBy, updatedBy, fistMngCompany, secondMngCompany];
   return (
     <div className="App" style={{width:'100%', display:"flex"}}>
 

@@ -48,7 +48,7 @@ const JsSearchFilter: FC<FilterProps> =({filter =[], onValueChange=undefined, on
                 ))}
             </div>
 
-            { isOpen && <Modal close={close} filter={filter} values={values}  handle={handle} reset={reset} clicked={clicked} setClicked={setClicked}/> }
+            { isOpen && <Modal close={close} filter={filter} values={values}  handle={handle} reset={reset} clicked={clicked} setClicked={setClicked} onSearch={onSearch}/> }
 
             { values &&
             <div className={`no-scroll`} style={{width:'100%', background:'green' , overflowY:'auto', padding:'5px 0'}} >

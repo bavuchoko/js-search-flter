@@ -1,5 +1,4 @@
 import React from "react";
-import {behaviorPlugin} from "@testing-library/user-event/dist/keyboard/types";
 
 
 export type Filter = {
@@ -8,6 +7,7 @@ export type Filter = {
     data :any[];
     type?: string;
     recursive?:boolean;
+    groupBy?:string[];
 }
 
 type ObjectType = {
@@ -21,6 +21,7 @@ export type FilterProps ={
     filter? : Filter[]
     onValueChange ?: (value: ValueType | null) => void;
     onSearch ?: (value: ValueType | null) => void;
+    onApiRequest? :(params: string[])=>void;
 }
 
 
