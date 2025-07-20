@@ -1,12 +1,10 @@
-import {FC, useState} from "react";
-import {FilterProps, ValueType} from "./type/Types";
+import {FC} from "react";
+import {FilterProps} from "./type/Types";
 import '../index.css';
 import {useFilterHandle} from "./hook/useToggleModal";
 import FilterIcon from "./uitls/FilterIcon";
 import Modal from "./uitls/Modal";
 import {useToggleModal} from "./hook/useFilterHandle";
-
-
 
 
 const JsSearchFilter: FC<FilterProps> =({filter =[], onSearch=undefined})=>{
@@ -48,7 +46,7 @@ const JsSearchFilter: FC<FilterProps> =({filter =[], onSearch=undefined})=>{
                 ))}
             </div>
 
-            { isOpen && <Modal close={close} filter={filter} /> }
+            { isOpen && <Modal close={close} filter={filter} values={values}  handle={handle} /> }
 
             { values &&
             <div className={`no-scroll`} style={{width:'100%', background:'green' , overflowY:'auto', padding:'5px 0'}} >

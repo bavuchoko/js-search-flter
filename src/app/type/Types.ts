@@ -15,7 +15,7 @@ type ObjectType = {
 };
 
 export type ValueType = {
-    [key: string]: string | number | number[] | ObjectType | ObjectType[] | undefined;
+    [key: string]: string | number | number[] | string[] | undefined;
 }
 export type FilterProps ={
     filter? : Filter[]

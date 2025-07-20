@@ -1,14 +1,16 @@
 import React, {FC, useRef, useState} from "react";
 import CloseIcon from "./CloseIcon";
-import {Filter} from "../type/Types";
+import {Filter, ValueType} from "../type/Types";
 import useDragScroll from "../hook/useDragScroll";
 
 type ModalProps ={
     close?:()=>void;
-    filter: Filter[]
+    filter?: Filter[];
+    values?: ValueType | null;
+    handle?: (key: string, val: number) => void;
 }
 
-const Modal:FC<ModalProps> =({close=undefined, filter})=>{
+const Modal:FC<ModalProps> =({close=undefined, filter, values, handle})=>{
 
     const [clicked, setClicked] = useState<Filter | null>(null)
     const optionsRef = useRef<HTMLDivElement>(null);
@@ -52,7 +54,7 @@ const Modal:FC<ModalProps> =({close=undefined, filter})=>{
                 <div
                     className={'no-scroll no-drag'}
                     style={{padding:"0 12px", display:'flex', alignItems:'center', width:'100%', overflowX:'scroll' }}>
-                        {filter.map(el=>(
+                        {filter?.map(el=>(
                         <span
                             style={{
                                 padding:'8px 2px',
@@ -80,37 +82,55 @@ const Modal:FC<ModalProps> =({close=undefined, filter})=>{
                         display:'flex',
                         justifyContent:'space-between',
                     }}>
-                    <div
-                        ref={optionsRef}
-                        className={`no-scroll js-search-modal-selected-options`}
-                    >
 
-                        <div className={`each-options`}>
-                            <div style={{display: 'flex', alignItems: 'center', padding: '0', margin: '0'}}>
-                                {/*<img/>*/}
-                                <span className={`no-drag`}>김수한무</span>
+
+                    {values && (
+                        <>
+                            <div
+                            ref={optionsRef}
+                            className={`no-scroll js-search-modal-selected-options`}
+                            >
+
+                                {Object.entries(values).map(([key, val]) => {
+
+                                const filterForKey = filter?.find(f => f.label === key);
+
+                                if (Array.isArray(val) && filterForKey) {
+                                    const names = val.map(id => {
+                                        const el = filterForKey.data.find(d => d.id === id);
+                                        return el ? el.name : id;
+                                    });
+
+                                    return (
+                                        <div key={key} className="each-options">
+                                            <div style={{display: 'flex', alignItems: 'center', padding: '0', margin: '0'}}>
+                                                {names.map(name => (
+                                                    <span key={name} className="no-drag" style={{marginRight: '6px'}}>{name}</span>
+                                                ))}
+                                            </div>
+                                            <button>
+                                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <line x1="5" y1="5" x2="19" y2="19" stroke="black" strokeWidth="1"/>
+                                                    <line x1="19" y1="5" x2="5" y2="19" stroke="black" strokeWidth="1"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    );
+                                }
+
+                                return null;
+                            })}
+
+
                             </div>
-                            <button>
-                                <svg
-                                    width="13"
-                                    height="13"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <line x1="5" y1="5" x2="19" y2="19" stroke="black" stroke-width="1"/>
-                                    <line x1="19" y1="5" x2="5" y2="19" stroke="black" stroke-width="1"/>
-                                </svg>
-                            </button>
-                        </div>
+                            <div className={`js-search-reset-modal`}>
+                                <button className={``}>
+                                    <span>초기화</span>
+                                </button>
+                            </div>
+                        </>
+                    )}
 
-
-                    </div>
-                    <div className={`js-search-reset-modal`}>
-                        <button className={``}>
-                            <span>초기화</span>
-                        </button>
-                    </div>
                 </div>
             </div>
         </>
