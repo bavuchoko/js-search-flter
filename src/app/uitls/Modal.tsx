@@ -1,6 +1,7 @@
-import React, {FC, useState} from "react";
+import React, {FC, useRef, useState} from "react";
 import CloseIcon from "./CloseIcon";
 import {Filter} from "../type/Types";
+import useDragScroll from "../hook/useDragScroll";
 
 type ModalProps ={
     close?:()=>void;
@@ -10,6 +11,8 @@ type ModalProps ={
 const Modal:FC<ModalProps> =({close=undefined, filter})=>{
 
     const [clicked, setClicked] = useState<Filter | null>(null)
+    const optionsRef = useRef<HTMLDivElement>(null);
+    useDragScroll(optionsRef);
 
     return(
         <>
@@ -78,13 +81,14 @@ const Modal:FC<ModalProps> =({close=undefined, filter})=>{
                         justifyContent:'space-between',
                     }}>
                     <div
+                        ref={optionsRef}
                         className={`no-scroll js-search-modal-selected-options`}
                     >
 
                         <div className={`each-options`}>
-                            <div style={{display:'flex', alignItems:'center', padding:'0', margin:'0'}}>
-                            {/*<img/>*/}
-                            <span className={`no-drag`}>김수한무</span>
+                            <div style={{display: 'flex', alignItems: 'center', padding: '0', margin: '0'}}>
+                                {/*<img/>*/}
+                                <span className={`no-drag`}>김수한무</span>
                             </div>
                             <button>
                                 <svg
@@ -100,8 +104,9 @@ const Modal:FC<ModalProps> =({close=undefined, filter})=>{
                             </button>
                         </div>
 
+
                     </div>
-                    <div className={`js-search-reset-modal`} >
+                    <div className={`js-search-reset-modal`}>
                         <button className={``}>
                             <span>초기화</span>
                         </button>
