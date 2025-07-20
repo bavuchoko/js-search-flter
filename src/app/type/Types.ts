@@ -1,15 +1,13 @@
 import React from "react";
+import {behaviorPlugin} from "@testing-library/user-event/dist/keyboard/types";
 
-export type Data ={
-    id : number;
-    name : string;
-
-}
 
 export type Filter = {
     label : string;
     key: string;
-    data : Data[];
+    data :any[];
+    type?: string;
+    recursive?:boolean;
 }
 
 type ObjectType = {

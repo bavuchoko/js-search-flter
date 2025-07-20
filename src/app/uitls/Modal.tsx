@@ -10,18 +10,20 @@ type ModalProps ={
     values?: ValueType | null;
     handle?: (key: string, val: number) => void;
     reset?: () => void;
+    clicked?:Filter | null;
+    setClicked?:(click:Filter) =>void;
 }
 
-const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset})=>{
+const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, clicked,setClicked})=>{
 
-    const [clicked, setClicked] = useState<Filter | null>(null)
+
     const optionsRef = useRef<HTMLDivElement>(null);
     useDragScroll(optionsRef);
 
 
     useEffect(() => {
         if (!clicked && filter && filter.length > 0) {
-            setClicked(filter[0]);
+            setClicked?.(filter[0]);
         }
     }, [clicked, filter]);
     console.log(values)
@@ -75,7 +77,7 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset})=>
                                 color: clicked?.label === el.label ? 'black' : 'var(--grayText)',
 
                             }}
-                            onClick={()=>{setClicked(el)}}
+                            onClick={()=>{setClicked?.(el)}}
                         >{el.label}</span>
                         ))}
                 </div>
@@ -140,7 +142,14 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset})=>
                 </div>
 
                 {/*선택한 옵션값*/}
-                <div>
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 1fr',
+                        gap: '8px',
+                        padding:'16px 16px'
+                    }}
+                >
                     {clicked?.data.map(el => (
                         <SelectedOption option={el} handle={handle} clicked={clicked} />
                     ))}

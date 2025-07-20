@@ -1,5 +1,5 @@
-import {FC} from "react";
-import {FilterProps} from "./type/Types";
+import {FC, useState} from "react";
+import {Filter, FilterProps} from "./type/Types";
 import '../index.css';
 import {useFilterHandle} from "./hook/useToggleModal";
 import FilterIcon from "./uitls/FilterIcon";
@@ -8,6 +8,8 @@ import {useToggleModal} from "./hook/useFilterHandle";
 
 
 const JsSearchFilter: FC<FilterProps> =({filter =[], onValueChange=undefined, onSearch=undefined})=>{
+
+    const [clicked, setClicked] = useState<Filter | null>(null)
 
     const { isOpen, open, close, toggle } = useToggleModal();
     const { values, handle, reset } = useFilterHandle(onValueChange);
@@ -41,12 +43,12 @@ const JsSearchFilter: FC<FilterProps> =({filter =[], onValueChange=undefined, on
                             color:  'var(--grayText)',
                             border:'1px solid var(--border)'
                         }}
-                        onClick={toggle}
+                        onClick={()=>{setClicked(el); toggle();}}
                     >{el.label}</span>
                 ))}
             </div>
 
-            { isOpen && <Modal close={close} filter={filter} values={values}  handle={handle} reset={reset}/> }
+            { isOpen && <Modal close={close} filter={filter} values={values}  handle={handle} reset={reset} clicked={clicked} setClicked={setClicked}/> }
 
             { values &&
             <div className={`no-scroll`} style={{width:'100%', background:'green' , overflowY:'auto', padding:'5px 0'}} >
