@@ -8,7 +8,7 @@ import React from "react";
  * - code: 코드
  * - date: 날짜
  */
-type FilterTypes = 'user'| 'company' | 'department' | 'code' | 'date' ;
+export type FilterTypes = 'user'| 'company' | 'department' | 'code' | 'date' ;
 type SearchTypes = {
     label: string;
     data: any[];

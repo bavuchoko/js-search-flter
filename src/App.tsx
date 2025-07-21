@@ -86,7 +86,7 @@ function App() {
         label:"부셔",
         key: 'department',
         data: department,
-        type:'code',
+        type:'department',
         recursive:true
     }
 

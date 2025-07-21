@@ -23,6 +23,8 @@ const GroupOptionData:FC<OptionProps> =({option, handle, clicked, values})=>{
                  marginBottom: '6px',
                  width:'calc(50% - 4px)',
                  display: 'flex',
+                 paddingLeft:'16px',
+                 paddingRight:'16px',
                  alignItems: 'center',
                  cursor: 'pointer'
              }}

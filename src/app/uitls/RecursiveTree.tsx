@@ -1,46 +1,44 @@
 import {FC, useState} from "react";
+import OptionIcons from "./OptionIcons";
+import {FilterTypes} from "../type/Types";
 
 type Props = {
     keys: string;
     data: any[];
     handle?: (key: string, val: number) => void;
+    type?: FilterTypes;
 }
 
-const RecursiveTree:FC<Props> =({keys, data, handle}) =>{
+const RecursiveTree:FC<Props> =({keys, data, handle, type}) =>{
     const [currentNodes, setCurrentNodes] = useState<any[]>(data);
+    console.log(type)
     return (
         <div
             style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '8px',
+               width:'100%'
             }}
         >
-                {currentNodes.map(node => (
+                {currentNodes.map((node, index) => (
                     <div
                         key={node.id}
                         style={{
+                            padding:'0 16px',
+                            marginBottom:'6px',
+                            height:'25px',
                             display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'space-between',
                             boxSizing: 'border-box',
+                            background:(index % 2)==0? '':'var(--background)',
                             cursor:'pointer',
                         }}
                     >
+                        <OptionIcons style={{width:'18px', height:'18px'}} type={type} checked={false}/>
                         <span id={keys}
                             onClick={() => handle?.(keys, node.id)}
                         >
                           {node.name}
                             {node.children && node.children.length > 0 && (
-                                <button
-                                    style={{marginLeft:'10px'}}
-                                    onClick={e => {
-                                        e.stopPropagation();
-                                        setCurrentNodes(node.children!);
-                                    }}
-                                >
-                                    ▶
-                                </button>
+                                <></>
                             )}
                         </span>
 
