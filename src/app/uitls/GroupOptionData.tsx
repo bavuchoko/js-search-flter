@@ -21,7 +21,6 @@ const GroupOptionData:FC<OptionProps> =({option, handle, clicked, values})=>{
         <div key={option.id} className={`no-drag`}
              style={{
                  marginBottom: '6px',
-                 fontSize: '14px',
                  width:'calc(50% - 4px)',
                  display: 'flex',
                  alignItems: 'center',

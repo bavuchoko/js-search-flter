@@ -29,36 +29,29 @@ type SearchTypes = {
  *
  *
  * */
-export type Filter = {
-
-    /** 선택그룹 라벨 (ex: '등록자') */
-    label : string;
-    /** 선택그룹의 영문명: 보통 백엔드에서 필드명 (ex: 'createdBy') */
+export type FilterBase = {
+    label: string;
     key: string;
-    /** 해당 그룹에서 보여야 할 데이터들 (ex: 유저리스트) */
-    data :any[];
-    /** 선택창에서 보여줄 내용들 (ex: ['name', 'department.name', 'company.name'...])
-     *  department.name 처럼 nested 하게 넣어준 키를 가지고 찾게된다.
-     *  해당 span 요소마다 class를 달아주므로 별도의 스타일링 가능
-     * */
+    data: any[];
     target?: string[];
-
-    /** api 요청할 요소들
-     * */
-    searchBy?:SearchTypes[];
-
-    /** 검색조건이 재귀적인 요소인지 여부 */
-    recursive?:boolean;
-
-    /** 아이콘또는 검색 타입을 위한 값 */
     type?: FilterTypes;
-}
+};
+
+type WithSearchBy = FilterBase & {
+    searchBy?: SearchTypes[];
+    recursive?: never;
+};
+
+type WithRecursive = FilterBase & {
+    recursive?: boolean;
+    searchBy?: never;
+};
 
 export type ValueType = {
     [key: string]: string | number | number[] | string[] | undefined;
 }
 
-
+export type Filter = WithSearchBy | WithRecursive;
 
 export type FilterProps ={
     filter? : Filter[]
