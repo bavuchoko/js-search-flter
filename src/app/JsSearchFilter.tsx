@@ -7,7 +7,10 @@ import Modal from "./uitls/Modal";
 import {useToggleModal} from "./hook/useFilterHandle";
 import useDragScroll from "./hook/useDragScroll";
 
-
+/**
+ *
+ *
+ * */
 const JsSearchFilter: FC<FilterProps> =({filter =[], onValueChange=undefined, onSearch=undefined, onApiRequest=undefined})=>{
 
     const [clicked, setClicked] = useState<Filter | null>(null)

@@ -11,6 +11,23 @@ type GroupProps ={
 
 
 const GroupOption:FC<GroupProps> =({clicked, handle, height, values})=>{
+    if (clicked?.type === 'date') {
+    return(
+        <div
+            style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '8px',
+                height: height ??'447px',
+                padding: '16px 16px',
+                overflowY: 'auto',
+                alignContent: 'flex-start',
+            }}
+        >
+            {clicked.data}
+        </div>
+    )}
+
     return(
         <div
             style={{

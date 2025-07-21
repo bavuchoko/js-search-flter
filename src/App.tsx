@@ -38,12 +38,16 @@ function App() {
         {id:2, name:'네이버'},
         {id:3, name:'다음'},
         {id:4, name:'MSN'},
+        {id:5, name:'NVIDIA'},
+        {id:6, name:'KAKAO'},
+        {id:7, name:'NEXEN'},
     ]
     const createdBy:Filter ={
         label:"등록자",
         key:'createdBy',
         data: user,
-        groupBy:["departments", "company"],
+        target:['name', 'department.name', 'company.name'],
+        searchBy:["department", "company"],
         type:'user'
     }
 
@@ -75,7 +79,6 @@ function App() {
         data: company,
         type:'company'
     }
-
 
     const filters:Filter[] =[createdBy, requestedBy, updatedBy, fistMngCompany, secondMngCompany];
 

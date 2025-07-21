@@ -2,6 +2,7 @@ import {FC} from "react";
 import {Filter, ValueType} from "../type/Types";
 import OptionIcons from "./OptionIcons";
 import {useChecked} from "../hook/useChecked";
+import {useDataHandler} from "../hook/useDataHandler";
 
 type OptionProps={
     option: any;
@@ -14,9 +15,8 @@ type OptionProps={
 const GroupOptionData:FC<OptionProps> =({option, handle, clicked, values})=>{
 
     const { checkIncludes } = useChecked();
-
+    const { getNestedValue } = useDataHandler();
     const checked = checkIncludes(values ?? {}, clicked?.key ?? '', option.id);
-
     return (
         <div key={option.id} className={`no-drag`}
              style={{
@@ -29,7 +29,14 @@ const GroupOptionData:FC<OptionProps> =({option, handle, clicked, values})=>{
              }}
              onClick={() => {if(clicked) handle?.(clicked.key, Number(option.id))}}>
             <OptionIcons style={{width:'18px', height:'18px'}} type={clicked?.type} checked={checked}/>
-            <span style={{marginRight: '8px'}}>{option.name}</span>
+            {clicked?.target ? (
+                clicked.target.map(el =>(
+                        <span className={`${clicked.key}-${el.replace('.','-')}`} style={{marginRight: '8px'}}>{getNestedValue(option, el)}</span>
+                    ) )
+                ):(
+                <span style={{marginRight: '8px'}}>{option.name}</span>
+            )}
+
         </div>
     )
 }
