@@ -1,5 +1,5 @@
 import GroupOptionData from "./GroupOptionData";
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 import {Filter, ValueType} from "../type/Types";
 import RecursiveTree from "./RecursiveTree";
 
@@ -13,6 +13,9 @@ type GroupProps ={
 
 
 const GroupOption:FC<GroupProps> =({clicked, multiHandler, singleHandler, searchButton, values})=>{
+
+
+    const [expanded, setExpanded] =useState<number[] | null>(null);
 
     return(
         <div
@@ -31,7 +34,7 @@ const GroupOption:FC<GroupProps> =({clicked, multiHandler, singleHandler, search
             { clicked?.type==='date' && (<>{clicked.data}</>)}
             { clicked?.recursive && (
                 <div style={{ width:'100%', height:'100%'}}>
-                    <RecursiveTree keys={clicked.key} type={clicked.type} data={clicked.data} handle={singleHandler}/>
+                    <RecursiveTree expanded={expanded} setExpanded={setExpanded} clicked={clicked} data={clicked.data} values={values} handle={singleHandler}/>
                 </div>
             )}
 
