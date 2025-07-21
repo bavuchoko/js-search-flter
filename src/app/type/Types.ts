@@ -9,6 +9,11 @@ import React from "react";
  * - date: 날짜
  */
 type FilterTypes = 'user'| 'company' | 'department' | 'code' | 'date' ;
+type SearchTypes = {
+    label: string;
+    data: any[];
+    listener:(v:any)=>void;
+}
 
 
 /**
@@ -39,8 +44,8 @@ export type Filter = {
     target?: string[];
 
     /** api 요청할 요소들
-     * (ex: [{}'department', 'company'] )  => 부서별 검색, 업체별 검색*/
-    searchBy?:string[];
+     * */
+    searchBy?:SearchTypes[];
 
     /** 검색조건이 재귀적인 요소인지 여부 */
     recursive?:boolean;

@@ -1,31 +1,32 @@
-import React, {FC, useEffect, useRef, useState} from "react";
+import React, {FC, useEffect, useRef} from "react";
 import CloseIcon from "./CloseIcon";
 import {COLORS, Filter, ValueType} from "../type/Types";
 import useDragScroll from "../hook/useDragScroll";
-import GroupOptionData from "./GroupOptionData";
 import GroupOption from "./GroupOption";
 import {useChecked} from "../hook/useChecked";
 import OptionIcons from "./OptionIcons";
+import {useDataHandler} from "../hook/useDataHandler";
 
 type ModalProps ={
     close?:()=>void;
     filter?: Filter[];
     values?: ValueType | null;
-    handle?: (key: string, val: number) => void;
+    multiHandler?: (key: string, val: number) => void;
+    singleHandler?: (key: string, val: number) => void;
     reset?: () => void;
     clicked?:Filter | null;
     setClicked?:(click:Filter) =>void;
     onSearch?:(values: ValueType | null )=>void;
 }
 
-const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, clicked,setClicked, onSearch})=>{
+const Modal:FC<ModalProps> =({close=undefined, filter, values, multiHandler, singleHandler, reset, clicked,setClicked, onSearch})=>{
 
 
     const optionsRef = useRef<HTMLDivElement>(null);
     const groupRef = useRef<HTMLDivElement>(null);
 
     useDragScroll([optionsRef, groupRef]);
-    const { checkIncludes } = useChecked();
+    const {recursiveFind} = useDataHandler();
 
 
     useEffect(() => {
@@ -141,7 +142,7 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, cl
                                     // const color = COLORS[index % COLORS.length];
 
                                     return val.map(id => {
-                                        const el = f.data.find(d => d.id === id);
+                                        const el = f.recursive ? recursiveFind(f.data, id) : f.data.find(d => d.id === id);
                                         const name = el ? el.name : id;
 
                                         return (
@@ -153,7 +154,10 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, cl
                                                     alignItems: "center",
                                                     margin: "4px 0",
                                                 }}
-                                                onClick={() => handle?.(f.key, Number(id))}
+                                                onClick={() => {
+                                                    if(f.recursive) singleHandler?.(f.key, Number(id))
+                                                    else multiHandler?.(f.key, Number(id))
+                                                }}
                                             >
                                                 <div style={{ display: "flex", alignItems: "center" }}>
 
@@ -209,9 +213,9 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, cl
                     )}
                 </div>
 
-                {/* 조회된 옵션값 */}
+            {/* 조회된 옵션값 */}
 
-            <GroupOption clicked={clicked} handle={handle} height={ onSearch ? '383px' : '447px'} values={values}/>
+            <GroupOption clicked={clicked} multiHandler={multiHandler} singleHandler={singleHandler} searchButton={ onSearch ? true : false } values={values}/>
 
             {onSearch &&
                 <div

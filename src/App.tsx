@@ -42,12 +42,37 @@ function App() {
         {id:6, name:'KAKAO'},
         {id:7, name:'NEXEN'},
     ]
+
+    const department =[
+        {id:2, name:'개발부', parentId:1, children:[
+                {id:9, name:'개발1팀', parentId:2},
+                {id:10, name:'개발2팀', parentId:2},
+                {id:11, name:'개발3팀', parentId:2},
+                {id:12, name:'개발4팀', parentId:2},
+            ]},
+        {id:3, name:'영업부', parentId:1,children:[
+                {id:13, name:'영업1팀', parentId:3},
+                {id:14, name:'영업2팀', parentId:3},
+                {id:15, name:'영업3팀', parentId:3},
+                {id:16, name:'영업4팀', parentId:3},
+            ]},
+        {id:4, name:'기획부', parentId:1, children:[
+                {id:17, name:'기획2팀', parentId:4},
+                {id:18, name:'기획3팀', parentId:4},
+                {id:19, name:'기획4팀', parentId:4},
+            ]},
+        {id:5, name:'경영부', parentId:1},
+        {id:6, name:'인사부', parentId:1},
+        {id:7, name:'재무부', parentId:1},
+        {id:8, name:'사업부', parentId:1},
+    ]
+
     const createdBy:Filter ={
         label:"등록자",
         key:'createdBy',
         data: user,
         target:['name', 'department.name', 'company.name'],
-        searchBy:["department", "company"],
+        searchBy:[{label:"부서별", data:department, listener:(v:any)=>console.log(v) }, ],
         type:'user'
     }
 
@@ -56,6 +81,13 @@ function App() {
         key: 'updatedBy',
         data: user,
         type:'user'
+    }
+    const depart:Filter ={
+        label:"부셔",
+        key: 'department',
+        data: department,
+        type:'code',
+        recursive:true
     }
 
     const requestedBy:Filter ={
@@ -80,7 +112,7 @@ function App() {
         type:'company'
     }
 
-    const filters:Filter[] =[createdBy, requestedBy, updatedBy, fistMngCompany, secondMngCompany];
+    const filters:Filter[] =[createdBy, depart, requestedBy, updatedBy, fistMngCompany, secondMngCompany];
 
 
   return (

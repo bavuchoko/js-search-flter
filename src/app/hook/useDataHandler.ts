@@ -1,3 +1,5 @@
+import {isNullOrUndefined} from "node:util";
+
 export function useDataHandler() {
 
     const getNestedValue = (obj: any, path: String) => {
@@ -9,7 +11,24 @@ export function useDataHandler() {
         }, obj);
     }
 
+
+    function recursiveFind(data: any[], id: number | string): any | undefined {
+        for (const item of data) {
+            console.log(id, item);
+            if (item.id === id) return item;
+            if (item.children && item.children.length > 0) {
+                const found = recursiveFind(item.children, id);
+                if (found) return found;
+            }
+        }
+        return undefined;
+    }
+
     return {
+        recursiveFind,
         getNestedValue
     };
+
+
+
 }

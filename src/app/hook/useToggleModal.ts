@@ -1,45 +1,79 @@
-import {useCallback, useState} from "react";
-import {ValueType} from "../type/Types";
+import { useCallback, useState } from "react";
+import { ValueType } from "../type/Types";
 
 export const useFilterHandle = (onValueChange?: (value: ValueType | null) => void) => {
+    const [values, setValue] = useState<ValueType | null>(null);
 
 
-    const [values, setValue] =useState<ValueType | null>(null)
+    const multiToggle = (values: ValueType | null, key: string, val: number): ValueType | null => {
+        if (!values) {
+            return { [key]: [val] };
+        }
 
-    const handle = useCallback(
+        const currentVals = Array.isArray(values[key]) ? (values[key] as number[]) : [];
+        const index = currentVals.indexOf(val);
+        let newVals: number[];
+
+        if (index === -1) {
+            newVals = [...currentVals, val];
+        } else {
+            newVals = currentVals.filter(v => v !== val);
+        }
+
+        const newState = { ...values };
+        if (newVals.length === 0) {
+            delete newState[key];
+        } else {
+            newState[key] = newVals;
+        }
+
+        return Object.keys(newState).length === 0 ? null : newState;
+    };
+
+    const singular = (values: ValueType | null, key: string, val: number): ValueType | null => {
+        if (!values || !(key in values)) {
+            return { ...(values ?? {}), [key]: val };
+        }
+
+        if (values[key] === val) {
+            const newState = { ...values };
+            delete newState[key];
+            return Object.keys(newState).length === 0 ? null : newState;
+        }
+
+        return { ...values, [key]: val };
+    };
+
+    const handleMulti = useCallback(
+        (key: string, val: number) => {
+            setValue(prev => {
+                const newState = multiToggle(prev, key, val);
+                if (onValueChange) onValueChange(newState);
+                return newState;
+            });
+        },
+        [onValueChange]
+    );
+
+    const handleSingle = useCallback(
         (key: string, val: number) => {
             setValue(prev => {
                 let newState: ValueType | null;
 
-                if (!prev) {
-                    newState = { [key]: [val] };
+                if (!prev || !(key in prev)) {
+                    newState = { ...(prev ?? {}), [key]: [val] };
                 } else {
-                    const currentVals = (prev[key] as number[] | undefined) ?? [];
-                    const index = currentVals.indexOf(val);
-                    let newVals: number[];
-
-                    if (index === -1) {
-                        newVals = [...currentVals, val];
+                    const currentVals = Array.isArray(prev[key]) ? (prev[key] as number[]) : [];
+                    if (currentVals.length === 1 && currentVals[0] === val) {
+                        const clone = { ...prev };
+                        delete clone[key];
+                        newState = Object.keys(clone).length === 0 ? null : clone;
                     } else {
-                        newVals = currentVals.filter(v => v !== val);
-                    }
-
-                    newState = { ...prev };
-                    if (newVals.length === 0) {
-                        delete newState[key];
-                    } else {
-                        newState[key] = newVals;
-                    }
-
-                    if (Object.keys(newState).length === 0) {
-                        newState = null;
+                        newState = { ...prev, [key]: [val] };
                     }
                 }
 
-                if (onValueChange) {
-                    onValueChange(newState);
-                }
-
+                if (onValueChange) onValueChange(newState);
                 return newState;
             });
         },
@@ -48,20 +82,15 @@ export const useFilterHandle = (onValueChange?: (value: ValueType | null) => voi
 
     const reset = useCallback(() => {
         setValue(null);
-        if (onValueChange) {
-            onValueChange(null);
-        }
+        if (onValueChange) onValueChange(null);
     }, [onValueChange]);
 
     return {
         values,
-        handle,
+        handleMulti,
+        handleSingle,
         reset,
-    };
-
-    return {
-        values,
-        handle,
-        reset,
+        multiToggle,
+        singular,
     };
 };

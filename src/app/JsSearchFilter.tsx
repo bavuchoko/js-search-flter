@@ -16,7 +16,12 @@ const JsSearchFilter: FC<FilterProps> =({filter =[], onValueChange=undefined, on
     const [clicked, setClicked] = useState<Filter | null>(null)
 
     const { isOpen, open, close, toggle } = useToggleModal();
-    const { values, handle, reset } = useFilterHandle(onValueChange);
+    const {         values,
+        handleMulti,
+        handleSingle,
+        reset,
+        multiToggle,
+        singular, } = useFilterHandle(onValueChange);
     const groupRef = useRef<HTMLDivElement>(null);
     useDragScroll([groupRef]);
 
@@ -68,7 +73,7 @@ const JsSearchFilter: FC<FilterProps> =({filter =[], onValueChange=undefined, on
                 </div>
             </div>
 
-            { isOpen && <Modal close={close} filter={filter} values={values}  handle={handle} reset={reset} clicked={clicked} setClicked={setClicked} onSearch={onSearch}/> }
+            { isOpen && <Modal close={close} filter={filter} values={values} multiHandler={handleMulti} singleHandler={handleSingle} reset={reset} clicked={clicked} setClicked={setClicked} onSearch={onSearch}/> }
 
             { values &&
             <div className={`no-scroll`} style={{width:'100%', background:'green' , overflowY:'auto', padding:'5px 0'}} >
