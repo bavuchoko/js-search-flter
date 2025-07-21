@@ -9,7 +9,7 @@ type OptionProps={
 }
 
 
-const GroupData:FC<OptionProps> =({option, handle, clicked})=>{
+const GroupOptionData:FC<OptionProps> =({option, handle, clicked})=>{
 
     return (
         <div key={option.id} className={`no-drag`}
@@ -27,4 +27,4 @@ const GroupData:FC<OptionProps> =({option, handle, clicked})=>{
         </div>
     )
 }
-export default GroupData
+export default GroupOptionData

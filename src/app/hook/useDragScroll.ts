@@ -1,24 +1,28 @@
 import { useEffect, RefObject } from 'react';
 
-export default function useDragScroll(ref: RefObject<HTMLElement | null>) {
+export default function useDragScroll(refs: RefObject<HTMLElement | null>[]) {
     useEffect(() => {
-        if (!ref.current) return;
+        if (!refs.length) return;
 
         let isDragging = false;
         let startX = 0;
         let scrollLeft = 0;
         let activeElement: HTMLElement | null = null;
 
+
         const onMouseDown = (e: MouseEvent) => {
-            if (!ref.current?.contains(e.target as Node)) return;
+            for (const ref of refs) {
+                if (ref.current?.contains(e.target as Node)) {
+                    isDragging = true;
+                    startX = e.pageX;
+                    scrollLeft = ref.current.scrollLeft;
+                    activeElement = ref.current;
 
-            isDragging = true;
-            startX = e.pageX;
-            scrollLeft = ref.current.scrollLeft;
-            activeElement = ref.current;
-
-            document.body.style.cursor = 'grabbing';
-            document.body.style.userSelect = 'none';
+                    document.body.style.cursor = 'grabbing';
+                    document.body.style.userSelect = 'none';
+                    break;
+                }
+            }
         };
 
         const onMouseMove = (e: MouseEvent) => {
@@ -38,19 +42,16 @@ export default function useDragScroll(ref: RefObject<HTMLElement | null>) {
             document.body.style.userSelect = '';
         };
 
-        // ref 내부 mousedown만 감지, 나머지는 전역(document)
-        const refEl = ref.current;
-        refEl.addEventListener('mousedown', onMouseDown);
-
+        window.addEventListener('mousedown', onMouseDown);
         window.addEventListener('mousemove', onMouseMove);
         window.addEventListener('mouseup', onMouseUp);
 
         return () => {
-            refEl.removeEventListener('mousedown', onMouseDown);
+            window.removeEventListener('mousedown', onMouseDown);
             window.removeEventListener('mousemove', onMouseMove);
             window.removeEventListener('mouseup', onMouseUp);
             document.body.style.cursor = '';
             document.body.style.userSelect = '';
         };
-    }, [ref]);
+    }, [refs]);
 }

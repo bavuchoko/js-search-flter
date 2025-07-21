@@ -2,8 +2,8 @@ import React, {FC, useEffect, useRef, useState} from "react";
 import CloseIcon from "./CloseIcon";
 import {Filter, ValueType} from "../type/Types";
 import useDragScroll from "../hook/useDragScroll";
-import GroupData from "./GroupData";
-import Group from "./Group";
+import GroupOptionData from "./GroupOptionData";
+import GroupOption from "./GroupOption";
 
 type ModalProps ={
     close?:()=>void;
@@ -20,14 +20,23 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, cl
 
 
     const optionsRef = useRef<HTMLDivElement>(null);
-    useDragScroll(optionsRef);
+    const groupRef = useRef<HTMLDivElement>(null);
+
+    useDragScroll([optionsRef, groupRef]);
+
 
 
     useEffect(() => {
-        if (!clicked && filter && filter.length > 0) {
-            setClicked?.(filter[0]);
+        if (groupRef.current && clicked) {
+            const container = groupRef.current;
+            const el = container.querySelector(`[data-id="${clicked.key}"]`);
+            if (el) {
+                const element = el as HTMLElement;
+                const left = element.offsetLeft;
+                container.scrollTo({ left, behavior: 'smooth' });
+            }
         }
-    }, [clicked, filter]);
+    }, [clicked]);
 
     return(
         <>
@@ -66,9 +75,19 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, cl
                 {/* 검색조건 */}
                 <div
                     className={'no-scroll no-drag'}
-                    style={{padding:"0 12px", display:'flex', alignItems:'center', width:'100%', overflowX:'scroll' }}>
+                    style={{
+                        padding:"0 12px",
+                        display:'flex',
+                        alignItems:'center',
+                        width:'100%',
+                        overflowX:'hidden',
+                        whiteSpace: 'nowrap'
+                    }}
+                    ref={groupRef}
+                >
                         {filter?.map(el=>(
                         <span
+                            data-id={el.key}
                             style={{
                                 padding:'8px 2px',
                                 margin:'0 3px',
@@ -145,7 +164,7 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, cl
 
                 {/* 조회된 옵션값 */}
                 {clicked && (
-                    <Group clicked={clicked} handle={handle}/>
+                    <GroupOption clicked={clicked} handle={handle}/>
                 )}
 
                 <div

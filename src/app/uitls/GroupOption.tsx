@@ -1,4 +1,4 @@
-import GroupData from "./GroupData";
+import GroupOptionData from "./GroupOptionData";
 import React, {FC} from "react";
 import {Filter} from "../type/Types";
 
@@ -8,7 +8,7 @@ type GroupProps ={
 }
 
 
-const Group:FC<GroupProps> =({clicked, handle})=>{
+const GroupOption:FC<GroupProps> =({clicked, handle})=>{
 
     return(
         <div
@@ -23,9 +23,9 @@ const Group:FC<GroupProps> =({clicked, handle})=>{
             }}
         >
             {clicked?.data.map(el => (
-                <GroupData option={el} handle={handle} clicked={clicked}/>
+                <GroupOptionData option={el} handle={handle} clicked={clicked}/>
             ))}
         </div>
     )
 }
-export default Group
+export default GroupOption
