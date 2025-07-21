@@ -1,15 +1,21 @@
 import {FC} from "react";
-import {Filter} from "../type/Types";
-import CodeIcon from "./CodeIcon";
+import {Filter, ValueType} from "../type/Types";
+import OptionIcons from "./OptionIcons";
+import {useChecked} from "../hook/useChecked";
 
 type OptionProps={
     option: any;
     handle?: (key: string, val: number) => void;
-    clicked:Filter
+    clicked?: Filter
+    values?: ValueType | null
 }
 
 
-const GroupOptionData:FC<OptionProps> =({option, handle, clicked})=>{
+const GroupOptionData:FC<OptionProps> =({option, handle, clicked, values})=>{
+
+    const { checkIncludes } = useChecked();
+
+    const checked = checkIncludes(values ?? {}, clicked?.key ?? '', option.id);
 
     return (
         <div key={option.id} className={`no-drag`}
@@ -21,8 +27,8 @@ const GroupOptionData:FC<OptionProps> =({option, handle, clicked})=>{
                  alignItems: 'center',
                  cursor: 'pointer'
              }}
-             onClick={() => handle?.(clicked.key, Number(option.id))}>
-            <CodeIcon style={{width:'24px', height:'24px'}} />
+             onClick={() => {if(clicked) handle?.(clicked.key, Number(option.id))}}>
+            <OptionIcons style={{width:'18px', height:'18px'}} type={clicked?.type} checked={checked}/>
             <span style={{marginRight: '8px'}}>{option.name}</span>
         </div>
     )

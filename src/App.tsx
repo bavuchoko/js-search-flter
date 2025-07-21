@@ -39,54 +39,67 @@ function App() {
         {id:3, name:'다음'},
         {id:4, name:'MSN'},
     ]
-    const createdBy ={
+    const createdBy:Filter ={
         label:"등록자",
         key:'createdBy',
         data: user,
-        groupBy:["departments", "company"]
+        groupBy:["departments", "company"],
+        type:'user'
     }
 
-    const updatedBy ={
+    const updatedBy:Filter ={
         label:"수정자",
         key: 'updatedBy',
-        data: user
+        data: user,
+        type:'user'
     }
 
-    const requestedBy ={
+    const requestedBy:Filter ={
         label:"요청자",
         key:'requestedBy',
-        data: user
+        data: user,
+        type:'user'
     }
 
-    const fistMngCompany ={
+    const fistMngCompany:Filter ={
         label:"1차 업체",
         key:'fistMngCompany',
-        data: company
+        data: company,
+        type:'company'
     }
 
 
-    const secondMngCompany ={
+    const secondMngCompany:Filter ={
         label:"2차 업체",
         key:'secondMngCompany',
-        data: company
+        data: company,
+        type:'company'
     }
+
+
     const filters:Filter[] =[createdBy, requestedBy, updatedBy, fistMngCompany, secondMngCompany];
+
+
   return (
     <div className="App" style={{width:'100%', display:"flex"}}>
 
         {/*left*/}
         <div style={{width:'200PX', background:"#dbbbbb"}}>
             <p>
-              TEST
+              A 영역
             </p>
         </div>
 
         {/*right*/}
         <div style={{width:'100%'}}>
-            <div style={{width:'100%', height:'150px', background:"#b2a8a8"}}></div>
+            <div style={{width:'100%', height:'150px', background:"#b2a8a8"}}>B 영역</div>
             {/*<div style={{width:'200px', background:"beige"}}>*/}
             <div>
-                <JsSearchFilter  filter={filters}/>
+                <JsSearchFilter
+                    filter={filters}
+                    onSearch={(v)=>console.log(v)}
+                    onValueChange={(v)=>console.log(v)}
+                />
             </div>
         </div>
     </div>

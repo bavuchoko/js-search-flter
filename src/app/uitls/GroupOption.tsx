@@ -1,29 +1,30 @@
 import GroupOptionData from "./GroupOptionData";
 import React, {FC} from "react";
-import {Filter} from "../type/Types";
+import {Filter, ValueType} from "../type/Types";
 
 type GroupProps ={
-    clicked :Filter;
+    clicked? :Filter | null;
     handle?: (key: string, val: number) => void;
+    height?: string;
+    values?: ValueType| null;
 }
 
 
-const GroupOption:FC<GroupProps> =({clicked, handle})=>{
-
+const GroupOption:FC<GroupProps> =({clicked, handle, height, values})=>{
     return(
         <div
             style={{
                 display: 'flex',
                 flexWrap: 'wrap',
                 gap: '8px',
-                height: '383px',
+                height: height ??'447px',
                 padding: '16px 16px',
                 overflowY: 'auto',
                 alignContent: 'flex-start',
             }}
         >
             {clicked?.data.map(el => (
-                <GroupOptionData option={el} handle={handle} clicked={clicked}/>
+                <GroupOptionData option={el} handle={handle} clicked={clicked} values={values}/>
             ))}
         </div>
     )

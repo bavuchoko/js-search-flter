@@ -1,9 +1,11 @@
 import React, {FC, useEffect, useRef, useState} from "react";
 import CloseIcon from "./CloseIcon";
-import {Filter, ValueType} from "../type/Types";
+import {COLORS, Filter, ValueType} from "../type/Types";
 import useDragScroll from "../hook/useDragScroll";
 import GroupOptionData from "./GroupOptionData";
 import GroupOption from "./GroupOption";
+import {useChecked} from "../hook/useChecked";
+import OptionIcons from "./OptionIcons";
 
 type ModalProps ={
     close?:()=>void;
@@ -23,7 +25,7 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, cl
     const groupRef = useRef<HTMLDivElement>(null);
 
     useDragScroll([optionsRef, groupRef]);
-
+    const { checkIncludes } = useChecked();
 
 
     useEffect(() => {
@@ -34,6 +36,10 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, cl
                 const element = el as HTMLElement;
                 const left = element.offsetLeft;
                 container.scrollTo({ left, behavior: 'smooth' });
+            }
+        }else{
+            if (!clicked && filter && filter.length > 0) {
+                setClicked?.(filter[0]);
             }
         }
     }, [clicked]);
@@ -85,22 +91,25 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, cl
                     }}
                     ref={groupRef}
                 >
-                        {filter?.map(el=>(
-                        <span
-                            data-id={el.key}
-                            style={{
-                                padding:'8px 2px',
-                                margin:'0 3px',
-                                cursor:'pointer',
-                                fontWeight:clicked?.label === el.label ? 'bold' : 'normal',
-                                fontSize:'13px',
-                                borderBottom: clicked?.label === el.label ? '2px solid black' : '2px solid white',
-                                color: clicked?.label === el.label ? 'black' : 'var(--grayText)',
+                        {filter?.map((el, index)=>{
+                            const color = COLORS[index % COLORS.length];
+                            return (
+                            <span
+                                data-id={el.key}
+                                style={{
+                                    padding:'8px 2px',
+                                    margin:'0 3px',
+                                    cursor:'pointer',
+                                    fontWeight:clicked?.label === el.label ? 'bold' : 'normal',
+                                    fontSize:'13px',
+                                    borderBottom: clicked?.label === el.label ? '2px solid black' : '2px solid white',
+                                    // color: clicked?.label === el.label ? 'black' : color,
+                                    color: clicked?.label === el.label ? 'black' : 'var(--grayText)',
 
-                            }}
-                            onClick={()=>{setClicked?.(el)}}
-                        >{el.label}</span>
-                        ))}
+                                }}
+                                onClick={()=>{setClicked?.(el)}}
+                            >{el.label}</span>
+                        )})}
                 </div>
 
                 {/*선택된 조건*/}
@@ -123,27 +132,65 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, cl
                             className={`no-scroll js-search-modal-selected-options`}
                             >
 
-                                {Object.entries(values).flatMap(([key, val]) => {
-                                    const filterForKey = filter?.find(f => f.key === key);
-                                    if (!Array.isArray(val) || !filterForKey) return [];
+                                {filter?.flatMap((f, index) => {
+                                    const val = values[f.key];
+                                    if (!Array.isArray(val)) return [];
+
+                                    const type = f.type;
+                                    const label = f.label;
+                                    // const color = COLORS[index % COLORS.length];
 
                                     return val.map(id => {
-                                        const el = filterForKey.data.find(d => d.id === id);
+                                        const el = f.data.find(d => d.id === id);
                                         const name = el ? el.name : id;
 
                                         return (
-                                            <div key={`${key}-${id}`}
-                                                 className="each-options"
-                                                 style={{ display: 'flex', alignItems: 'center', margin: '4px 0' }}
-                                                 onClick={() => handle?.(key, Number(id))}
+                                            <div
+                                                key={`${f.key}-${id}`}
+                                                className="each-options"
+                                                style={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    margin: "4px 0",
+                                                }}
+                                                onClick={() => handle?.(f.key, Number(id))}
                                             >
-                                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                                    <span className="no-drag" style={{ marginRight: '6px' }}>{name}</span>
+                                                <div style={{ display: "flex", alignItems: "center" }}>
+
+                                                    <OptionIcons
+                                                        // style={{ width: "18px", height: "18px",color:color}}
+                                                        style={{ width: "18px", height: "18px"}}
+                                                        type={type}
+                                                        checked={false}
+                                                    />
+                                                    <span className=" no-drag" >[{label}]</span>
+
+                                                    <span className=" no-drag" style={{ marginLeft: "6px" }}>{name}</span>
                                                 </div>
-                                                <button >
-                                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <line x1="5" y1="5" x2="19" y2="19" stroke="black" strokeWidth="1"/>
-                                                        <line x1="19" y1="5" x2="5" y2="19" stroke="black" strokeWidth="1"/>
+                                                <button>
+                                                    <svg
+                                                        width="13"
+                                                        height="13"
+                                                        viewBox="0 0 24 24"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <line
+                                                            x1="5"
+                                                            y1="5"
+                                                            x2="19"
+                                                            y2="19"
+                                                            stroke="black"
+                                                            strokeWidth="1"
+                                                        />
+                                                        <line
+                                                            x1="19"
+                                                            y1="5"
+                                                            x2="5"
+                                                            y2="19"
+                                                            stroke="black"
+                                                            strokeWidth="1"
+                                                        />
                                                     </svg>
                                                 </button>
                                             </div>
@@ -163,10 +210,10 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, cl
                 </div>
 
                 {/* 조회된 옵션값 */}
-                {clicked && (
-                    <GroupOption clicked={clicked} handle={handle}/>
-                )}
 
+            <GroupOption clicked={clicked} handle={handle} height={ onSearch ? '383px' : '447px'} values={values}/>
+
+            {onSearch &&
                 <div
                     style={{
                         height: '70px',
@@ -175,22 +222,20 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, handle, reset, cl
                     }}
                 >
                     <button
-                        className={`active`}
+                        className={`active js-search-button`}
                         style={{
                             width:'100%',
                             height:'100%',
-                            background:'black',
+                            background:'var(--blue)',
+                            border:'none',
                             borderRadius:'4px',
-                            color:'white',
+                            color:'black',
                             cursor:'pointer',
                         }}
                         onClick={()=>onSearch?.(values ?? null)}
-                    >
-                        검색하기
-                    </button>
-
+                    >검색하기</button>
                 </div>
-
+            }
             </div>
         </>
     )

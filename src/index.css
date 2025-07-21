@@ -28,14 +28,17 @@ code {
 
 :root {
   --vh: 100%;
-  --border: rgb(204, 204, 204);
+  --border: rgb(179, 179, 179);
   --innerBorder: rgb(236, 236, 236);
   --font-size:12px;
   --hover: rgb(124, 124, 124);
   --tw-bg-opacity:0.6;
   --modalBackground: rgb(0 0 0 / var(--tw-bg-opacity, 1));
   --grayText: rgb(140, 140, 140);
-  --background: rgb(234, 235, 236);
+  --background: rgb(245 245 245);
+  --blue:rgb(149 210 255);
+  /*--deepBlue: rgb(56, 6, 238);*/
+  --deepBlue: rgb(39, 95, 238);
 }
 
 .no-drag {
