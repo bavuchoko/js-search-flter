@@ -80,7 +80,7 @@ code {
   align-items: center;
 }
 .js-search-modal-selected-options > div.each-options{
-  margin-right: 12px;
+  margin-right: 4px;
   display: inline-flex;
   white-space: nowrap;
   font-size: var(--font-size);
@@ -109,7 +109,7 @@ code {
   align-items: center;
 }
 .js-search-selected-options > div.each-options{
-  margin-right: 12px;
+  margin-right: 4px;
   display: inline-flex;
   white-space: nowrap;
   font-size: var(--font-size);
@@ -220,8 +220,8 @@ code {
 .js-search-has-value:before{
   content: "•";
   position: absolute;
-  top: -8px;
-  left: 21px;
-  font-size: 22px;
+  top: -10px;
+  left: 20px;
+  font-size: 25px;
   color: #bd0f0f;
 }

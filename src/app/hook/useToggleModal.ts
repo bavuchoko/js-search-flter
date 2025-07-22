@@ -1,9 +1,8 @@
 import { useCallback, useState } from "react";
 import { ValueType } from "../type/Types";
 
-export const useFilterHandle = (onValueChange?: (value: ValueType | null) => void) => {
-    const [values, setValue] = useState<ValueType | null>(null);
-
+export const useFilterHandle = (onValueChange?: (value: ValueType | null) => void, initialValues: (ValueType | null) = {}) => {
+    const [values, setValue] = useState<ValueType | null>(initialValues);
 
     const multiToggle = (values: ValueType | null, key: string, val: number): ValueType | null => {
         if (!values) {
@@ -30,19 +29,6 @@ export const useFilterHandle = (onValueChange?: (value: ValueType | null) => voi
         return Object.keys(newState).length === 0 ? null : newState;
     };
 
-    const singular = (values: ValueType | null, key: string, val: number): ValueType | null => {
-        if (!values || !(key in values)) {
-            return { ...(values ?? {}), [key]: val };
-        }
-
-        if (values[key] === val) {
-            const newState = { ...values };
-            delete newState[key];
-            return Object.keys(newState).length === 0 ? null : newState;
-        }
-
-        return { ...values, [key]: val };
-    };
 
     const handleMulti = useCallback(
         (key: string, val: number) => {
@@ -80,6 +66,36 @@ export const useFilterHandle = (onValueChange?: (value: ValueType | null) => voi
         [onValueChange]
     );
 
+    const handleDate = useCallback(
+        (key: string, val: string) => {
+        setValue(prev => {
+            let newState: ValueType | null;
+
+            if (!prev || !(key in prev)) {
+                newState = { ...(prev ?? {}), [key]: [val] };
+            } else {
+                newState = { ...prev, [key]: [val] };
+            }
+            if (onValueChange) onValueChange(newState);
+            return newState;
+        });
+    },
+    [onValueChange]
+    );
+
+    const handle = useCallback(
+        (key: string, val: number | string, type?: 'only' | 'date' | undefined) => {
+            if (type === 'only') {
+                handleSingle(key, Number(val));
+            } else if (type === undefined) {
+                handleMulti(key, Number(val));
+            } else if (type === 'date') {
+                handleDate(key, String(val));
+            }
+        },
+        [handleSingle, handleMulti, handleDate]
+    );
+
     const reset = useCallback(() => {
         setValue(null);
         if (onValueChange) onValueChange(null);
@@ -87,10 +103,7 @@ export const useFilterHandle = (onValueChange?: (value: ValueType | null) => voi
 
     return {
         values,
-        handleMulti,
-        handleSingle,
+        handle,
         reset,
-        multiToggle,
-        singular,
     };
 };

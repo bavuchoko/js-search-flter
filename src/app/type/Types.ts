@@ -47,8 +47,12 @@ type WithRecursive = FilterBase & {
     searchBy?: never;
 };
 
+type ObjectType = {
+    [key: string]: string | number;
+};
+
 export type ValueType = {
-    [key: string]: string | number | number[] | string[] | undefined;
+    [key: string]: string | number | number[] | string[] | undefined | ObjectType ;
 }
 
 export type Filter = WithSearchBy | WithRecursive;
@@ -58,6 +62,7 @@ export type FilterProps ={
     onValueChange?: (value: ValueType | null) => void;
     onSearch?: (value: ValueType | null) => void;
     onApiRequest? :(params: string[])=>void;
+    initialValues?: ValueType| null;
 }
 
 
@@ -67,6 +72,9 @@ export type IconProps = {
     type?: FilterTypes;
     checked?: boolean ;
 }
+
+
+
 
 
 export const COLORS = ['red', 'blue', 'green', 'orange', 'purple'];

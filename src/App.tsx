@@ -11,27 +11,6 @@ function App() {
         {id:4, name:'송길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
         {id:5, name:'김나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
         {id:6, name:'박나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:7, name:'홍나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:8, name:'유나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:9, name:'김호떡', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:10, name:'박호떡', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:11, name:'유호떡', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:12, name:'최호떡', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:13, name:'유재길', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:14, name:'김재길', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:15, name:'황재길', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:16, name:'김태리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:17, name:'박태리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:18, name:'유태리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:19, name:'황태리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:20, name:'강산수', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:21, name:'홍산수', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:22, name:'최산수', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:23, name:'박산수', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:24, name:'이길순', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:25, name:'김길순', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:25, name:'황길순', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:25, name:'나길순', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
     ]
     const company =[
         {id:1, name:'NC'},
@@ -112,7 +91,16 @@ function App() {
         type:'company'
     }
 
-    const filters:Filter[] =[createdBy, depart, requestedBy, updatedBy, fistMngCompany, secondMngCompany];
+
+
+    const createdAt:Filter ={
+        label:"등록일",
+        key:'createdAt',
+        data:[{startDate:'2025-01-01', endDate:'2025-10-10'}],
+        type:'date'
+    }
+
+    const filters:Filter[] =[createdBy, createdAt, depart, requestedBy, updatedBy, fistMngCompany, secondMngCompany];
 
 
   return (
@@ -134,6 +122,10 @@ function App() {
                     filter={filters}
                     onSearch={(v)=>console.log(v)}
                     onValueChange={(v)=>console.log(v)}
+                    initialValues={{
+                        createdBy:[1],
+                        createdAt:{startDate:'2025-01-01', endDate:'2025-10-10'},
+                    }}
                 />
             </div>
         </div>

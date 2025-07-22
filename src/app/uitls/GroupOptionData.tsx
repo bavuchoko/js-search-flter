@@ -6,7 +6,7 @@ import {useDataHandler} from "../hook/useDataHandler";
 
 type OptionProps={
     option: any;
-    handle?: (key: string, val: number) => void;
+    handle?: (key: string, val: any, type?: 'only' | 'date' | undefined) => void;
     clicked?: Filter
     values?: ValueType | null
 }
@@ -28,7 +28,7 @@ const GroupOptionData:FC<OptionProps> =({option, handle, clicked, values})=>{
                  alignItems: 'center',
                  cursor: 'pointer'
              }}
-             onClick={() => {if(clicked) handle?.(clicked.key, Number(option.id))}}>
+             onClick={() => {if(clicked) handle?.(clicked.key, option.id, undefined)}}>
             <OptionIcons style={{width:'18px', height:'18px'}} type={clicked?.type} checked={checked}/>
             {clicked?.target ? (
                 clicked.target.map(el =>(
