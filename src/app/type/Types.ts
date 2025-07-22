@@ -31,7 +31,7 @@ type SearchTypes = {
  * */
 export type FilterBase = {
     label: string;
-    key: string;
+    key: string | ObjectType[];
     data: any[];
     target?: string[];
     type?: FilterTypes;
@@ -47,7 +47,7 @@ type WithRecursive = FilterBase & {
     searchBy?: never;
 };
 
-type ObjectType = {
+export type ObjectType = {
     [key: string]: string | number;
 };
 
@@ -65,13 +65,13 @@ export type FilterProps ={
     initialValues?: ValueType| null;
 }
 
-
 export type IconProps = {
     style?: React.CSSProperties;
     onClick?: ()=>void;
     type?: FilterTypes;
     checked?: boolean ;
 }
+
 
 
 

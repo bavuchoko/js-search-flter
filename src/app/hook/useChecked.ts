@@ -1,4 +1,4 @@
-import {ValueType} from "../type/Types";
+import {ObjectType, ValueType} from "../type/Types";
 
 /**
  * 배열이 string[] 인지 검사
@@ -20,9 +20,14 @@ function isNumberArray(val: unknown): val is number[] {
 export function useChecked() {
     function checkIncludes(
         values: ValueType = {},
-        target: string,
+        target: string | ObjectType[],
         optionId: string | number
     ): boolean {
+
+        if (Array.isArray(target)) {
+            return target.some((el:ObjectType) => checkIncludes(values,  (el as { key: string }).key, optionId));
+        }
+
         const targetValue = values[target];
 
         if (isStringArray(targetValue) && typeof optionId === 'string') {

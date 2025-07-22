@@ -1,12 +1,12 @@
 import {FC} from "react";
-import {Filter, ValueType} from "../type/Types";
+import {Filter, ObjectType, ValueType} from "../type/Types";
 import OptionIcons from "./OptionIcons";
 import {useChecked} from "../hook/useChecked";
 import {useDataHandler} from "../hook/useDataHandler";
 
 type OptionProps={
     option: any;
-    handle?: (key: string, val: any, type?: 'only' | 'date' | undefined) => void;
+    handle?: (key: string | string[], val: any, type?: 'only' | 'date' | undefined) => void;
     clicked?: Filter
     values?: ValueType | null
 }
@@ -17,6 +17,9 @@ const GroupOptionData:FC<OptionProps> =({option, handle, clicked, values})=>{
     const { checkIncludes } = useChecked();
     const { getNestedValue } = useDataHandler();
     const checked = checkIncludes(values ?? {}, clicked?.key ?? '', option.id);
+    const keys: string[] = Array.isArray(clicked?.key)
+        ? clicked!.key.map((k: ObjectType) => k.key.toString())
+        : clicked?.key ? [clicked.key] : [];
     return (
         <div key={option.id} className={`no-drag ${checked ? 'js-search-checked' :''}`}
              style={{
@@ -28,7 +31,7 @@ const GroupOptionData:FC<OptionProps> =({option, handle, clicked, values})=>{
                  alignItems: 'center',
                  cursor: 'pointer'
              }}
-             onClick={() => {if(clicked) handle?.(clicked.key, option.id, undefined)}}>
+             onClick={() => {if(clicked) handle?.(keys, option.id, undefined)}}>
             <OptionIcons style={{width:'18px', height:'18px'}} type={clicked?.type} checked={checked}/>
             {clicked?.target ? (
                 clicked.target.map(el =>(

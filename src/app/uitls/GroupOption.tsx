@@ -1,12 +1,12 @@
 import GroupOptionData from "./GroupOptionData";
 import React, {FC, useState} from "react";
-import {Filter, ValueType} from "../type/Types";
+import {Filter, ObjectType, ValueType} from "../type/Types";
 import RecursiveTree from "./RecursiveTree";
 import DateSelector from "./DateSelector";
 
 type GroupProps ={
     clicked? :Filter | null;
-    handle?: (key: string, val: any, type?: 'only' | 'date' | undefined) => void;
+    handle?: (key: string | string[], val: any, type?: 'only' | 'date' | undefined) => void;
     searchButton?: boolean;
     values?: ValueType| null;
 }

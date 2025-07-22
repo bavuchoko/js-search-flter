@@ -1,6 +1,6 @@
 import {FC} from "react";
 import OptionIcons from "./OptionIcons";
-import {Filter, ValueType} from "../type/Types";
+import {Filter, ObjectType, ValueType} from "../type/Types";
 import {useChecked} from "../hook/useChecked";
 import ChevronRight from "./ChevronRight";
 import Dash from "./Dash";
@@ -8,7 +8,7 @@ import React from "react";
 import ChevronDown from "./ChevronDown";
 
 type Props = {
-    handle?: (key: string, val: any, type?: 'only' | 'date' | undefined) => void;
+    handle?: (key: string | string[], val: any, type?: 'only' | 'date' | undefined) => void;
     clicked?: Filter
     data: any[];
     values?: ValueType | null
@@ -40,6 +40,9 @@ const RecursiveTree:FC<Props> =({handle, clicked, data, values, expanded, setExp
         >
                 {data?.map((option, index) => {
                     const checked = checkIncludes(values ?? {}, clicked?.key ?? '', option.id);
+                    const keys: string[] = Array.isArray(clicked?.key)
+                        ? clicked!.key.map((k: ObjectType) => k.key.toString())
+                        : clicked?.key ? [clicked.key] : [];
                     return (
                     <React.Fragment key={option.id}>
                         <div
@@ -66,10 +69,11 @@ const RecursiveTree:FC<Props> =({handle, clicked, data, values, expanded, setExp
                                     <Dash style={{width:'18px', height:'18px'}}  />
                                 }
                             </div>
-                            <span id={clicked?.key}
-                                  className={`no-drag`}
-                                  style={{textIndent:'0px'}}
-                                  onClick={() => {if(clicked) handle?.(clicked?.key, option.id, 'only')}}
+                            <span
+                                id={Array.isArray(clicked?.key) ? clicked?.key.join(",") : clicked?.key}
+                                className={`no-drag`}
+                                style={{textIndent:'0px'}}
+                                onClick={() => {if(clicked) handle?.(keys, option.id, 'only')}}
                             >
                               {option.name}
                             </span>

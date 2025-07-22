@@ -11,7 +11,7 @@ type ModalProps = {
     close?: () => void;
     filter?: Filter[];
     values?: ValueType | null;
-    handle?: (key: string, val: any, type?: 'only' | 'date') => void;
+    handle?: (key: string | string[], val: any, type?: 'only' | 'date') => void;
     reset?: () => void;
     clicked?: Filter | null;
     setClicked?: (click: Filter) => void;

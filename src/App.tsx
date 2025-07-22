@@ -91,12 +91,10 @@ function App() {
         type:'company'
     }
 
-
-
     const createdAt:Filter ={
-        label:"등록일",
-        key:'createdAt',
-        data:[{startDate:'2025-01-01', endDate:'2025-10-10'}],
+        label:"기간검색",
+        key:[{key:'createdAt', label:'등록일'},{key:'updatedAt', label:'수정일'},{key:'requestedAt', label:'요청일'}],
+        data:[{startDate:'2025-01-01', endDate:'2025-10-10'},{startDate:'2025-01-01', endDate:'2025-10-10'},{startDate:'2025-01-01', endDate:'2025-10-10'}],
         type:'date'
     }
 

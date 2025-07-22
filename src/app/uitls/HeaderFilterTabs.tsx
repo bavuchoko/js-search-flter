@@ -26,12 +26,24 @@ const HeaderFilterTabs: FC<Props> = ({ filter, values, clicked, setClicked, togg
             ref={containerRef}
         >
             {filter.map(el => {
-                const selected = values?.[el.key];
-                const count = Array.isArray(selected) ? selected.length : selected ? 1 : undefined;
+
+                const keys = Array.isArray(el.key)
+                    ? el.key.map(k => k.key)
+                    : [el.key];
+
+                let count: number | undefined = undefined;
+
+                keys.forEach((key) => {
+                    const selected = values?.[key];
+                    const thisCount = Array.isArray(selected) ? selected.length : selected ? 1 : 0;
+
+                    count = (count || 0) +  thisCount;
+                    count = count ===0 ? undefined : count;
+                });
 
                 return (
                     <span
-                        key={el.key}
+                        key={Array.isArray(el.key) ? el.key.join(",") : el.key}
                         data-id={el.key}
                         className={`tab`}
                         style={{
@@ -56,7 +68,7 @@ const HeaderFilterTabs: FC<Props> = ({ filter, values, clicked, setClicked, togg
                         }}
                     >
                         {el.label}
-                        {count && (
+                        {count  && (
                             modal ?
                             <span style={{ marginLeft:'3px', fontSize:'14px'}}>{count}</span>
                                 :
@@ -77,11 +89,12 @@ const HeaderFilterTabs: FC<Props> = ({ filter, values, clicked, setClicked, togg
                                     display: 'inline-block',
                                     marginLeft: '3px',
                                 }}
-                            >
-                {count}
-              </span>
+                            >{count}
+                            </span>
                         )}
-          </span>
+                    </span>
+
+
                 );
             })}
         </div>

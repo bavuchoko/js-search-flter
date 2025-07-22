@@ -84,14 +84,18 @@ export const useFilterHandle = (onValueChange?: (value: ValueType | null) => voi
     );
 
     const handle = useCallback(
-        (key: string, val: number | string, type?: 'only' | 'date' | undefined) => {
-            if (type === 'only') {
-                handleSingle(key, Number(val));
-            } else if (type === undefined) {
-                handleMulti(key, Number(val));
-            } else if (type === 'date') {
-                handleDate(key, String(val));
-            }
+        (key: string | string[] , val: number | string, type?: 'only' | 'date' | undefined) => {
+
+            const keys = Array.isArray(key) ? key : [key];
+            keys.forEach(k => {
+                if (type === 'only') {
+                    handleSingle(k, Number(val));
+                } else if (type === undefined) {
+                    handleMulti(k, Number(val));
+                } else if (type === 'date') {
+                    handleDate(k, String(val));
+                }
+            });
         },
         [handleSingle, handleMulti, handleDate]
     );
