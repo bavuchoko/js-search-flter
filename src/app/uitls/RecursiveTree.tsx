@@ -51,9 +51,10 @@ const RecursiveTree:FC<Props> =({handle, clicked, data, values, expanded, setExp
                                 display: 'flex',
                                 alignItems: 'center',
                                 boxSizing: 'border-box',
-                                background:((index + depth) % 2) ==0? '':'var(--background)',
+                                background:((index + depth) % 2) === 0? '':'var(--background)',
                                 cursor:'pointer',
                             }}
+                            className={checked ? 'js-search-checked': ''}
                         >
                             <div onClick={()=>expandedHandler(option.id)}>
                                 <OptionIcons style={{width:'18px', height:'18px'}} type={clicked?.type} checked={checked}/>

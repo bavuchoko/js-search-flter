@@ -11,7 +11,7 @@ const FilterIcon: FC<IconProps> = ({ style, onClick }) =>{
                  preserveAspectRatio="xMidYMid meet">
 
                 <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                   fill="#000000" stroke="none">
+                   fill="var(--deepGray)" stroke="none">
                     <path d="M3132 4183 c-62 -30 -77 -64 -80 -190 l-4 -113 -1322 0 -1323 0 -33
                     -22 c-72 -50 -95 -116 -65 -194 12 -32 29 -53 58 -72 l41 -27 1323 -3 1323 -2
                     0 -106 c0 -123 13 -162 69 -200 71 -48 169 -27 225 49 20 28 21 39 21 411 l0

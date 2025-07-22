@@ -94,6 +94,17 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, multiHandler, sin
                 >
                         {filter?.map((el, index)=>{
                             const color = COLORS[index % COLORS.length];
+                            const selected = values?.[el.key];
+                            let count: number | undefined = undefined;
+
+                            if (selected !== undefined) {
+                                if (Array.isArray(selected)) {
+                                    count = selected.length;
+                                } else {
+                                    count = 1;
+                                }
+                            }
+
                             return (
                             <span
                                 data-id={el.key}
@@ -109,7 +120,9 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, multiHandler, sin
 
                                 }}
                                 onClick={()=>{setClicked?.(el)}}
-                            >{el.label}</span>
+                            >{el.label}
+                                {count !== undefined && <span style={{display:'inline-block', marginLeft:'3px', }}>{count}</span> }
+                            </span>
                         )})}
                 </div>
 
@@ -144,7 +157,7 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, multiHandler, sin
                                     return val.map(id => {
                                         const el = f.recursive ? recursiveFind(f.data, id) : f.data.find(d => d.id === id);
                                         const name = el ? el.name : id;
-
+                                        const handler = f.recursive ? singleHandler : multiHandler;
                                         return (
                                             <div
                                                 key={`${f.key}-${id}`}
@@ -155,8 +168,7 @@ const Modal:FC<ModalProps> =({close=undefined, filter, values, multiHandler, sin
                                                     margin: "4px 0",
                                                 }}
                                                 onClick={() => {
-                                                    if(f.recursive) singleHandler?.(f.key, Number(id))
-                                                    else multiHandler?.(f.key, Number(id))
+                                                    handler?.(f.key, Number(id))
                                                 }}
                                             >
                                                 <div style={{ display: "flex", alignItems: "center" }}>

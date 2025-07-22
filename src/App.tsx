@@ -83,7 +83,7 @@ function App() {
         type:'user'
     }
     const depart:Filter ={
-        label:"부셔",
+        label:"업무부서",
         key: 'department',
         data: department,
         type:'department',
@@ -129,7 +129,7 @@ function App() {
         <div style={{width:'100%'}}>
             <div style={{width:'100%', height:'150px', background:"#b2a8a8"}}>B 영역</div>
             {/*<div style={{width:'200px', background:"beige"}}>*/}
-            <div>
+            <div style={{padding:'16px'}}>
                 <JsSearchFilter
                     filter={filters}
                     onSearch={(v)=>console.log(v)}

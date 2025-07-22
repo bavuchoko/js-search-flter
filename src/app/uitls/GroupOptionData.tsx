@@ -18,7 +18,7 @@ const GroupOptionData:FC<OptionProps> =({option, handle, clicked, values})=>{
     const { getNestedValue } = useDataHandler();
     const checked = checkIncludes(values ?? {}, clicked?.key ?? '', option.id);
     return (
-        <div key={option.id} className={`no-drag`}
+        <div key={option.id} className={`no-drag ${checked ? 'js-search-checked' :''}`}
              style={{
                  marginBottom: '6px',
                  width:'calc(50% - 4px)',
@@ -35,7 +35,7 @@ const GroupOptionData:FC<OptionProps> =({option, handle, clicked, values})=>{
                         <span className={`${clicked.key}-${el.replace('.','-')}`} style={{marginRight: '8px'}}>{getNestedValue(option, el)}</span>
                     ) )
                 ):(
-                <span style={{marginRight: '8px'}}>{option.name}</span>
+                <span  style={{marginRight: '8px'}}>{option.name}</span>
             )}
 
         </div>

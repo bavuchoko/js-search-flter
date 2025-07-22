@@ -29,6 +29,7 @@ code {
 :root {
   --vh: 100%;
   --border: rgb(179, 179, 179);
+  --deepGray: rgb(112, 110, 110);
   --innerBorder: rgb(236, 236, 236);
   --font-size:12px;
   --hover: rgb(124, 124, 124);
@@ -37,7 +38,9 @@ code {
   --grayText: rgb(140, 140, 140);
   --background: rgb(245 245 245);
   --blue:rgb(149 210 255);
-  /*--deepBlue: rgb(56, 6, 238);*/
+  --red: rgb(197, 28, 28);
+  --checked: rgb(140, 25, 25);
+  --hoverHighLight: linear-gradient(120deg, rgb(140, 25, 25) 0%, rgb(220, 124, 124) 60%, transparent 100%);
   --deepBlue: rgb(39, 95, 238);
 }
 
@@ -98,6 +101,35 @@ code {
   text-transform: none;
   border-width: 0;
 }
+.js-search-selected-options{
+  overflow: hidden;
+  width: 100%;
+  padding: 0 3px;
+  display: flex;
+  align-items: center;
+}
+.js-search-selected-options > div.each-options{
+  margin-right: 12px;
+  display: inline-flex;
+  white-space: nowrap;
+  font-size: var(--font-size);
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+}
+.js-search-selected-options > div.each-options > button{
+  padding: 0;
+  background-color: transparent;
+  line-height: inherit;
+  background-image: none;
+  margin: 2px 0 0;
+  height: 17px;
+  width: 17px;
+  align-items: center;
+  display: inline-flex;
+  text-transform: none;
+  border-width: 0;
+}
 .js-search-reset-modal {
   position: relative;
   height: 100%;
@@ -128,4 +160,68 @@ code {
 }
 .active:active{
   scale: 99.5%;
+}
+
+.highlight{
+  display: inline-block;
+  position: relative;
+}
+.highlight:after{
+  content:"";
+  width: 0;
+  height: 10px;
+  display: inline-block;
+  background: #D9FCDB;
+  position: absolute;
+  bottom:0;
+  left:0;
+  z-index:-1;
+  transition: 0.2s all;
+}
+
+.highlight-gradient{
+  /*background: linear-gradient(120deg, #FF0000 40%, transparent 40%);*/
+  /*display: inline;*/
+  position: relative;
+}
+.highlight-gradient:after{
+  content:"";
+  width: calc(100% - 30px);
+  height: 40%;
+  display: inline-block;
+  background:var(--hoverHighLight);
+  position: absolute;
+  bottom:0;
+  left:15px;
+  z-index:-1;
+  transition: 0.2s all;
+}
+.js-search-checked{
+  color: var(--checked);
+  position: relative;
+}
+.js-search-checked:after{
+  content:"";
+  width: calc(100% - 30px);
+  height: 1px;
+  display: inline-block;
+  background:var(--hoverHighLight);
+  position: absolute;
+  bottom:0;
+  left:15px;
+  z-index:0;
+  transition: 0.2s all;
+}
+.js-search-filter-icon{
+}
+.js-search-has-value{
+  position: relative;
+}
+.js-search-has-value:before{
+  content: "•";
+  position: absolute;
+  top: -8px;
+  left: 21px;
+  font-size: 22px;
+  color: #bd0f0f;
 }

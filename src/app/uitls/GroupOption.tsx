@@ -24,7 +24,7 @@ const GroupOption:FC<GroupProps> =({clicked, multiHandler, singleHandler, search
                 flexWrap: 'wrap',
                 gap: '8px',
                 fontSize:'13px',
-                height: searchButton ?'355px' : '417px',
+                height: searchButton ?'347px' : '417px',
                 padding: '8px 0',
                 overflowY: 'auto',
                 alignContent: 'flex-start',
