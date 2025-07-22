@@ -3,6 +3,7 @@ import { ValueType } from "../type/Types";
 
 export const useFilterHandle = (onValueChange?: (value: ValueType | null) => void, initialValues: (ValueType | null) = {}) => {
     const [values, setValue] = useState<ValueType | null>(initialValues);
+    console.log('initialValues',initialValues);
 
     const multiToggle = (values: ValueType | null, key: string, val: number): ValueType | null => {
         if (!values) {

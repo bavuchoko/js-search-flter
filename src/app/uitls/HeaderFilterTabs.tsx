@@ -32,7 +32,6 @@ const HeaderFilterTabs: FC<Props> = ({ filter, values, clicked, setClicked, togg
                     : [el.key];
 
                 let count: number | undefined = undefined;
-
                 keys.forEach((key) => {
                     const selected = values?.[key];
                     const thisCount = Array.isArray(selected) ? selected.length : selected ? 1 : 0;

@@ -94,7 +94,7 @@ function App() {
     const createdAt:Filter ={
         label:"기간검색",
         key:[{key:'createdAt', label:'등록일'},{key:'updatedAt', label:'수정일'},{key:'requestedAt', label:'요청일'}],
-        data:[{startDate:'2025-01-01', endDate:'2025-10-10'},{startDate:'2025-01-01', endDate:'2025-10-10'},{startDate:'2025-01-01', endDate:'2025-10-10'}],
+        data:[],
         type:'date'
     }
 
@@ -123,6 +123,8 @@ function App() {
                     initialValues={{
                         createdBy:[1],
                         createdAt:{startDate:'2025-01-01', endDate:'2025-10-10'},
+                        updatedAt:{startDate:'2025-01-01', },
+                        requestedAt:{startDate:'2025-01-01', endDate:'2025-12-10'},
                     }}
                 />
             </div>

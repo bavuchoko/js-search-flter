@@ -225,3 +225,6 @@ code {
   font-size: 25px;
   color: #bd0f0f;
 }
+.js-search-date{
+  width: calc(50% - 20px);
+}
