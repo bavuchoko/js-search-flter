@@ -29,7 +29,7 @@ code {
 :root {
   --vh: 100%;
   --border: rgb(179, 179, 179);
-  --lightGray: rgb(237, 239, 243);
+  --lightGray: rgb(245, 246, 246);
   --deepGray: rgb(112, 110, 110);
   --innerBorder: rgb(236, 236, 236);
   --font-size:12px;
@@ -198,21 +198,25 @@ code {
   transition: 0.2s all;
 }
 .js-search-checked{
-  color: var(--checked);
+  /*color: var(--checked);*/
+  font-weight: bold;
   position: relative;
 }
-.js-search-checked:after{
-  content:"";
-  width: calc(100% - 30px);
-  height: 1px;
-  display: inline-block;
-  background:var(--hoverHighLight);
-  position: absolute;
-  bottom:0;
-  left:15px;
-  z-index:0;
-  transition: 0.2s all;
-}
+
+/*.js-search-checked:after{*/
+/*  content:"";*/
+/*  width: calc(100% - 30px);*/
+/*  height: 1px;*/
+/*  display: inline-block;*/
+/*  background:var(--hoverHighLight);*/
+/*  background:var(--hoverHighLight);*/
+/*  position: absolute;*/
+/*  bottom:0;*/
+/*  left:15px;*/
+/*  z-index:0;*/
+/*  transition: 0.2s all;*/
+/*}*/
+
 .js-search-filter-icon{
 }
 .js-search-has-value{
@@ -230,10 +234,10 @@ code {
   /*width: calc(50% - 20px);*/
   width: 130px;
   text-align: left;
-
+  color: var(--grayText);
   font-size: var(--font-size);
   border: 1px solid var(--border);
-  background: var(--lightGray);
+  background: var(--background);
   padding: 0 10px;
   height: 30px;
   line-height: 30px;

@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from "react";
-import CloseIcon from "./CloseIcon";
+import CloseIcon from "../resources/svg/CloseIcon";
 import { Filter, ValueType } from "../type/Types";
 import useDragScroll from "../hook/useDragScroll";
 import { useDataHandler } from "../hook/useDataHandler";
@@ -88,7 +88,7 @@ const Modal: FC<ModalProps> = ({
                     reset={reset}
                 />
 
-                <GroupOption clicked={clicked} handle={handle} searchButton={!!onSearch} values={values} />
+                <GroupOption clicked={clicked} handle={handle} remove={remove} searchButton={!!onSearch} values={values} />
 
                 {onSearch && (
                     <div style={{ height: '70px', borderTop: '1px solid var(--innerBorder)', padding: '12px 16px' }}>
@@ -97,10 +97,10 @@ const Modal: FC<ModalProps> = ({
                             style={{
                                 width: '100%',
                                 height: '100%',
-                                background: 'var(--blue)',
+                                background: 'black',
                                 border: 'none',
                                 borderRadius: '4px',
-                                color: 'black',
+                                color: 'white',
                                 cursor: 'pointer',
                             }}
                             onClick={() => onSearch?.(values ?? null)}

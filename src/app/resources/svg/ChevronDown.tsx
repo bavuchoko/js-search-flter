@@ -1,7 +1,7 @@
 import {FC} from "react";
-import {IconProps} from "../type/Types";
+import {IconProps} from "../../type/Types";
 
-const ChevronRight:FC<IconProps> =({style, onClick,type, checked})=>{
+const ChevronDown:FC<IconProps> =({style, onClick,type, checked})=>{
     return (
         <svg xmlns="http://www.w3.org/2000/svg" style={style} viewBox="0 0 20 20" fill="none">
             <path
@@ -10,9 +10,9 @@ const ChevronRight:FC<IconProps> =({style, onClick,type, checked})=>{
                 strokeWidth="1"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                transform="rotate(90 10 10)"
+                transform="rotate(180 10 10)"
             />
         </svg>
     )
 }
-export default ChevronRight
+export default ChevronDown

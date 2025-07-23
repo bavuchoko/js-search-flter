@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {IconProps} from "../type/Types";
+import {IconProps} from "../../type/Types";
 
 
 const CloseIcon: FC<IconProps> =({style, onClick })=>{

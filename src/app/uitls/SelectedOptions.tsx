@@ -1,6 +1,6 @@
 import React, { FC, RefObject, useCallback } from "react";
 import { Filter, ObjectType, ValueType } from "../type/Types";
-import OptionIcons from "./OptionIcons";
+import OptionIcons from "../resources/svg/OptionIcons";
 import {getLabelAndName} from "./filterHelper";
 
 interface Props {

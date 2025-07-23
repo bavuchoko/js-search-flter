@@ -67,7 +67,7 @@ export type FilterProps ={
 
 export type IconProps = {
     style?: React.CSSProperties;
-    onClick?: ()=>void;
+    onClick?: (e: any)=>void;
     type?: FilterTypes;
     checked?: boolean ;
 }

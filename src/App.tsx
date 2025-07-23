@@ -83,7 +83,6 @@ function App() {
         type:'company'
     }
 
-
     const secondMngCompany:Filter ={
         label:"2차 업체",
         key:'secondMngCompany',
@@ -91,14 +90,14 @@ function App() {
         type:'company'
     }
 
-    const createdAt:Filter ={
+    const date:Filter ={
         label:"기간검색",
         key:[{key:'createdAt', label:'등록일'},{key:'updatedAt', label:'수정일'},{key:'requestedAt', label:'요청일'}],
         data:[],
         type:'date'
     }
 
-    const filters:Filter[] =[createdBy, createdAt, depart, requestedBy, updatedBy, fistMngCompany, secondMngCompany];
+    const filters:Filter[] =[createdBy, date, depart, requestedBy, updatedBy, fistMngCompany, secondMngCompany];
 
 
   return (

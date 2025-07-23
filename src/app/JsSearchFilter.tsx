@@ -2,7 +2,7 @@ import React, {FC, useRef, useState} from "react";
 import {Filter, FilterProps} from "./type/Types";
 import '../index.css';
 import {useFilterHandle} from "./hook/useToggleModal";
-import FilterIcon from "./uitls/FilterIcon";
+import FilterIcon from "./resources/svg/FilterIcon";
 import Modal from "./uitls/Modal";
 import {useToggleModal} from "./hook/useFilterHandle";
 import useDragScroll from "./hook/useDragScroll";

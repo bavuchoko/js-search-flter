@@ -1,4 +1,4 @@
-import {IconProps} from "../type/Types";
+import {IconProps} from "../../type/Types";
 import {FC} from "react";
 
 
@@ -35,8 +35,14 @@ const OptionIcons:FC<IconProps> =({ style, onClick, type, checked} )=>{
                 </svg>
             )}
             {checked &&
-                <svg xmlns="http://www.w3.org/2000/svg" style={style}  viewBox="0 0 20 20">
-                    <path fill="var(--checked)" fillRule="evenodd" d="M15.78 5.97a.75.75 0 0 1 0 1.06l-6.5 6.5a.75.75 0 0 1-1.06 0l-3.25-3.25a.75.75 0 1 1 1.06-1.06l2.72 2.72 5.97-5.97a.75.75 0 0 1 1.06 0Z"/>
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     // style={{border:'1px solid black', borderRadius:'50%' ,...style}}
+                     style={style}
+                     viewBox="0 0 20 20">
+                    <path
+                        fill="black"
+                        // fill="var(--checked)"
+                        fillRule="evenodd" d="M15.78 5.97a.75.75 0 0 1 0 1.06l-6.5 6.5a.75.75 0 0 1-1.06 0l-3.25-3.25a.75.75 0 1 1 1.06-1.06l2.72 2.72 5.97-5.97a.75.75 0 0 1 1.06 0Z"/>
                 </svg>
             }
         </span>

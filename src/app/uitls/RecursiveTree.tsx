@@ -1,11 +1,11 @@
 import {FC} from "react";
-import OptionIcons from "./OptionIcons";
+import OptionIcons from "../resources/svg/OptionIcons";
 import {Filter, ObjectType, ValueType} from "../type/Types";
 import {useChecked} from "../hook/useChecked";
-import ChevronRight from "./ChevronRight";
+import ChevronRight from "../resources/svg/ChevronRight";
 import Dash from "./Dash";
 import React from "react";
-import ChevronDown from "./ChevronDown";
+import ChevronDown from "../resources/svg/ChevronDown";
 
 type Props = {
     handle?: (key: string, val: any, type?: 'only' | 'date' | undefined) => void;

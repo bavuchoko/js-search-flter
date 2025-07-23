@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {Filter, ObjectType, ValueType} from "../type/Types";
-import OptionIcons from "./OptionIcons";
+import OptionIcons from "../resources/svg/OptionIcons";
 import {useChecked} from "../hook/useChecked";
 import {useDataHandler} from "../hook/useDataHandler";
 
