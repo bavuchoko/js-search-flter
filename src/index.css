@@ -264,3 +264,9 @@ code {
   white-space: nowrap;
   background: var(--innerBorder);
 }
+.js-search-api-selected{
+  border: 1px solid black;
+  background: var(--deepGray);
+  color: white;
+  font-weight: bold;
+}

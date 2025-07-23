@@ -11,6 +11,13 @@ function App() {
         {id:4, name:'송길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
         {id:5, name:'김나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
         {id:6, name:'박나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:1, name:'홍길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:2, name:'김길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:3, name:'최길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:4, name:'송길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:5, name:'김나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:6, name:'박나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+
     ]
     const company =[
         {id:1, name:'NC'},
@@ -52,7 +59,7 @@ function App() {
         data: user,
         target:['name', 'department.name', 'company.name'],
         searchBy:[
-            {label:"부서", data:department, listener:(v:any)=>console.log(v) },
+            { label:"부서", data:department, listener:(v:any)=>console.log(v) },
             {label:"업체", data:department, listener:(v:any)=>console.log(v) },
             {label:"지역", data:department, listener:(v:any)=>console.log(v) },
             {label:"권한", data:department, listener:(v:any)=>console.log(v) },
@@ -104,7 +111,7 @@ function App() {
         type:'date'
     }
 
-    const filters:Filter[] =[createdBy, date, depart, requestedBy, updatedBy, fistMngCompany, secondMngCompany];
+    const filters:Filter[] =[createdBy, date, depart, requestedBy, updatedBy, fistMngCompany, secondMngCompany,secondMngCompany,secondMngCompany];
 
 
   return (
