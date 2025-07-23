@@ -6,7 +6,7 @@ import DateSelector from "./DateSelector";
 
 type GroupProps ={
     clicked? :Filter | null;
-    handle?: (key: string | string[], val: any, type?: 'only' | 'date' | undefined) => void;
+    handle?: (key: string, val: any, type?: 'only' | 'date' | undefined) => void;
     searchButton?: boolean;
     values?: ValueType| null;
 }
@@ -42,8 +42,8 @@ const GroupOption:FC<GroupProps> =({clicked, handle, searchButton, values})=>{
                 </div>
             )}
 
-            { !clicked?.recursive && clicked?.data.map(el => (
-                <GroupOptionData option={el} handle={handle} clicked={clicked} values={values}/>
+            { !clicked?.recursive && clicked?.data.map((el, index) => (
+                <GroupOptionData key={index} option={el} handle={handle} clicked={clicked} values={values}/>
             ))}
 
         </div>

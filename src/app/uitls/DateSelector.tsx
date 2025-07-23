@@ -17,22 +17,39 @@ const DateSelector:FC<Props> =({handle, clicked, data, values})=>{
         ? clicked!.key.map((k: ObjectType) => k.key.toString())
         : clicked?.key ? [clicked.key] : [];
 
+    const handleChange = (
+        key: string,
+        field: "startDate" | "endDate",
+        value: string
+    ) => {
+        // 현재 값 가져오기
+        const prev = values?.[key] || {};
+
+
+        if(typeof prev ==='object') {
+            const newVal = {
+                ...prev,
+                [field]: value,
+            };
+            handle?.(key, newVal, "date");
+        }
+    };
+
     return(
         <div>
             {labels?.map((el, index)=>{
-                console.log(values?.[keys?.[index]])
                 const val = values?.[keys[index]];
+                console.log(val)
                 return (
-                <div style={{borderBottom:'1px solid var(--innerBorder)', paddingBottom:'20px'}}>
+                <div key={index} style={{borderBottom:'1px solid var(--innerBorder)', paddingBottom:'20px'}}>
                     <p style={{fontWeight:'bold'}}>{el}</p>
-                    {(typeof val === "object" && val !== null && ("startDate" in val || "endDate" in val)) && (
-                            <>
-                                <input className={`js-search-date`} type={'date'} value={val.startDate} />
-                                <span> ~ </span>
-                                <input className={`js-search-date`} type={'date'} value={val.endDate} />
-                            </>
-                    )}
-
+                    <input className={`js-search-date`} type={'date'} value={(val as ObjectType)?.startDate} onChange={(e) =>
+                        handleChange(keys[index], "startDate", e.target.value)
+                    }/>
+                    <span> - </span>
+                    <input className={`js-search-date`} type={'date'} value={(val as ObjectType)?.endDate} onChange={(e) =>
+                        handleChange(keys[index], "endDate", e.target.value)
+                    }/>
                 </div>)
 
             })}

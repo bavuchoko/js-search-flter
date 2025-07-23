@@ -7,9 +7,9 @@ const ChevronRight:FC<IconProps> =({style, onClick,type, checked})=>{
             <path
                 d="M14.53 12.28L10.06 7.81L5.59 12.28"
                 stroke="#212121"
-                stroke-width="1"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 transform="rotate(90 10 10)"
             />
         </svg>

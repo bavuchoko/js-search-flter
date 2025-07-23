@@ -29,6 +29,7 @@ code {
 :root {
   --vh: 100%;
   --border: rgb(179, 179, 179);
+  --lightGray: rgb(237, 239, 243);
   --deepGray: rgb(112, 110, 110);
   --innerBorder: rgb(236, 236, 236);
   --font-size:12px;
@@ -226,5 +227,14 @@ code {
   color: #bd0f0f;
 }
 .js-search-date{
-  width: calc(50% - 20px);
+  /*width: calc(50% - 20px);*/
+  width: 130px;
+  text-align: left;
+
+  font-size: var(--font-size);
+  border: 1px solid var(--border);
+  background: var(--lightGray);
+  padding: 0 10px;
+  height: 30px;
+  line-height: 30px;
 }

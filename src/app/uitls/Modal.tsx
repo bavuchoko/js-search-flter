@@ -11,7 +11,8 @@ type ModalProps = {
     close?: () => void;
     filter?: Filter[];
     values?: ValueType | null;
-    handle?: (key: string | string[], val: any, type?: 'only' | 'date') => void;
+    handle?: (key: string , val: any, type?: 'only' | 'date') => void;
+    remove ?: (key: string, val: any, type?: 'only' | 'date') => void;
     reset?: () => void;
     clicked?: Filter | null;
     setClicked?: (click: Filter) => void;
@@ -23,6 +24,7 @@ const Modal: FC<ModalProps> = ({
                                    filter,
                                    values,
                                    handle,
+                                   remove,
                                    reset,
                                    clicked,
                                    setClicked,
@@ -77,16 +79,14 @@ const Modal: FC<ModalProps> = ({
                     modal={true}
                 />
 
-                {values && (
-                    <SelectedOptions
-                        filter={filter || []}
-                        values={values}
-                        handle={handle}
-                        recursiveFind={recursiveFind}
-                        containerRef={optionsRef}
-                        reset={reset}
-                    />
-                )}
+                <SelectedOptions
+                    filter={filter || []}
+                    values={values}
+                    remove={remove}
+                    recursiveFind={recursiveFind}
+                    containerRef={optionsRef}
+                    reset={reset}
+                />
 
                 <GroupOption clicked={clicked} handle={handle} searchButton={!!onSearch} values={values} />
 

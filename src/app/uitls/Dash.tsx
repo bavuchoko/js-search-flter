@@ -10,8 +10,8 @@ const Dash:FC<IconProps> =({style,onClick,type,checked})=>{
                 x2="15"
                 y2="12"
                 stroke="#212121"
-                stroke-width="0.5"
-             stroke-linecap="round"
+                strokeWidth="0.5"
+             strokeLinecap="round"
         />
 </svg>
 )

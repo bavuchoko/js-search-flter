@@ -1,12 +1,12 @@
-import React, { FC, useRef, useState } from "react";
-import { Filter, FilterProps } from "./type/Types";
+import React, {FC, useRef, useState} from "react";
+import {Filter, FilterProps} from "./type/Types";
 import '../index.css';
-import { useFilterHandle } from "./hook/useToggleModal";
+import {useFilterHandle} from "./hook/useToggleModal";
 import FilterIcon from "./uitls/FilterIcon";
 import Modal from "./uitls/Modal";
-import { useToggleModal } from "./hook/useFilterHandle";
+import {useToggleModal} from "./hook/useFilterHandle";
 import useDragScroll from "./hook/useDragScroll";
-import { useDataHandler } from "./hook/useDataHandler";
+import {useDataHandler} from "./hook/useDataHandler";
 import HeaderFilterTabs from "./uitls/HeaderFilterTabs";
 import SelectedOptions from "./uitls/SelectedOptions";
 
@@ -20,7 +20,7 @@ const JsSearchFilter: FC<FilterProps> = ({
     const { recursiveFind } = useDataHandler();
     const { isOpen, toggle, close } = useToggleModal();
 
-    const { values, handle, reset } = useFilterHandle(onValueChange, initialValues);
+    const { values, handle, reset, remove } = useFilterHandle(onValueChange, initialValues);
 
     const groupRef = useRef<HTMLDivElement>(null);
     const optionsRef = useRef<HTMLDivElement>(null);
@@ -58,6 +58,7 @@ const JsSearchFilter: FC<FilterProps> = ({
                     filter={filter}
                     values={values}
                     handle={handle}
+                    remove={remove}
                     reset={reset}
                     clicked={clicked}
                     setClicked={setClicked}
@@ -69,7 +70,7 @@ const JsSearchFilter: FC<FilterProps> = ({
                 <SelectedOptions
                     filter={filter}
                     values={values}
-                    handle={handle}
+                    remove={remove}
                     recursiveFind={recursiveFind}
                     containerRef={optionsRef}
                     reset={reset}

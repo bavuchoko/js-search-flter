@@ -6,7 +6,7 @@ import {useDataHandler} from "../hook/useDataHandler";
 
 type OptionProps={
     option: any;
-    handle?: (key: string | string[], val: any, type?: 'only' | 'date' | undefined) => void;
+    handle?: (key: string, val: any, type?: 'only' | 'date' | undefined) => void;
     clicked?: Filter
     values?: ValueType | null
 }
@@ -31,11 +31,11 @@ const GroupOptionData:FC<OptionProps> =({option, handle, clicked, values})=>{
                  alignItems: 'center',
                  cursor: 'pointer'
              }}
-             onClick={() => {if(clicked) handle?.(keys, option.id, undefined)}}>
+             onClick={() => {if(clicked) handle?.(keys[0], option.id, undefined)}}>
             <OptionIcons style={{width:'18px', height:'18px'}} type={clicked?.type} checked={checked}/>
             {clicked?.target ? (
-                clicked.target.map(el =>(
-                        <span className={`${clicked.key}-${el.replace('.','-')}`} style={{marginRight: '8px'}}>{getNestedValue(option, el)}</span>
+                clicked.target.map((el, index) =>(
+                        <span key={index} className={`${clicked.key}-${el.replace('.','-')}`} style={{marginRight: '8px'}}>{getNestedValue(option, el)}</span>
                     ) )
                 ):(
                 <span  style={{marginRight: '8px'}}>{option.name}</span>

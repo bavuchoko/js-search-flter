@@ -1,95 +1,118 @@
-import React, { FC, RefObject } from "react";
-import {Filter, ObjectType, ValueType} from "../type/Types";
+import React, { FC, RefObject, useCallback } from "react";
+import { Filter, ObjectType, ValueType } from "../type/Types";
 import OptionIcons from "./OptionIcons";
+import {getLabelAndName} from "./filterHelper";
 
 interface Props {
     filter: Filter[];
-    values: ValueType | null;
-    handle?: (key: string | string[], val: any, type?: "only" | "date") => void;
+    values?: ValueType | null;
+    remove?: (key: string, val: any, type?: "only" | "date") => void;
     recursiveFind: (data: any, id: number) => any;
     containerRef?: RefObject<HTMLDivElement | null>;
     reset?: () => void;
 }
 
+const formatDate = (dateStr?: string): string => {
+    if (!dateStr) return "";
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return "";
+
+    const yy = date.getFullYear().toString().slice(-2);
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+
+    return `${yy}.${mm}.${dd}`;
+};
+
+const getAllVals = (f: Filter, values: ValueType | null | undefined) => {
+    const keys: string[] = Array.isArray(f.key)
+        ? f.key.map((k: ObjectType) => k.key.toString())
+        : [f.key];
+
+    const allVals: any[] = [];
+    keys.forEach((key) => {
+        const val = values?.[key];
+        if (Array.isArray(val)) {
+            allVals.push(...val);
+        } else if(val){
+            allVals.push({ [key]: val });
+        }
+    })
+    return allVals;
+};
+
+
 const SelectedOptions: FC<Props> = ({
                                         filter,
                                         values,
-                                        handle,
+                                        remove,
                                         recursiveFind,
                                         containerRef,
                                         reset,
-                                    }) => (
-    <div
-        style={{
-            height: "42px",
-            background: "var(--background)",
-            width: "100%",
-            padding: "12px 8px",
-            display: "flex",
-            justifyContent: "space-between",
-        }}
-    >
-        <div ref={containerRef} className="no-scroll js-search-selected-options">
-            {filter.flatMap((f) => {
+                                    }) => {
+    const renderOptions = useCallback(() => {
+        return filter.flatMap((f) => {
+            const allVals = getAllVals(f, values);
+            if (allVals.length === 0) return [];
 
-                const keys: string[] = Array.isArray(f.key)
-                    ? f.key.map((k: ObjectType) => k.key.toString())
-                    : [f.key];
+            return allVals.map((val) => {
 
-                // 여러 key 값들의 선택된 항목을 모두 합친다.
-                const allVals: any[] = [];
-                keys.forEach((key) => {
-                    const val = values?.[key];
-                    if (Array.isArray(val)) {
-                        allVals.push(...val);
-                    }
-                });
+                const { label, name, keyName } = getLabelAndName(f, val, recursiveFind);
+                const dataType = f.recursive ? "only" : f.type === "date" ? "date" : undefined;
 
-                if (allVals.length === 0) return [];
+                return (
+                    <div
+                        key={`${Array.isArray(f.key) ? f.key.join(",") : f.key}-${JSON.stringify(val)}`}
+                        className="each-options"
+                        style={{ display: "flex", alignItems: "center" }}
+                        onClick={() => remove?.((keyName as string), val, dataType)}
+                    >
+                        <OptionIcons style={{ width: "18px", height: "18px" }} type={f.type} checked={false} />
+                        <span className="no-drag">[{label}]</span>
+                        <span className="no-drag" style={{ marginLeft: 6 }}>
+                          {name}
+                        </span>
 
-                return allVals.map((id) => {
-                    const el = f.recursive ? recursiveFind(f.data, id) : f.data.find((d) => d.id === id);
-                    const name = el ? el.name : id;
-                    const dataType = f.recursive ? "only" : f.type === "date" ? "date" : undefined;
-                    const keys: string[] = Array.isArray(f?.key)
-                        ? f!.key.map((k: ObjectType) => k.key.toString())
-                        : f?.key ? [f.key] : [];
-                    return (
-                        <div
-                            key={`${Array.isArray(f.key) ? f.key.join(",") : f.key}-${id}`}
-                            className="each-options"
-                            style={{ display: "flex", alignItems: "center" }}
-                            onClick={() => handle?.(keys, id, dataType)}
-                        >
-                            <OptionIcons style={{ width: "18px", height: "18px" }} type={f.type} checked={false} />
-                            <span className="no-drag">[{f.label}]</span>
-                            <span className="no-drag" style={{ marginLeft: "6px" }}>
-                {name}
-              </span>
-                            <button style={{ marginTop: "2px" }}>
-                                <svg
-                                    width="13"
-                                    height="13"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <line x1="5" y1="5" x2="19" y2="19" stroke="black" strokeWidth="1" />
-                                    <line x1="19" y1="5" x2="5" y2="19" stroke="black" strokeWidth="1" />
-                                </svg>
-                            </button>
-                        </div>
-                    );
-                });
-            })}
+                        <button style={{ marginTop: 2 }}>
+                            <svg
+                                width="13"
+                                height="13"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <line x1="5" y1="5" x2="19" y2="19" stroke="black" strokeWidth="1" />
+                                <line x1="19" y1="5" x2="5" y2="19" stroke="black" strokeWidth="1" />
+                            </svg>
+                        </button>
+                    </div>
+                );
+            });
+        });
+    }, [filter, values, remove, recursiveFind]);
+
+    return (
+        <div
+            style={{
+                height: "42px",
+                background: "var(--background)",
+                width: "100%",
+                padding: "12px 8px",
+                display: "flex",
+                justifyContent: "space-between",
+            }}
+        >
+            <div ref={containerRef} className="no-scroll js-search-selected-options">
+                {renderOptions()}
+            </div>
+
+            <div className="js-search-reset-modal" onClick={reset}>
+                <button>
+                    <span>초기화</span>
+                </button>
+            </div>
         </div>
-
-        <div className="js-search-reset-modal" onClick={reset}>
-            <button>
-                <span>초기화</span>
-            </button>
-        </div>
-    </div>
-);
+    );
+};
 
 export default SelectedOptions;

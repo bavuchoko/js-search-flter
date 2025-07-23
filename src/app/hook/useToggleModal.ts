@@ -1,9 +1,8 @@
 import { useCallback, useState } from "react";
-import { ValueType } from "../type/Types";
+import {ObjectType, ValueType} from "../type/Types";
 
 export const useFilterHandle = (onValueChange?: (value: ValueType | null) => void, initialValues: (ValueType | null) = {}) => {
     const [values, setValue] = useState<ValueType | null>(initialValues);
-    console.log('initialValues',initialValues);
 
     const multiToggle = (values: ValueType | null, key: string, val: number): ValueType | null => {
         if (!values) {
@@ -68,35 +67,73 @@ export const useFilterHandle = (onValueChange?: (value: ValueType | null) => voi
     );
 
     const handleDate = useCallback(
-        (key: string, val: string) => {
-        setValue(prev => {
-            let newState: ValueType | null;
+        (key: string, val: ObjectType| undefined) => {
+            setValue(prev => {
+                let newState: ValueType | null;
 
-            if (!prev || !(key in prev)) {
-                newState = { ...(prev ?? {}), [key]: [val] };
-            } else {
-                newState = { ...prev, [key]: [val] };
-            }
-            if (onValueChange) onValueChange(newState);
-            return newState;
-        });
-    },
-    [onValueChange]
+                if (!prev) {
+                    newState = {};
+                } else {
+                    newState = { ...prev };
+                }
+                if (val === undefined) {
+                    delete newState[key];
+                } else {
+                    newState[key] = val;
+                }
+
+                if (onValueChange) onValueChange(newState);
+                return newState;
+            });
+        },
+        [onValueChange]
+    );
+
+
+    const removeDate = useCallback(
+        (key: string, val: ObjectType| undefined) => {
+            setValue(prev => {
+                let newState: ValueType | null;
+
+                if (!prev) {
+                    newState = {};
+                } else {
+                    newState = { ...prev };
+                }
+
+                delete newState[key];
+
+                if (onValueChange) onValueChange(newState);
+                return newState;
+            });
+        },
+        [onValueChange]
     );
 
     const handle = useCallback(
-        (key: string | string[] , val: number | string, type?: 'only' | 'date' | undefined) => {
+        (key: string , val: number | string | ObjectType | undefined, type?: 'only' | 'date' | undefined) => {
+            if (type === 'only') {
+                handleSingle(key, Number(val));
+            } else if (type === undefined) {
+                handleMulti(key, Number(val));
+            } else if (type === 'date') {
+                handleDate(key, (val as ObjectType));
+            }
+        },
+        [handleSingle, handleMulti, handleDate]
+    );
 
-            const keys = Array.isArray(key) ? key : [key];
-            keys.forEach(k => {
-                if (type === 'only') {
-                    handleSingle(k, Number(val));
-                } else if (type === undefined) {
-                    handleMulti(k, Number(val));
-                } else if (type === 'date') {
-                    handleDate(k, String(val));
-                }
-            });
+
+    const remove = useCallback(
+        (key: string , val: number | string | ObjectType | undefined, type?: 'only' | 'date' | undefined) => {
+            if (type === 'only') {
+                handleSingle(key, Number(val));
+            } else if (type === undefined) {
+                handleMulti(key, Number(val));
+            } else if (type === 'date') {
+                removeDate(key, (val as ObjectType));
+            }
+
         },
         [handleSingle, handleMulti, handleDate]
     );
@@ -109,6 +146,7 @@ export const useFilterHandle = (onValueChange?: (value: ValueType | null) => voi
     return {
         values,
         handle,
+        remove,
         reset,
     };
 };

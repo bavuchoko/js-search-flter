@@ -8,7 +8,7 @@ import React from "react";
 import ChevronDown from "./ChevronDown";
 
 type Props = {
-    handle?: (key: string | string[], val: any, type?: 'only' | 'date' | undefined) => void;
+    handle?: (key: string, val: any, type?: 'only' | 'date' | undefined) => void;
     clicked?: Filter
     data: any[];
     values?: ValueType | null
@@ -43,6 +43,7 @@ const RecursiveTree:FC<Props> =({handle, clicked, data, values, expanded, setExp
                     const keys: string[] = Array.isArray(clicked?.key)
                         ? clicked!.key.map((k: ObjectType) => k.key.toString())
                         : clicked?.key ? [clicked.key] : [];
+
                     return (
                     <React.Fragment key={option.id}>
                         <div
@@ -73,7 +74,7 @@ const RecursiveTree:FC<Props> =({handle, clicked, data, values, expanded, setExp
                                 id={Array.isArray(clicked?.key) ? clicked?.key.join(",") : clicked?.key}
                                 className={`no-drag`}
                                 style={{textIndent:'0px'}}
-                                onClick={() => {if(clicked) handle?.(keys, option.id, 'only')}}
+                                onClick={() => {if(clicked) handle?.(keys[0], option.id, 'only')}}
                             >
                               {option.name}
                             </span>

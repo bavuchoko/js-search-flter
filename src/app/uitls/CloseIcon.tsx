@@ -13,8 +13,8 @@ const CloseIcon: FC<IconProps> =({style, onClick })=>{
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
             >
-                <line x1="5" y1="5" x2="19" y2="19" stroke="black" stroke-width="1"/>
-                <line x1="19" y1="5" x2="5" y2="19" stroke="black" stroke-width="1"/>
+                <line x1="5" y1="5" x2="19" y2="19" stroke="black" strokeWidth="1"/>
+                <line x1="19" y1="5" x2="5" y2="19" stroke="black" strokeWidth="1"/>
             </svg>
         </div>
     )
