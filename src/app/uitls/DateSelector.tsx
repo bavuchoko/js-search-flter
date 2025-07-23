@@ -51,7 +51,7 @@ const DateSelector: FC<OptionProps> = ({ handle, clicked, remove, values }) => {
                 return (
                     <div
                         key={key || index}
-                        style={{ borderBottom: "1px solid var(--innerBorder)", paddingBottom: "20px" }}
+                        style={{ paddingBottom: "20px" }}
                     >
                         <p style={{ fontWeight: "bold" }}>{label}</p>
                         <div
