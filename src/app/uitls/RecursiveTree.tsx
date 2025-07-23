@@ -45,7 +45,7 @@ const RecursiveTree:FC<OptionProps> =({handle, clicked, elements, values, expand
                                 display: 'flex',
                                 alignItems: 'center',
                                 boxSizing: 'border-box',
-                                background:((index + depth) % 2) === 0? '':'var(--background)',
+                                background:((index + depth) % 2) !== 0? '':'var(--background)',
                                 cursor:'pointer',
                             }}
                             className={checked ? 'js-search-checked': ''}

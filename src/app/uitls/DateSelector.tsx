@@ -53,7 +53,7 @@ const DateSelector: FC<OptionProps> = ({ handle, clicked, remove, values }) => {
                         key={key || index}
                         style={{ paddingBottom: "20px" }}
                     >
-                        <p style={{ fontWeight: "bold" }}>{label}</p>
+                        <p style={{ fontWeight: "400", fontSize:'12px' }}>{label}</p>
                         <div
                             style={{
                                 borderBottom: "1px solid var(--innerBorder)",

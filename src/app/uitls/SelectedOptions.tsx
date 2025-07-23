@@ -10,6 +10,7 @@ interface Props {
     recursiveFind: (data: any, id: number) => any;
     containerRef?: RefObject<HTMLDivElement | null>;
     reset?: () => void;
+    modal?:boolean;
 }
 
 const formatDate = (dateStr?: string): string => {
@@ -49,6 +50,7 @@ const SelectedOptions: FC<Props> = ({
                                         recursiveFind,
                                         containerRef,
                                         reset,
+                                        modal
                                     }) => {
     const renderOptions = useCallback(() => {
         return filter.flatMap((f) => {
@@ -64,7 +66,7 @@ const SelectedOptions: FC<Props> = ({
                     <div
                         key={`${Array.isArray(f.key) ? f.key.join(",") : f.key}-${JSON.stringify(val)}`}
                         className="each-options"
-                        style={{ display: "flex", alignItems: "center" }}
+                        style={{ display: "flex", alignItems: "center" ,}}
                         onClick={() => remove?.((keyName as string), val, dataType)}
                     >
                         <OptionIcons style={{ width: "18px", height: "18px" }} type={f.type} checked={false} />
@@ -95,6 +97,7 @@ const SelectedOptions: FC<Props> = ({
         <div
             style={{
                 height: "42px",
+                borderTop: modal ? '1px solid var(--innerBorder)' :'none',
                 background: "var(--background)",
                 width: "100%",
                 padding: "12px 8px",

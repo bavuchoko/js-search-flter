@@ -51,7 +51,13 @@ function App() {
         key:'createdBy',
         data: user,
         target:['name', 'department.name', 'company.name'],
-        searchBy:[{label:"부서별", data:department, listener:(v:any)=>console.log(v) }, ],
+        searchBy:[
+            {label:"부서", data:department, listener:(v:any)=>console.log(v) },
+            {label:"업체", data:department, listener:(v:any)=>console.log(v) },
+            {label:"지역", data:department, listener:(v:any)=>console.log(v) },
+            {label:"권한", data:department, listener:(v:any)=>console.log(v) },
+            {label:"부서별", data:department, listener:(v:any)=>console.log(v) },
+        ],
         type:'user'
     }
 
@@ -72,6 +78,7 @@ function App() {
     const requestedBy:Filter ={
         label:"요청자",
         key:'requestedBy',
+        target:['name', 'department.name', 'company.name'],
         data: user,
         type:'user'
     }

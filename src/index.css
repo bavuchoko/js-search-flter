@@ -31,6 +31,7 @@ code {
   --border: rgb(179, 179, 179);
   --lightGray: rgb(245, 246, 246);
   --deepGray: rgb(112, 110, 110);
+  --darkGray: rgb(175, 174, 174);
   --innerBorder: rgb(236, 236, 236);
   --font-size:12px;
   --hover: rgb(124, 124, 124);
@@ -242,4 +243,24 @@ code {
   height: 30px;
   line-height: 30px;
   outline: none;
+}
+
+.js-search-api-each-first{
+  border-radius: 15px;
+  margin-right: 15px;
+  padding: 2px 8px;
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.js-search-api-each{
+  border: 1px solid var(--innerBorder);
+  border-radius: 15px;
+  margin-right: 15px;
+  padding: 3px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  white-space: nowrap;
+  background: var(--innerBorder);
 }

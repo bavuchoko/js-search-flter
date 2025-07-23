@@ -32,24 +32,22 @@ const GroupOption: FC<GroupProps> = ({
             style={{
                 display: "flex",
                 flexWrap: "wrap",
-                gap: "8px",
                 fontSize: "13px",
                 height: searchButton ? "360px" : "417px",
-                padding: "8px 0",
                 overflowY: "auto",
                 alignContent: "flex-start",
+                padding: contentType==='data' ? '6px 0': '0 0'
             }}
         >
 
             { contentType==='api' &&
-                data.map((el) => (
                     <OptionsByApi
                         clicked={clicked}
                         values={values}
                         handle={handle}
                         remove={remove}
                     />
-                ))}
+            }
 
 
             {contentType==='date' && (

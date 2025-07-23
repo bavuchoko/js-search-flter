@@ -86,6 +86,7 @@ const Modal: FC<ModalProps> = ({
                     recursiveFind={recursiveFind}
                     containerRef={optionsRef}
                     reset={reset}
+                    modal={true}
                 />
 
                 <GroupOption clicked={clicked} handle={handle} remove={remove} searchButton={!!onSearch} values={values} />
