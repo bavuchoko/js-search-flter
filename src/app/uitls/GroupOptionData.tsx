@@ -1,17 +1,11 @@
-import { FC, useMemo, useCallback } from "react";
-import { Filter, ObjectType, ValueType } from "../type/Types";
+import {FC, useCallback, useMemo} from "react";
+import {ObjectType, OptionProps} from "../type/Types";
 import OptionIcons from "../resources/svg/OptionIcons";
-import { useChecked } from "../hook/useChecked";
-import { useDataHandler } from "../hook/useDataHandler";
+import {useChecked} from "../hook/useChecked";
+import {useDataHandler} from "../hook/useDataHandler";
 
-type OptionProps = {
-    option: any; // 가능하면 타입 구체화 권장
-    handle?: (key: string, val: any, type?: "only" | "date" | undefined) => void;
-    clicked?: Filter;
-    values?: ValueType | null;
-};
 
-const GroupOptionData: FC<OptionProps> = ({ option, handle, clicked, values }) => {
+const GroupOptionData: FC<OptionProps> = ({ element, handle, clicked, values }) => {
     const { checkIncludes } = useChecked();
     const { getNestedValue } = useDataHandler();
 
@@ -25,14 +19,14 @@ const GroupOptionData: FC<OptionProps> = ({ option, handle, clicked, values }) =
 
     const checked = useMemo(() => {
         if (!clicked || !keys.length) return false;
-        return checkIncludes(values ?? {}, keys[0], option.id);
-    }, [checkIncludes, values, keys, option.id, clicked]);
+        return checkIncludes(values ?? {}, keys[0], element.id);
+    }, [checkIncludes, values, keys, element.id, clicked]);
 
     const onClick = useCallback(() => {
         if (clicked && keys.length > 0) {
-            handle?.(keys[0], option.id, undefined);
+            handle?.(keys[0], element.id, undefined);
         }
-    }, [clicked, keys, handle, option.id]);
+    }, [clicked, keys, handle, element.id]);
 
     return (
         <div
@@ -56,11 +50,11 @@ const GroupOptionData: FC<OptionProps> = ({ option, handle, clicked, values }) =
                         className={`${clicked.key}-${el.replace(".", "-")}`}
                         style={{ marginRight: "8px" }}
                     >
-            {getNestedValue(option, el)}
+            {getNestedValue(element, el)}
           </span>
                 ))
             ) : (
-                <span style={{ marginRight: "8px" }}>{option.name}</span>
+                <span style={{ marginRight: "8px" }}>{element.name}</span>
             )}
         </div>
     );

@@ -3,6 +3,8 @@ import React, { FC, useState } from "react";
 import { Filter, ValueType } from "../type/Types";
 import RecursiveTree from "./RecursiveTree";
 import DateSelector from "./DateSelector";
+import {getType} from "./filterHelper";
+import OptionsByApi from "./OptionsByApi";
 
 type GroupProps = {
     clicked?: Filter | null;
@@ -23,10 +25,8 @@ const GroupOption: FC<GroupProps> = ({
 
     if (!clicked) return null;
 
-    const isDateType = clicked.type === "date";
-    const isRecursive = clicked.recursive;
+    const contentType =  getType(clicked);
     const data = clicked.data ?? [];
-
     return (
         <div
             style={{
@@ -40,7 +40,19 @@ const GroupOption: FC<GroupProps> = ({
                 alignContent: "flex-start",
             }}
         >
-            {isDateType && (
+
+            { contentType==='api' &&
+                data.map((el) => (
+                    <OptionsByApi
+                        clicked={clicked}
+                        values={values}
+                        handle={handle}
+                        remove={remove}
+                    />
+                ))}
+
+
+            {contentType==='date' && (
                 <div style={{ width: "100%", height: "100%", padding: "4px 16px" }}>
                     <DateSelector
                         clicked={clicked}
@@ -51,24 +63,24 @@ const GroupOption: FC<GroupProps> = ({
                 </div>
             )}
 
-            {isRecursive && (
+            {contentType==='recursive'  && (
                 <div style={{ width: "100%", height: "100%" }}>
                     <RecursiveTree
                         expanded={expanded}
                         setExpanded={setExpanded}
                         clicked={clicked}
-                        data={data}
+                        elements={data}
                         values={values}
                         handle={handle}
                     />
                 </div>
             )}
 
-            {!isRecursive &&
+            { contentType==='data' &&
                 data.map((el) => (
                     <GroupOptionData
                         key={el.id ?? el.key ?? el.name}
-                        option={el}
+                        element={el}
                         handle={handle}
                         clicked={clicked}
                         values={values}

@@ -72,6 +72,17 @@ export type IconProps = {
     checked?: boolean ;
 }
 
+export type OptionProps = {
+    handle?: (key: string, val: any, type?: 'only' | 'date' | undefined) => void;
+    remove?: (key: string, val: any, type?: "only" | "date" | undefined) => void;
+    clicked?: Filter
+    elements?: any[];
+    values?: ValueType | null
+    expanded?:number[] | null
+    setExpanded?: React.Dispatch<React.SetStateAction<number[] | null>>;
+    depth?: number;
+    element?: any;
+}
 
 
 

@@ -1,29 +1,19 @@
-import {FC} from "react";
+import React, {FC} from "react";
 import OptionIcons from "../resources/svg/OptionIcons";
-import {Filter, ObjectType, ValueType} from "../type/Types";
+import {ObjectType, OptionProps} from "../type/Types";
 import {useChecked} from "../hook/useChecked";
 import ChevronRight from "../resources/svg/ChevronRight";
 import Dash from "./Dash";
-import React from "react";
 import ChevronDown from "../resources/svg/ChevronDown";
 
-type Props = {
-    handle?: (key: string, val: any, type?: 'only' | 'date' | undefined) => void;
-    clicked?: Filter
-    data: any[];
-    values?: ValueType | null
-    expanded:number[] | null
-    setExpanded: React.Dispatch<React.SetStateAction<number[] | null>>;
-    depth?: number;
-}
 
-const RecursiveTree:FC<Props> =({handle, clicked, data, values, expanded, setExpanded, depth=1}) =>{
+const RecursiveTree:FC<OptionProps> =({handle, clicked, elements, values, expanded, setExpanded, depth=1}) =>{
 
     const { checkIncludes } = useChecked();
 
 
     const expandedHandler =(id:number)=>{
-        setExpanded((prev: number[] | null) => {
+        setExpanded?.((prev: number[] | null) => {
             if (!prev) return [id];
             if (prev.includes(id)) {
                 return prev.filter(item => item !== id);
@@ -38,7 +28,7 @@ const RecursiveTree:FC<Props> =({handle, clicked, data, values, expanded, setExp
                width:'100%'
             }}
         >
-                {data?.map((option, index) => {
+                {elements?.map((option, index) => {
                     const checked = checkIncludes(values ?? {}, clicked?.key ?? '', option.id);
                     const keys: string[] = Array.isArray(clicked?.key)
                         ? clicked!.key.map((k: ObjectType) => k.key.toString())
@@ -82,7 +72,7 @@ const RecursiveTree:FC<Props> =({handle, clicked, data, values, expanded, setExp
 
                         {expanded?.includes(option.id)  && (
                             <div style={{textIndent: (depth * 15)+'px'}}>
-                                <RecursiveTree data={option.children} clicked={clicked} handle={handle} setExpanded={setExpanded} expanded={expanded} values={values}  depth={depth + 1}/>
+                                <RecursiveTree elements={option.children} clicked={clicked} handle={handle} setExpanded={setExpanded} expanded={expanded} values={values} depth={depth + 1}/>
                             </div>
                         )}
                     </React.Fragment>

@@ -52,3 +52,19 @@ export const getLabelAndName = (
 
     return { label, name, keyName };
 };
+
+
+export const getType = (clicked:Filter) =>{
+    let contentType: "date" | "recursive" | "api" | "data" = "data";
+
+    if (clicked.type === "date") {
+        contentType = "date";
+    } else if (clicked.recursive) {
+        contentType = "recursive";
+    } else if (Boolean(clicked?.searchBy)) {
+        contentType = "api";
+    } else {
+        contentType = "data";
+    }
+    return contentType;
+}

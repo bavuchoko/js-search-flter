@@ -1,15 +1,9 @@
-import { Filter, ObjectType, ValueType } from "../type/Types";
-import React, { FC, useMemo, useCallback } from "react";
+import {ObjectType, OptionProps} from "../type/Types";
+import React, {FC, useCallback, useMemo} from "react";
 import TrashIcon from "../resources/svg/TrashIcon";
 
-type Props = {
-    handle?: (key: string, val: any, type?: "only" | "date" | undefined) => void;
-    remove?: (key: string, val: any, type?: "only" | "date" | undefined) => void;
-    clicked?: Filter;
-    values?: ValueType | null;
-};
 
-const DateSelector: FC<Props> = ({ handle, clicked, remove, values }) => {
+const DateSelector: FC<OptionProps> = ({ handle, clicked, remove, values }) => {
     const { labels, keys } = useMemo(() => {
         if (!clicked || !clicked.key) {
             return { labels: [], keys: [] };
