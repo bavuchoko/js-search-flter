@@ -68,8 +68,8 @@ const SelectedOptions: FC<Props> = ({
                         onClick={() => remove?.((keyName as string), val, dataType)}
                     >
                         <OptionIcons style={{ width: "18px", height: "18px" }} type={f.type} checked={false} />
-                        <span className="no-drag">[{label}]</span>
-                        <span className="no-drag" style={{ marginLeft: 6 }}>
+                        <span className="no-drag" style={{marginLeft:1}}>[{label}]</span>
+                        <span className="no-drag" style={{ marginLeft: 4 }}>
                           {name}
                         </span>
 
