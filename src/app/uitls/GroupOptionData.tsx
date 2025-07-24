@@ -35,10 +35,10 @@ const GroupOptionData: FC<OptionProps> = ({ element, handle, clicked, values }) 
                 marginBottom: "6px",
                 width: "calc(50% - 4px)",
                 display: "flex",
-                paddingLeft: "12px",
-                paddingRight: "12px",
+                padding: "4px 12px",
                 alignItems: "center",
                 cursor: "pointer",
+
             }}
             onClick={onClick}
         >
@@ -48,7 +48,7 @@ const GroupOptionData: FC<OptionProps> = ({ element, handle, clicked, values }) 
                     <span
                         key={index}
                         className={`${clicked.key}-${el.replace(".", "-")}`}
-                        style={{ marginRight: "8px" }}
+                        style={{ marginRight: "8px" , }}
                     >
             {getNestedValue(element, el)}
           </span>

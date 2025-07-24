@@ -43,7 +43,7 @@ export const getLabelAndName = (
     } else {
         const rawVal = typeof val === "object" && val !== null ? Object.values(val)[0] : val;
         const el = f.recursive
-            ? recursiveFind(f.data, rawVal)
+            ? recursiveFind(f.data?.contents, rawVal)
             : f.data?.contents?.find((d) => d.id === rawVal);
 
         name = el ? el.name : rawVal ?? "";

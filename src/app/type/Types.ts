@@ -10,9 +10,9 @@ import React from "react";
  */
 export type FilterTypes = 'user'| 'company' | 'department' | 'code' | 'date' ;
 export type SearchTypes = {
+    key: string;
     label: string;
     data: any[];
-    listener:(v:any)=>void;
 }
 
 

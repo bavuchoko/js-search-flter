@@ -110,7 +110,7 @@ const Pagination: FC<PaginationProps> = ({ page, onPageChange }) => {
 
                         <div
                             style={{ fontSize: "13px", margin: 0, padding: 0, display: "flex" }}
-                            className={`flex no-select`}
+                            className={`flex no-drag`}
                         >
                             <p style={{ margin: 0 }}>total</p>
                             <p
@@ -120,7 +120,7 @@ const Pagination: FC<PaginationProps> = ({ page, onPageChange }) => {
                                     borderColor: "var(--deepGray)",
                                 }}
                             ></p>
-                            <p style={{ margin: 0 }}>222{page.totalElements}</p>
+                            <p style={{ margin: 0 }}>{page.totalElements}</p>
                         </div>
                     </div>
                 </div>

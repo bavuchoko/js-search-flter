@@ -11,14 +11,13 @@ const Righter: FC<customProps> =({onClick})=>{
                 style={{
                     padding:'0',
                     borderRadius:'0 5px 5px 0',
-                    background:'var(--darkGray)',
                     height:'18px',
                     marginTop:'1px',
                     width:'20px',
                     cursor:'pointer'
                 }}
                 className={`active-scale-90 pagination-righter-button`}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="white"
+            <svg xmlns="http://www.w3.org/2000/svg" fill="black"
                  style={{
                      width:'20px',
                      height:'18px'

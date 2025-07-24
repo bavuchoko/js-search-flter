@@ -59,11 +59,10 @@ function App() {
         data: {contents:user , page:{currentPage:0, totalPages:10, totalElements:100, size:10}, listener:(v:any)=>console.log(v)},
         target:['name', 'department.name', 'company.name'],
         searchBy:[
-            { label:"부서", data:department, listener:(v:any)=>console.log(v) },
-            {label:"업체", data:department, listener:(v:any)=>console.log(v) },
-            {label:"지역", data:department, listener:(v:any)=>console.log(v) },
-            {label:"권한", data:department, listener:(v:any)=>console.log(v) },
-            {label:"부서별", data:department, listener:(v:any)=>console.log(v) },
+            {key:'department', label:"부서", data:department},
+            {key:'company', label:"업체", data:department},
+            {key:'location', label:"지역", data:department},
+            {key:'authority', label:"권한", data:department},
         ],
         type:'user'
     }
@@ -85,7 +84,6 @@ function App() {
     const requestedBy:Filter ={
         label:"요청자",
         key:'requestedBy',
-        target:['name', 'department.name', 'company.name'],
         data: {contents:user},
         type:'user'
     }

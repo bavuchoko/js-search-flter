@@ -11,14 +11,14 @@ const Lefter: FC<customProps> =({onClick})=>{
                 style={{
                     padding:'0',
                     borderRadius:'5px 0 0 5px',
-                    background:'var(--darkGray)',
+
                     height:'18px',
                     marginTop:'1px',
                     width:'20px',
                     cursor:'pointer'
                 }}
                 className={`active-scale-90 pagination-lefter-button`}>
-            <svg xmlns="http://www.w3.org/2000/svg" className={`cursor-pointer`} fill="white"
+            <svg xmlns="http://www.w3.org/2000/svg" className={`cursor-pointer`} fill="black"
                  style={{
                      width:'20px',
                      height:'18px'
