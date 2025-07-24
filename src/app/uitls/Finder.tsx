@@ -1,5 +1,5 @@
 import {FC, useEffect, useState} from "react";
-import {findParentAndSiblings} from "./filterHelper";
+import {flattenTree} from "./filterHelper";
 
 type Props ={
     contents?:any[]
@@ -13,40 +13,58 @@ const Finder:FC<Props> = ({contents, height}) => {
     const [brother, setBrother] =useState<any[] | undefined>(undefined)
     const [children, setChildren] =useState<any[] | undefined>(undefined)
 
-    useEffect(() => {
-        const { s, b, c } = findParentAndSiblings(contents, clicked);
-        console.log('c',c)
-        setParents(s);
-        setBrother(b);
-        setChildren(c)
-    }, [clicked]);
+    const  flat = flattenTree(contents)
 
 
+
+    const fistHandler =(el:any)=>{
+        console.log(flat)
+    }
+
+    const secondHandler =(el:any)=>{
+
+    }
+
+    const thirdHandler =(el:any)=>{
+
+    }
 
     useEffect(() => {
         setParents(contents)
     }, [contents]);
+
+
+
 
     return (
         <div style={{display: 'flex'}}>
             <div style={{height:height, width:'calc((100% - 20px)/3)', background:'red'}}>
             {parents?.map((el: any)=>{
                 return(
-                    <div style={{}} onClick={()=>setClicked(el)}>{el.name}</div>
+                    <div style={{display:'flex'}}>
+                        {el.children && <span>++</span>}
+                    <div style={{cursor:'pointer'}} onClick={()=>fistHandler(el)}>{el.name}</div>
+                    </div>
                 )
             })}
             </div>
-            <div style={{height:height, width:'calc((100% - 20px)/3)', marginLeft:'10px', background:'green'}}>
+            <div style={{height:height, width:'calc((100% - 10px)/3)', marginLeft:'5px', background:'green'}}>
             {brother && brother?.map((el:any)=>{
                 return(
-                    <div style={{}} onClick={()=>setClicked(el)}>{el.name}</div>
+                    <div style={{display:'flex'}}>
+                        {el.children && <span>++</span>}
+                    <div style={{cursor:'pointer'}} onClick={()=>secondHandler(el)}>{el.name}</div>
+                    </div>
                 )
             })}
             </div>
-            <div style={{height:height, width:'calc((100% - 20px)/3)', marginLeft:'10px', background:'blue'}}>
+            <div style={{height:height, width:'calc((100% - 10px)/3)', marginLeft:'5px', background:'blue'}}>
                 {children && children?.map((el:any)=>{
                     return(
-                        <div style={{}}  onClick={()=>setClicked(el)}>{el.name}</div>
+                        <div style={{display:'flex'}}>
+                            {el.children && <span>++</span>}
+                            <div style={{cursor:'pointer'}}  onClick={()=>thirdHandler(el)}>{el.name}</div>
+                        </div>
                     )
                 })}
             </div>

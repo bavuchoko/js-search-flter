@@ -70,27 +70,13 @@ export const getType = (clicked:Filter) =>{
 }
 
 
-type Node = {
-    id: number;
-    name: string;
-    parentId: number;
-    children?: Node[];
-};
 
 
-export function findParentAndSiblings(
-    data: Node[] | undefined,
-    clicked: Node | undefined
-): { s: Node[],b: Node[] | undefined, c: Node[] | undefined} {
-    if (!clicked) {
-        return { s: data ?? [], b: undefined, c: undefined };
-    }
+export function flattenTree(nodes: any[] | undefined): any[] {
+    const result: any[] = [];
 
-
-    function flattenTree(nodes: Node[]): Node[] {
-        const result: Node[] = [];
-
-        function recurse(list: Node[]) {
+    function recurse(list: any[]|undefined) {
+        if(list) {
             for (const node of list) {
                 result.push(node);
                 if (node.children) {
@@ -98,22 +84,8 @@ export function findParentAndSiblings(
                 }
             }
         }
-
-        recurse(nodes);
-        return result;
     }
 
-    if(data) {
-        const flat =flattenTree(data);
-        if(!clicked.children) clicked = flat.find(n => n.id === clicked?.parentId);
-        const parent = flat.find(n => n.id === clicked?.parentId);
-        const grandParent = flat.find(n => n.id === parent?.parentId);
-
-        const b =  parent ? (parent?.children ?? clicked?.children) :clicked?.children;
-        const s = grandParent ? (grandParent?.children?? data) : data
-        const c = parent ? (clicked?.children ?? parent?.children ) : []
-        return { s, b, c };
-    }
-
-    return { s: [], b: undefined, c: undefined };
+    recurse(nodes);
+    return result;
 }
