@@ -9,7 +9,7 @@ import React from "react";
  * - date: 날짜
  */
 export type FilterTypes = 'user'| 'company' | 'department' | 'code' | 'date' ;
-type SearchTypes = {
+export type SearchTypes = {
     label: string;
     data: any[];
     listener:(v:any)=>void;
@@ -32,10 +32,17 @@ type SearchTypes = {
 export type FilterBase = {
     label: string;
     key: string | ObjectType[];
-    data: any[];
+    data?: Data;
     target?: string[];
     type?: FilterTypes;
 };
+
+type Data ={
+    contents: any[];
+    page?: Page;
+    listener?:(v:any)=>void;
+}
+
 
 type WithSearchBy = FilterBase & {
     searchBy?: SearchTypes[];
@@ -83,7 +90,14 @@ export type OptionProps = {
     depth?: number;
     element?: any;
 }
-
+export type Page = {
+    currentPage?: number;
+    totalElements?: number;
+    totalPages?: number;
+    size?: number;
+    sort?: string[];
+    desc?: string;
+}
 
 
 

@@ -10,13 +10,13 @@ function App() {
         {id:3, name:'최길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
         {id:4, name:'송길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
         {id:5, name:'김나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:6, name:'박나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:1, name:'홍길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:2, name:'김길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:3, name:'최길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:4, name:'송길동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:5, name:'김나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
-        {id:6, name:'박나리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:6, name:'박기리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:7, name:'홍길루', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:8, name:'김기동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:9, name:'최기동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:10, name:'송기동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:11, name:'김기리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:12, name:'박누리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
 
     ]
     const company =[
@@ -56,7 +56,7 @@ function App() {
     const createdBy:Filter ={
         label:"등록자",
         key:'createdBy',
-        data: user,
+        data: {contents:user , page:{currentPage:0, totalPages:10, totalElements:100, size:10}, listener:(v:any)=>console.log(v)},
         target:['name', 'department.name', 'company.name'],
         searchBy:[
             { label:"부서", data:department, listener:(v:any)=>console.log(v) },
@@ -71,13 +71,13 @@ function App() {
     const updatedBy:Filter ={
         label:"수정자",
         key: 'updatedBy',
-        data: user,
+        data: {contents:user},
         type:'user'
     }
     const depart:Filter ={
         label:"업무부서",
         key: 'department',
-        data: department,
+        data: {contents:department},
         type:'department',
         recursive:true
     }
@@ -86,32 +86,31 @@ function App() {
         label:"요청자",
         key:'requestedBy',
         target:['name', 'department.name', 'company.name'],
-        data: user,
+        data: {contents:user},
         type:'user'
     }
 
     const fistMngCompany:Filter ={
         label:"1차 업체",
         key:'fistMngCompany',
-        data: company,
+        data: {contents:company},
         type:'company'
     }
 
     const secondMngCompany:Filter ={
         label:"2차 업체",
         key:'secondMngCompany',
-        data: company,
+        data: {contents:company},
         type:'company'
     }
 
     const date:Filter ={
         label:"기간검색",
         key:[{key:'createdAt', label:'등록일'},{key:'updatedAt', label:'수정일'},{key:'requestedAt', label:'요청일'}],
-        data:[],
         type:'date'
     }
 
-    const filters:Filter[] =[createdBy, date, depart, requestedBy, updatedBy, fistMngCompany, secondMngCompany,secondMngCompany,secondMngCompany];
+    const filters:Filter[] =[createdBy, date, depart, requestedBy, updatedBy, fistMngCompany, secondMngCompany,];
 
 
   return (

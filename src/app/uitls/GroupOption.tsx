@@ -26,7 +26,7 @@ const GroupOption: FC<GroupProps> = ({
     if (!clicked) return null;
 
     const contentType =  getType(clicked);
-    const data = clicked.data ?? [];
+    const data = clicked.data?.contents ?? [];
     return (
         <div
             style={{

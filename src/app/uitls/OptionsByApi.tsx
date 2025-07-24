@@ -1,14 +1,15 @@
-import {OptionProps} from "../type/Types";
+import {OptionProps, SearchTypes} from "../type/Types";
 import React, {FC, useEffect, useRef, useState} from "react";
 import useDragScroll from "../hook/useDragScroll";
 import GroupOptionData from "./GroupOptionData";
+import Pagination from "./Pagination";
 
 
 const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values })=>{
 
     const optionsRef = useRef<HTMLDivElement>(null);
 
-    const [selected, setSelected] = useState<string | null>(null)
+    const [selected, setSelected] = useState<SearchTypes | null>(null)
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
     useEffect(() => {
@@ -19,7 +20,7 @@ const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values })=>{
 
     useDragScroll([optionsRef]);
 
-    const clickHandler = (label:string) =>{
+    const clickHandler = (label:SearchTypes) =>{
 
         setSelected(label)
         setDrawerOpen(true)
@@ -53,8 +54,9 @@ const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values })=>{
                 {clicked?.searchBy?.map(el => {
                     return (
                         <div
-                            className={`js-search-api-each ${selected === el.label && 'js-search-api-selected'}`}
-                            onClick={() => clickHandler(el.label)}
+                            key={el.label}
+                            className={`js-search-api-each ${selected?.label === el.label && 'js-search-api-selected'}`}
+                            onClick={() => clickHandler(el)}
                         >{el.label}</div>
                     )
                 })}
@@ -62,45 +64,52 @@ const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values })=>{
             </div>
 
             {/* 조회결과 보이는 곳 */}
-            <div style={{width: '100%', height: '323px', padding: '6px 0', position:'relative', overflowX:"hidden", overflowY: drawerOpen ? 'hidden' : 'auto',}}>
-                {clicked?.data.map((el) => (
-                    <GroupOptionData
-                        key={el.id ?? el.key ?? el.name}
-                        element={el}
-                        handle={handle}
-                        clicked={clicked}
-                        values={values}
-                    />
-                ))}
+            <div style={{width: '100%', height: '320px', position:'relative', overflowX:"hidden",}}>
 
+                <div style={{height: clicked?.data?.page  ? '290px' : '320', padding: '6px 0', overflowY: drawerOpen ? 'hidden' : 'auto',}}>
+                    {clicked?.data?.contents?.map((el) => (
+                        <GroupOptionData
+                            key={el.id ?? el.key ?? el.name}
+                            element={el}
+                            handle={handle}
+                            clicked={clicked}
+                            values={values}
+                        />
+                    ))}
 
-                <div
-                    style={{
-                        position: 'absolute',
-                        top: '0',
-                        left: drawerOpen ? 0 : '-400px',
-                        width: '400px',
-                        height: '323px',
-                        backgroundColor: 'white',
-                        boxShadow: '2px 0 8px rgba(0,0,0,0.2)',
-                        transition: 'left 0.3s ease-in-out',
-                        zIndex: 1000,
-                        padding: '16px',
-                    }}
-                >
-                    <div style={{textAlign: 'right'}}>
-                        <button onClick={() => setDrawerOpen(false)}>x</button>
-                    </div>
+                    {/*드로어*/}
+                    <div
+                        style={{
+                            position: 'absolute',
+                            top: '0',
+                            left: drawerOpen ? 0 : '-400px',
+                            width: '400px',
+                            height: '320px',
+                            backgroundColor: 'white',
+                            boxShadow: '2px 0 8px rgba(0,0,0,0.2)',
+                            transition: 'left 0.1s ease-in-out',
+                            zIndex: 1000,
+                            padding: '16px',
+                        }}
+                    >
+                        <div style={{textAlign: 'right'}}>
+                            <button onClick={() => setDrawerOpen(false)}>x</button>
+                        </div>
 
-                    {/* 여기에 drawerData 표시 */}
-                    <div>
-                        sef
-                        {/* 필요한 세부 내용 추가 */}
+                        {/* 여기에 drawerData 표시 */}
+                        <div>
+                            sef
+                            {/* 필요한 세부 내용 추가 */}
+                        </div>
                     </div>
                 </div>
+
+                {/*페이지네이션*/}
+               <Pagination page={clicked?.data?.page} onPageChange={ selected ? selected?.listener: clicked?.data?.listener}/>
+
             </div>
 
-            {/*드로어*/}
+
 
         </div>
     )

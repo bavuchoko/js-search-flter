@@ -75,16 +75,17 @@ const SelectedOptions: FC<Props> = ({
                           {name}
                         </span>
 
-                        <button style={{ marginTop: 2 }}>
+                        <button style={{ marginLeft: 2 }}>
                             <svg
-                                width="13"
-                                height="13"
+                                width="12"
+                                height="12"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
+
                             >
-                                <line x1="5" y1="5" x2="19" y2="19" stroke="black" strokeWidth="1" />
-                                <line x1="19" y1="5" x2="5" y2="19" stroke="black" strokeWidth="1" />
+                                <line x1="5" y1="5" x2="19" y2="19" stroke="var(--red)" strokeWidth="1" />
+                                <line x1="19" y1="5" x2="5" y2="19" stroke="var(--red)" strokeWidth="1" />
                             </svg>
                         </button>
                     </div>
