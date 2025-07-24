@@ -48,13 +48,13 @@ const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values })=>{
         clicked?.data?.listener?.(result)
     }
     return (
-        <div style={{width:'100%', }}>
+        <div style={{width:'100%', height:'360px' }}>
 
             {/*선택옵션*/}
             <div
+                className={`efsefsefsefsfe`}
                 style={{
                     width: '100%',
-                    height: '',
                     display: 'flex',
                     alignItems: 'center',
                     padding: '6px 12px',
@@ -86,10 +86,10 @@ const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values })=>{
             </div>
 
             {/* 조회결과 보이는 곳 */}
-            <div style={{width: '100%', height: '320px', position:'relative', overflowX:"hidden",}}>
+            <div style={{width: '100%', height: '323px', position:'relative', overflowX:"hidden", fontSize:'12px',}}>
 
                 <div style={{display: "flex",
-                    flexWrap: "wrap", height: clicked?.data?.page  ? '290px' : '320', padding: '6px 0', overflowY: drawerOpen ==='opening' ? 'hidden' : 'auto',}}>
+                    flexWrap: "wrap", height: clicked?.data?.page  ? '293px' : '323', padding: '6px 0', overflowY: drawerOpen ==='opening' ? 'hidden' : 'auto',}}>
                     {clicked?.data?.contents?.map((el) => (
                         <GroupOptionData
                             key={el.id ?? el.key ?? el.name}

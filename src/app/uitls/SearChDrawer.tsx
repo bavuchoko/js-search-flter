@@ -18,7 +18,7 @@ const SearChDrawer:FC<Props> =({data, drawerOpen, setDrawerOpen})=>{
             top: '0',
             left: drawerOpen ==='opening' ? 0 : '-400px',
             width: '400px',
-            height: '320px',
+            height: '323px',
             backgroundColor: 'white',
             boxShadow: '2px 0 8px rgba(0,0,0,0.2)',
             transition:
@@ -26,12 +26,11 @@ const SearChDrawer:FC<Props> =({data, drawerOpen, setDrawerOpen})=>{
             ? "none"
             : "left 0.1s ease-in-out",
             zIndex: 1000,
-            padding: '0 8px',
             }}
         >
 
             {/* 여기에 drawerData 표시 */}
-            <Finder contents={data} height={'320px'}/>
+            <Finder contents={data} height={'323px'}/>
             {/* 필요한 세부 내용 추가 */}
         </div>
     )
