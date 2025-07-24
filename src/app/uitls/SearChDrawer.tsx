@@ -1,13 +1,16 @@
 import React, {FC} from "react";
 import {DrawerState} from "./OptionsByApi";
+import Finder from "./Finder";
 
 
 type Props ={
+    data?: any[]
     drawerOpen :DrawerState;
     setDrawerOpen: (val:DrawerState) => void;
 }
 
-const SerchDrawer:FC<Props> =({drawerOpen, setDrawerOpen})=>{
+const SearChDrawer:FC<Props> =({data, drawerOpen, setDrawerOpen})=>{
+
     return (
         <div
             style={{
@@ -23,20 +26,15 @@ const SerchDrawer:FC<Props> =({drawerOpen, setDrawerOpen})=>{
             ? "none"
             : "left 0.1s ease-in-out",
             zIndex: 1000,
-            padding: '16px',
+            padding: '0 8px',
             }}
         >
-            <div style={{textAlign: 'right'}}>
-            <button onClick={() => setDrawerOpen("closing")}>x</button>
-            </div>
 
             {/* 여기에 drawerData 표시 */}
-            <div>
-                sef
+            <Finder contents={data} height={'320px'}/>
             {/* 필요한 세부 내용 추가 */}
-            </div>
         </div>
     )
 
 }
-export default SerchDrawer;
+export default SearChDrawer;

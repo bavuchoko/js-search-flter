@@ -92,7 +92,7 @@ const Modal: FC<ModalProps> = ({
                 <GroupOption clicked={clicked} handle={handle} remove={remove} searchButton={!!onSearch} values={values} />
 
                 {onSearch && (
-                    <div style={{ height: '70px', borderTop: '1px solid var(--innerBorder)', padding: '12px 16px' }}>
+                    <div style={{ height: '70px', borderTop: '1px solid var(--innerBorder)', padding: '12px 8px' }}>
                         <button
                             className="active js-search-button"
                             style={{

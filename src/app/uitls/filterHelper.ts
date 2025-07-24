@@ -68,3 +68,52 @@ export const getType = (clicked:Filter) =>{
     }
     return contentType;
 }
+
+
+type Node = {
+    id: number;
+    name: string;
+    parentId: number;
+    children?: Node[];
+};
+
+
+export function findParentAndSiblings(
+    data: Node[] | undefined,
+    clicked: Node | undefined
+): { s: Node[],b: Node[] | undefined, c: Node[] | undefined} {
+    if (!clicked) {
+        return { s: data ?? [], b: undefined, c: undefined };
+    }
+
+
+    function flattenTree(nodes: Node[]): Node[] {
+        const result: Node[] = [];
+
+        function recurse(list: Node[]) {
+            for (const node of list) {
+                result.push(node);
+                if (node.children) {
+                    recurse(node.children);
+                }
+            }
+        }
+
+        recurse(nodes);
+        return result;
+    }
+
+    if(data) {
+        const flat =flattenTree(data);
+        if(!clicked.children) clicked = flat.find(n => n.id === clicked?.parentId);
+        const parent = flat.find(n => n.id === clicked?.parentId);
+        const grandParent = flat.find(n => n.id === parent?.parentId);
+
+        const b =  parent ? (parent?.children ?? clicked?.children) :clicked?.children;
+        const s = grandParent ? (grandParent?.children?? data) : data
+        const c = parent ? (clicked?.children ?? parent?.children ) : []
+        return { s, b, c };
+    }
+
+    return { s: [], b: undefined, c: undefined };
+}

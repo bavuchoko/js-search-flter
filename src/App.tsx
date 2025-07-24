@@ -31,7 +31,16 @@ function App() {
 
     const department =[
         {id:2, name:'개발부', parentId:1, children:[
-                {id:9, name:'개발1팀', parentId:2, children:[{id:20, name:'개발2-2팀', parentId:9}]},
+                {id:9, name:'개발1팀', parentId:2, children:[
+                    {id:20, name:'개발2-1팀', parentId:9,
+                        children:[
+                            {id:23, name:'개발2-1-1팀', parentId:20},
+                            {id:24, name:'개발2-1-2팀', parentId:20},
+                            {id:25, name:'개발2-1-3팀', parentId:20},
+                        ]},
+                    {id:21, name:'개발2-2팀', parentId:9},
+                    {id:22, name:'개발2-3팀', parentId:9},
+                    ]},
                 {id:10, name:'개발2팀', parentId:2},
                 {id:11, name:'개발3팀', parentId:2},
                 {id:12, name:'개발4팀', parentId:2},
