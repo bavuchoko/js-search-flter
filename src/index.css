@@ -30,7 +30,7 @@ code {
   --vh: 100%;
   --border: rgb(179, 179, 179);
   --lightGray: rgb(245, 246, 246);
-  --deepGray: rgb(112, 110, 110);
+  --deepGray: rgb(197, 197, 197);
   --darkGray: rgb(175, 174, 174);
   --innerBorder: rgb(236, 236, 236);
   --font-size:12px;
@@ -40,6 +40,7 @@ code {
   --grayText: rgb(140, 140, 140);
   --background: rgb(245 245 245);
   --blue:rgb(149 210 255);
+  --themeBlue:#0b73cf;
   --red: rgb(197, 28, 28);
   --checked: rgb(140, 25, 25);
   --hoverHighLight: linear-gradient(120deg, rgb(140, 25, 25) 0%, rgb(220, 124, 124) 60%, transparent 100%);
@@ -265,8 +266,15 @@ code {
   background: var(--innerBorder);
 }
 .js-search-api-selected{
-  border: 1px solid black;
   background: var(--deepGray);
-  color: white;
-  font-weight: bold;
+}
+.js-search-narrow-scroll::-webkit-scrollbar{
+  width: 5px;
+}
+.js-search-narrow-scroll::-webkit-scrollbar-track{
+  background: #f1eeee;
+}
+.js-search-narrow-scroll::-webkit-scrollbar-thumb{
+  background: #cccccc;
+  border-radius: 9999px
 }

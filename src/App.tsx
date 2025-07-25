@@ -17,6 +17,9 @@ function App() {
         {id:10, name:'송기동', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
         {id:11, name:'김기리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
         {id:12, name:'박누리', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:13, name:'박누리1', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:14, name:'박누리2', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
+        {id:15, name:'박누리3', department:{id: 1, name:'개발부'}, company:{id:'1', name:'업체'}},
 
     ]
     const company =[
@@ -59,7 +62,11 @@ function App() {
         {id:5, name:'경영부', parentId:1},
         {id:6, name:'인사부', parentId:1},
         {id:7, name:'재무부', parentId:1},
-        {id:8, name:'사업부', parentId:1},
+        {id:8, name:'사업부1', parentId:1},
+        {id:26, name:'사업부2', parentId:1},
+        {id:27, name:'사업부3', parentId:1},
+        {id:28, name:'사업부4', parentId:1},
+        {id:29, name:'사업부5', parentId:1},
     ]
 
     const createdBy:Filter ={
@@ -69,7 +76,7 @@ function App() {
         target:['name', 'department.name', 'company.name'],
         searchBy:[
             {key:'department', label:"부서", data:department},
-            {key:'company', label:"업체", data:department},
+            {key:'company', label:"업체", data:company},
             {key:'location', label:"지역", data:department},
             {key:'authority', label:"권한", data:department},
         ],

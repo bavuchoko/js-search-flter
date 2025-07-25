@@ -18,7 +18,10 @@ const Finder:FC<Props> = ({contents, height}) => {
 
     const  flat = flattenTree(contents)
 
-
+    useEffect(() => {
+        setCenter([])
+        setRight([])
+    }, [contents]);
 
     const fistHandler =(el:any)=>{
         let parents = []
@@ -33,12 +36,13 @@ const Finder:FC<Props> = ({contents, height}) => {
                 parents = sibling
                 sibling = el.children ?? []
             }
+            setCenter(sibling)
+            setLeft(parents)
+            setRight([])
         }else{
 
         }
-        setCenter(sibling)
-        setLeft(parents)
-        setRight([])
+
     }
 
     const secondHandler =(el:any)=>{
@@ -96,8 +100,8 @@ const Finder:FC<Props> = ({contents, height}) => {
 
 
     return (
-        <div style={{display: 'flex', boxSizing: 'border-box', }}>
-            <div style={{ height:height, width:'calc((100%)/3)'  ,background: 'var(--innerBorder)', paddingLeft:'8px' }}>
+        <div style={{display: 'flex', boxSizing: 'border-box', overflow:"hidden", paddingTop:'25px' }}>
+            <div className={'js-search-narrow-scroll'} style={{ height:height, width:'calc((100%)/3)'  ,background: 'var(--background)', paddingLeft:'8px', overflowY:'auto'}}>
             {left?.map((el: any)=>{
                 return(
                     <div style={{display:'flex', padding:'8px 0',}} className={'no-drag'}>
@@ -125,7 +129,7 @@ const Finder:FC<Props> = ({contents, height}) => {
                 )
             })}
             </div>
-            <div style={{ height:height, width:'calc((100%)/3)', paddingLeft:'8px', background: (right?.length?? 0) > 0 ? 'var(--innerBorder' : 'white'}}>
+            <div style={{ height:height, width:'calc((100%)/3)', paddingLeft:'8px', background: (right?.length?? 0) > 0 ? 'var(--background)' : 'white'}}>
             {right && right?.map((el:any)=>{
                 return(
                     <div style={{display:'flex', padding:'8px 0',}} className={'no-drag'}>

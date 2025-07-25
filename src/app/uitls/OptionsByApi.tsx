@@ -5,14 +5,14 @@ import GroupOptionData from "./GroupOptionData";
 import Pagination from "./Pagination";
 import SearChDrawer from "./SearChDrawer";
 
-export type DrawerState = "closed" | "opening" | "closing" | "closingInstant";
 
-const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values })=>{
+
+const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values, drawerOpen, setDrawerOpen })=>{
     const optionsRef = useRef<HTMLDivElement>(null);
 
     const [selected, setSelected] = useState<SearchTypes | null>(null)
     const [show, setShow] = useState<SearchTypes | null>(null)
-    const [drawerOpen, setDrawerOpen] = useState<DrawerState>("closed");
+
 
     useEffect(() => {
         if (selected === null) {
@@ -23,14 +23,15 @@ const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values })=>{
     useDragScroll([optionsRef]);
 
     const clickHandler = (label: SearchTypes) => {
-        if (selected?.label === label.label) {
-            setDrawerOpen("closing");
-            setSelected(null);
+
+        if (show?.label === label.label) {
+            setDrawerOpen?.("closing");
+            setShow(null);
         } else {
-            setDrawerOpen("closed");
+            setDrawerOpen?.("closing");
             setTimeout(() => {
                 setShow(label);
-                setDrawerOpen("opening");
+                setDrawerOpen?.("opening");
             }, 100);
         }
     };
@@ -47,6 +48,12 @@ const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values })=>{
         }
         clicked?.data?.listener?.(result)
     }
+
+    const closeDrawerHandler =()=>{
+        setDrawerOpen?.("closing");
+        setShow(null)
+    }
+
     return (
         <div style={{width:'100%', height:'360px' }}>
 
@@ -58,14 +65,14 @@ const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values })=>{
                     display: 'flex',
                     alignItems: 'center',
                     padding: '6px 12px',
-                    border: '1px solid var(--innerBorder)'
+                    borderBottom: '1px solid var(--innerBorder)'
                 }}
             >
 
                 <div
                     style={{fontWeight: selected===null ? 'bold':'normal', cursor:'pointer'}}
                     className={`js-search-api-each-first`}
-                    onClick={() => {setDrawerOpen("closing"); setSelected(null); } }
+                    onClick={() => {setDrawerOpen?.("closing"); setSelected(null); } }
                 >전체</div>
 
                 <div
@@ -77,7 +84,7 @@ const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values })=>{
                     return (
                         <div
                             key={el.label}
-                            className={`js-search-api-each ${selected?.label === el.label && 'js-search-api-selected'}`}
+                            className={`js-search-api-each ${show?.label === el.label && 'js-search-api-selected'}`}
                             onClick={() => clickHandler(el)}
                         >{el.label}</div>
                     )
@@ -86,10 +93,10 @@ const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values })=>{
             </div>
 
             {/* 조회결과 보이는 곳 */}
-            <div style={{width: '100%', height: '323px', position:'relative', overflowX:"hidden", fontSize:'12px',}}>
+            {/*<div style={{width: '100%', position:'relative', overflowX:"hidden", fontSize:'12px',}}>*/}
 
                 <div style={{display: "flex",
-                    flexWrap: "wrap", height: clicked?.data?.page  ? '293px' : '323', padding: '6px 0', overflowY: drawerOpen ==='opening' ? 'hidden' : 'auto',}}>
+                    flexWrap: "wrap", height: clicked?.data?.page  ? '292px' : '322px', padding: '6px 0', overflowY: drawerOpen ==='opening' ? 'hidden' : 'auto',}}>
                     {clicked?.data?.contents?.map((el) => (
                         <GroupOptionData
                             key={el.id ?? el.key ?? el.name}
@@ -100,8 +107,8 @@ const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values })=>{
                         />
                     ))}
 
-                    {/*드로어*/}
-                    <SearChDrawer data={show?.data} drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
+                {/*드로어*/}
+                <SearChDrawer data={show?.data} drawerOpen={drawerOpen} closeDrawerHandler={closeDrawerHandler} />
 
 
                 </div>
@@ -109,7 +116,7 @@ const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values })=>{
                 {/*페이지네이션*/}
                <Pagination page={clicked?.data?.page} onPageChange={(v)=> pageHandler(v)}/>
 
-            </div>
+            {/*</div>*/}
 
 
 

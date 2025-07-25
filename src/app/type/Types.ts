@@ -1,5 +1,6 @@
 import React from "react";
 
+
 /**
  * 필터 타입 정의
  * - user: 사용자
@@ -89,7 +90,12 @@ export type OptionProps = {
     setExpanded?: React.Dispatch<React.SetStateAction<number[] | null>>;
     depth?: number;
     element?: any;
+    drawerOpen?:DrawerState;
+    setDrawerOpen?: (val:DrawerState| undefined) => void;
 }
+
+export type DrawerState = "closed" | "opening" | "closing" | "closingInstant";
+
 export type Page = {
     currentPage?: number;
     totalElements?: number;

@@ -1,6 +1,6 @@
 import GroupOptionData from "./GroupOptionData";
 import React, { FC, useState } from "react";
-import { Filter, ValueType } from "../type/Types";
+import {DrawerState, Filter, ValueType} from "../type/Types";
 import RecursiveTree from "./RecursiveTree";
 import DateSelector from "./DateSelector";
 import {getType} from "./filterHelper";
@@ -22,6 +22,7 @@ const GroupOption: FC<GroupProps> = ({
                                          values,
                                      }) => {
     const [expanded, setExpanded] = useState<number[] | null>([]);
+    const [drawerOpen, setDrawerOpen] = useState<DrawerState | undefined>("closed");
 
     if (!clicked) return null;
 
@@ -33,8 +34,9 @@ const GroupOption: FC<GroupProps> = ({
                 display: "flex",
                 flexWrap: "wrap",
                 fontSize: "13px",
+                position:'relative',
                 height: searchButton ? "360px" : "417px",
-                overflowY: "auto",
+                overflowY: drawerOpen? 'hidden' : "auto",
                 alignContent: "flex-start",
                 padding: contentType==='data' ? '6px 0': '0 0'
             }}
@@ -42,6 +44,8 @@ const GroupOption: FC<GroupProps> = ({
 
             { contentType==='api' &&
                     <OptionsByApi
+                        drawerOpen={drawerOpen}
+                        setDrawerOpen={setDrawerOpen}
                         clicked={clicked}
                         values={values}
                         handle={handle}
