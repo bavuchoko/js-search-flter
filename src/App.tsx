@@ -37,12 +37,24 @@ function App() {
                 {id:9, name:'개발1팀', parentId:2, children:[
                     {id:20, name:'개발1-1팀', parentId:9,
                         children:[
-                            {id:23, name:'일이삼사오awd육칠팔구tla', parentId:20},
+                            {id:23, name:'개발1-1-1팀', parentId:20,  children:[
+                                    {id:30, name:'개발1-1-1-1팀', parentId:23},
+                                    {id:31, name:'개발1-1-2-1팀', parentId:23},
+                                    {id:32, name:'개발1-1-3-1팀', parentId:23},
+                                ]},
                             {id:24, name:'개발1-1-2팀', parentId:20},
                             {id:25, name:'개발1-1-3팀', parentId:20},
                         ]},
-                    {id:21, name:'개발2-2팀', parentId:9},
-                    {id:22, name:'개발2-3팀', parentId:9},
+                    {id:21, name:'개발1-2팀', parentId:9,children:[
+                            {id:33, name:'개발1-2-1팀', parentId:21,  children:[
+                                    {id:36, name:'개발1-2-1-1팀', parentId:33},
+                                    {id:37, name:'개발1-2-1-2팀', parentId:33},
+                                    {id:38, name:'개발1-2-1-3팀', parentId:33},
+                                ]},
+                            {id:34, name:'개발1-2-2팀', parentId:21},
+                            {id:35, name:'개발1-2-3팀', parentId:21},
+                        ]},
+                    {id:22, name:'개발1-3팀', parentId:9},
                     ]},
                 {id:10, name:'개발2팀', parentId:2},
                 {id:11, name:'개발3팀', parentId:2},

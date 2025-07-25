@@ -1,8 +1,9 @@
-import {FC, useEffect, useState} from "react";
-import {flattenTree} from "./filterHelper";
+import {FC, useEffect, useMemo, useState} from "react";
+import {findAllParents, flattenTree} from "./filterHelper";
 import righter from "../resources/svg/Righter";
 import FolderIcon from "../resources/svg/FolderIcon";
 import FileIcon from "../resources/svg/FileIcon";
+import FinderSub from "./FinderSub";
 
 type Props ={
     contents?:any[]
@@ -11,12 +12,14 @@ type Props ={
 
 
 const Finder:FC<Props> = ({contents, height}) => {
-    const [clicked, setClicked] =useState<any | undefined>(undefined)
+    const [clickLine, setClickLine] =useState<number[] | undefined>(undefined)
     const [left, setLeft] =useState<any[] | undefined>(undefined)
     const [center, setCenter] =useState<any[] | undefined>(undefined)
     const [right, setRight] =useState<any[] | undefined>(undefined)
 
-    const  flat = flattenTree(contents)
+    const flat = useMemo(() => flattenTree(contents), [contents]);
+
+
 
     useEffect(() => {
         setCenter([])
@@ -24,6 +27,9 @@ const Finder:FC<Props> = ({contents, height}) => {
     }, [contents]);
 
     const fistHandler =(el:any)=>{
+        if(!clickLine?.includes(el.id)) setRight([])
+        const myParents =  findAllParents(flat, el.id);
+        setClickLine([...myParents, el.id])
         let parents = []
         let sibling = flat.filter(e => e.parentId === el.parentId)
         if(el.parentId){
@@ -31,6 +37,9 @@ const Finder:FC<Props> = ({contents, height}) => {
             if(parent) {
                 parents = flat.filter(e => e.parentId === parent.parentId)
                 sibling = parent.children ?? []
+                if(el.children){
+                    setRight(el.children ?? [])
+                }
             }
             else {
                 parents = sibling
@@ -38,7 +47,7 @@ const Finder:FC<Props> = ({contents, height}) => {
             }
             setCenter(sibling)
             setLeft(parents)
-            setRight([])
+
         }else{
 
         }
@@ -46,6 +55,8 @@ const Finder:FC<Props> = ({contents, height}) => {
     }
 
     const secondHandler =(el:any)=>{
+        const myParents =  findAllParents(flat, el.id);
+        setClickLine([...myParents, el.id])
         let parents = [];
         let sibling = flat.filter(e => e.parentId === el.parentId)
         let children =el.children ?? [];
@@ -68,6 +79,8 @@ const Finder:FC<Props> = ({contents, height}) => {
     }
 
     const thirdHandler =(el:any)=>{
+        const myParents =  findAllParents(flat, el.id);
+        setClickLine([...myParents, el.id])
         let parents = left ?? [];
         let sibling = center ?? []
         let children = right ?? [];
@@ -101,45 +114,24 @@ const Finder:FC<Props> = ({contents, height}) => {
 
     return (
         <div style={{display: 'flex', boxSizing: 'border-box', overflow:"hidden", paddingTop:'25px' }}>
-            <div className={'js-search-narrow-scroll'} style={{ height:height, width:'calc((100%)/3)'  ,background: 'var(--background)', paddingLeft:'8px', overflowY:'auto'}}>
+            <div className={'js-search-narrow-scroll'} style={{ height:height, width:'calc((100%)/3)', background: 'white',  overflowY:'auto', borderRight:'1px solid var(--background)'}}>
             {left?.map((el: any)=>{
                 return(
-                    <div style={{display:'flex', padding:'8px 0',}} className={'no-drag'}>
-                        {el.children ?
-                            <FolderIcon style={{width:'15px', height:'15px', display:'inline-block', marginRight:'5px'}} checked={true}/>
-                            :
-                            <FileIcon style={{width:'15px', height:'15px', display:'inline-block', marginRight:'5px'}} />
-                        }
-                        <div style={{width:'100%', cursor:'pointer', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}} onClick={()=>fistHandler(el)}>{el.name}</div>
-                    </div>
+                    <FinderSub el={el} belong={clickLine?.includes(el.id) } handler={fistHandler} />
                 )
             })}
             </div>
-            <div style={{ height:height, width:'calc((100%)/3)', background:'white', paddingLeft:'8px'}}>
+            <div style={{ height:height, width:'calc((100%)/3)', background: 'white', borderRight:'1px solid var(--background)' }}>
             {center && center?.map((el:any)=>{
                 return(
-                    <div style={{display:'flex', padding:'8px 0',}} className={'no-drag'}>
-                        {el.children ?
-                            <FolderIcon style={{width:'15px', height:'15px', display:'inline-block', marginRight:'5px'}} checked={true}/>
-                            :
-                            <FileIcon style={{width:'15px', height:'15px', display:'inline-block', marginRight:'5px'}} />
-                        }
-                        <div style={{width:'100%', cursor:'pointer', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}} onClick={()=>secondHandler(el)}>{el.name}</div>
-                    </div>
+                    <FinderSub el={el} handler={secondHandler} belong={clickLine?.includes(el.id)}  />
                 )
             })}
             </div>
-            <div style={{ height:height, width:'calc((100%)/3)', paddingLeft:'8px', background: (right?.length?? 0) > 0 ? 'var(--background)' : 'white'}}>
+            <div style={{ height:height, width:'calc((100%)/3)',background: 'white', }}>
             {right && right?.map((el:any)=>{
                 return(
-                    <div style={{display:'flex', padding:'8px 0',}} className={'no-drag'}>
-                        {el.children ?
-                            <FolderIcon style={{width:'15px', height:'15px', display:'inline-block', marginRight:'5px'}} checked={true}/>
-                            :
-                            <FileIcon style={{width:'15px', height:'15px', display:'inline-block', marginRight:'5px'}} />
-                        }
-                        <div style={{width:'100%', cursor:'pointer', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}} onClick={()=>thirdHandler(el)}>{el.name}</div>
-                    </div>
+                    <FinderSub el={el} handler={thirdHandler} />
                 )
             })}
             </div>
