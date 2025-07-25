@@ -278,3 +278,11 @@ code {
   background: #cccccc;
   border-radius: 9999px
 }
+.hover-circle:hover{
+  border-radius: 50%;
+  background: #f6d5d5;
+}
+
+.hover-bg-gray:hover{
+
+}

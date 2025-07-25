@@ -15,12 +15,14 @@ const FinderSub: FC<FinderSubProps>  =({el, handler,belong, reverseColor})=>{
             background : reverseColor
                 ? belong ? 'white' : 'var(--innerBorder)'
                 : !belong ? 'white' : 'var(--innerBorder)' }} className={'no-drag'}>
-            {el.children ?
-                <FolderIcon style={{width:'15px', height:'15px', display:'inline-block', marginRight:'5px'}} checked={true}/>
-                :
-                <FileIcon style={{width:'15px', height:'15px', display:'inline-block', marginRight:'5px'}} />
-            }
-            <div style={{width:'100%', cursor:'pointer', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}} onClick={()=>handler(el)}>{el.name}</div>
+                <div style={{cursor:'pointer'}} className={`hover-circle`} onClick={()=>handler(el)}>
+                {el.children ?
+                    <FolderIcon style={{width:'15px', height:'15px', display:'inline-block', marginRight:'5px'}} checked={belong} />
+                    :
+                    <FileIcon style={{width:'15px', height:'15px', display:'inline-block', marginRight:'5px'}}/>
+                }
+                </div>
+            <div className={`hover-bg-gray`} style={{width:'100%', cursor:'pointer', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}} >{el.name}</div>
         </div>
     )
 }
