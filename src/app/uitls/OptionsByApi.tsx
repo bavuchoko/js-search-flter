@@ -108,7 +108,7 @@ const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values, drawerO
                     ))}
 
                 {/*드로어*/}
-                <SearChDrawer data={show?.data} drawerOpen={drawerOpen} closeDrawerHandler={closeDrawerHandler} />
+                <SearChDrawer clicked={clicked} data={show?.data} drawerOpen={drawerOpen} closeDrawerHandler={closeDrawerHandler} handle={handle}/>
 
 
                 </div>

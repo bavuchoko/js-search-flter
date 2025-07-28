@@ -92,9 +92,7 @@ export function flattenTree(nodes: any[] | undefined): any[] {
 
 export function findAllParents(flat: any[] | undefined, nodeId: number | string): number[] {
     const parents: number[] = [];
-    console.log(nodeId);
     let current = flat?.find(n => n.id === nodeId);
-    console.log(current)
     while (current && current.parentId) {
         const parent = flat?.find(n => n.id === current.parentId);
         if (parent) {

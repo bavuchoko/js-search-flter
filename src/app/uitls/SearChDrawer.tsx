@@ -1,19 +1,21 @@
 import React, {FC} from "react";
 
 import Finder from "./Finder";
-import {DrawerState} from "../type/Types";
+import {DrawerState, Filter} from "../type/Types";
 import ChevronLeft from "../resources/svg/ChevronLeft";
 
 
 type Props ={
     data?: any[]
+    clicked?: Filter
     drawerOpen :DrawerState | undefined;
     closeDrawerHandler?: () => void;
+    handle?: (key: string, val: any, type?: 'only' | 'date' | undefined) => void;
 }
 
 
 
-const SearChDrawer:FC<Props> =({data, drawerOpen, closeDrawerHandler})=>{
+const SearChDrawer:FC<Props> =({data, clicked, drawerOpen, closeDrawerHandler, handle})=>{
 
 
 
@@ -39,7 +41,7 @@ const SearChDrawer:FC<Props> =({data, drawerOpen, closeDrawerHandler})=>{
                 <ChevronLeft style={{cursor:'pointer', width:'14px', height:'14px', backgroundColor:'var(--themeBlue)', color:'white', borderRadius:'50%'}} />
             </div>
             {/* 여기에 drawerData 표시 */}
-            <Finder contents={data} height={'322px'}/>
+            <Finder contents={data} height={'322px'} handle={handle} clicked={clicked}/>
             {/* 필요한 세부 내용 추가 */}
         </div>
     )

@@ -1,24 +1,23 @@
 import {FC, useEffect, useMemo, useState} from "react";
 import {findAllParents, flattenTree} from "./filterHelper";
-import righter from "../resources/svg/Righter";
-import FolderIcon from "../resources/svg/FolderIcon";
-import FileIcon from "../resources/svg/FileIcon";
 import FinderSub from "./FinderSub";
+import {Filter} from "../type/Types";
 
 type Props ={
+    handle?: (key: string, val: any, type?: 'only' | 'date' | undefined) => void;
     contents?:any[]
     height?:string;
+    clicked?: Filter
 }
 
 
-const Finder:FC<Props> = ({contents, height}) => {
+const Finder:FC<Props> = ({contents, height, handle, clicked}) => {
     const [clickLine, setClickLine] =useState<number[] | undefined>(undefined)
     const [left, setLeft] =useState<any[] | undefined>(undefined)
     const [center, setCenter] =useState<any[] | undefined>(undefined)
     const [right, setRight] =useState<any[] | undefined>(undefined)
 
     const flat = useMemo(() => flattenTree(contents), [contents]);
-
 
 
     useEffect(() => {
@@ -110,6 +109,15 @@ const Finder:FC<Props> = ({contents, height}) => {
     }, [contents]);
 
 
+    const clickHandler =(v:any)=>{
+        const query ={
+            key: clicked?.key,
+            id: v.id
+        }
+        clicked?.data?.listener?.(query)
+    }
+
+
 
 
     return (
@@ -117,21 +125,21 @@ const Finder:FC<Props> = ({contents, height}) => {
             <div className={'js-search-narrow-scroll'} style={{ height:height, width:'calc((100%)/3)', background: 'white',  overflowY:'auto', borderRight:'1px solid var(--background)'}}>
             {left?.map((el: any)=>{
                 return(
-                    <FinderSub el={el} belong={clickLine?.includes(el.id) } handler={fistHandler} />
+                    <FinderSub el={el} belong={clickLine?.includes(el.id) } onClick={fistHandler} handle={(v:any)=>clickHandler(v)} />
                 )
             })}
             </div>
             <div style={{ height:height, width:'calc((100%)/3)', background: 'white', borderRight:'1px solid var(--background)' }}>
             {center && center?.map((el:any)=>{
                 return(
-                    <FinderSub el={el} handler={secondHandler} belong={clickLine?.includes(el.id)}  />
+                    <FinderSub el={el} belong={clickLine?.includes(el.id)} onClick={secondHandler}   handle={(v:any)=>clickHandler(v)} />
                 )
             })}
             </div>
             <div style={{ height:height, width:'calc((100%)/3)',background: 'white', }}>
             {right && right?.map((el:any)=>{
                 return(
-                    <FinderSub el={el} handler={thirdHandler} />
+                    <FinderSub el={el} onClick={thirdHandler}   handle={(v:any)=>clickHandler(v)} />
                 )
             })}
             </div>
