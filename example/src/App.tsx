@@ -156,12 +156,6 @@ function App() {
                     filter={filters}
                     onSearch={(v:any)=>console.log(v)}
                     onValueChange={(v:any)=>console.log(v)}
-                    initialValues={{
-                        createdBy:[1],
-                        createdAt:{startDate:'2025-01-01', endDate:'2025-10-10'},
-                        updatedAt:{startDate:'2025-01-01', },
-                        requestedAt:{startDate:'2025-01-01', endDate:'2025-12-10'},
-                    }}
                 />
             </div>
         </div>

@@ -67,7 +67,7 @@ const JsSearchFilter: FC<FilterProps> = ({
                 />
             )}
 
-            {values ? (
+            {(values && Object.keys(values).length > 0)  ? (
                 <SelectedOptions
                     filter={filter}
                     values={values}
