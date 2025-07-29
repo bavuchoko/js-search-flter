@@ -97,7 +97,7 @@ const SelectedOptions: FC<Props> = ({
     return (
         <div
             style={{
-                height: "42px",
+                height: '3rem',
                 borderTop: modal ? '1px solid var(--innerBorder)' :'none',
                 background: "var(--background)",
                 width: "100%",

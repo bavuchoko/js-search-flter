@@ -9,6 +9,7 @@ import useDragScroll from "./hook/useDragScroll";
 import {useDataHandler} from "./hook/useDataHandler";
 import HeaderFilterTabs from "./uitls/HeaderFilterTabs";
 import SelectedOptions from "./uitls/SelectedOptions";
+import '../index.css';
 
 const JsSearchFilter: FC<FilterProps> = ({
                                              filter = [],
@@ -66,7 +67,7 @@ const JsSearchFilter: FC<FilterProps> = ({
                 />
             )}
 
-            {values && (
+            {values ? (
                 <SelectedOptions
                     filter={filter}
                     values={values}
@@ -75,7 +76,10 @@ const JsSearchFilter: FC<FilterProps> = ({
                     containerRef={optionsRef}
                     reset={reset}
                 />
-            )}
+            )
+            :
+            <div style={{background:'white', width:'100%', height:'3rem'}} ></div>
+            }
         </div>
     );
 };

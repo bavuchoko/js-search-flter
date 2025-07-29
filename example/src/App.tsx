@@ -1,7 +1,5 @@
-import React from 'react';
-import JsSearchFilter from "./app/JsSearchFilter";
-import {Filter} from "./app/type/Types";
-
+import {JsSearchFilter } from '@bavuchoko/js-search-filter'
+import {Filter} from "../../src";
 function App() {
 
     const user =[
@@ -156,8 +154,8 @@ function App() {
             <div style={{padding:'16px'}}>
                 <JsSearchFilter
                     filter={filters}
-                    onSearch={(v)=>console.log(v)}
-                    onValueChange={(v)=>console.log(v)}
+                    onSearch={(v:any)=>console.log(v)}
+                    onValueChange={(v:any)=>console.log(v)}
                     initialValues={{
                         createdBy:[1],
                         createdAt:{startDate:'2025-01-01', endDate:'2025-10-10'},
