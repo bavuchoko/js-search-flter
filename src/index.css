@@ -28,31 +28,31 @@ code {
 
 :root {
   --vh: 100%;
-  --border: rgb(179, 179, 179);
-  --lightGray: rgb(245, 246, 246);
-  --deepGray: rgb(197, 197, 197);
-  --darkGray: rgb(175, 174, 174);
-  --innerBorder: rgb(236, 236, 236);
-  --font-size:12px;
-  --hover: rgb(124, 124, 124);
+  --jf-border: rgb(179, 179, 179);
+  --jf-lightGray: rgb(245, 246, 246);
+  --jf-deepGray: rgb(197, 197, 197);
+  --jf-darkGray: rgb(175, 174, 174);
+  --jf-innerBorder: rgb(236, 236, 236);
+  --jf-font-size:12px;
+  --jf-hover: rgb(124, 124, 124);
   --tw-bg-opacity:0.6;
-  --modalBackground: rgb(0 0 0 / var(--tw-bg-opacity, 1));
-  --grayText: rgb(140, 140, 140);
-  --background: rgb(245 245 245);
-  --blue:rgb(149 210 255);
-  --themeBlue:#0b73cf;
-  --red: rgb(197, 28, 28);
-  --checked: rgb(140, 25, 25);
-  --hoverHighLight: linear-gradient(120deg, rgb(140, 25, 25) 0%, rgb(220, 124, 124) 60%, transparent 100%);
-  --deepBlue: rgb(39, 95, 238);
+  --jf-modalBackground: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+  --jf-grayText: rgb(140, 140, 140);
+  --jf-background: rgb(245 245 245);
+  --jf-blue:rgb(149 210 255);
+  --jf-themeBlue:#0b73cf;
+  --jf-red: rgb(197, 28, 28);
+  --jf-checked: rgb(140, 25, 25);
+  --jf-hoverHighLight: linear-gradient(120deg, rgb(140, 25, 25) 0%, rgb(220, 124, 124) 60%, transparent 100%);
+  --jf-deepBlue: rgb(39, 95, 238);
 }
 
 .no-drag {
   user-select: none;
 }
 .js-option {
-  border: 1px solid var(--border);
-  font-size: var(--font-size);
+  border: 1px solid var(--jf-border);
+  font-size: var(--jf-font-size);
   padding: 5px 10px;
   border-radius: 3px;
   margin: 2px 5px;
@@ -63,7 +63,7 @@ code {
   user-select: none;
 }
 .js-option:hover {
-  border-color: var(--hover);
+  border-color: var(--jf-hover);
 }
 .js-option:active {
   scale: 98%;
@@ -86,7 +86,7 @@ code {
   margin-right: 4px;
   display: inline-flex;
   white-space: nowrap;
-  font-size: var(--font-size);
+  font-size: var(--jf-font-size);
   cursor: pointer;
   position: relative;
   padding: 0;
@@ -115,7 +115,7 @@ code {
   margin-right: 4px;
   display: inline-flex;
   white-space: nowrap;
-  font-size: var(--font-size);
+  font-size: var(--jf-font-size);
   cursor: pointer;
   position: relative;
   padding: 0;
@@ -192,7 +192,7 @@ code {
   width: calc(100% - 30px);
   height: 40%;
   display: inline-block;
-  background:var(--hoverHighLight);
+  background:var(--jf-hoverHighLight);
   position: absolute;
   bottom:0;
   left:15px;
@@ -236,10 +236,10 @@ code {
   /*width: calc(50% - 20px);*/
   width: 130px;
   text-align: left;
-  color: var(--grayText);
-  font-size: var(--font-size);
-  border: 1px solid var(--border);
-  background: var(--background);
+  color: var(--jf-grayText);
+  font-size: var(--jf-font-size);
+  border: 1px solid var(--jf-border);
+  background: var(--jf-background);
   padding: 0 10px;
   height: 30px;
   line-height: 30px;
@@ -255,7 +255,7 @@ code {
 }
 
 .js-search-api-each{
-  border: 1px solid var(--innerBorder);
+  border: 1px solid var(--jf-innerBorder);
   border-radius: 15px;
   margin-right: 15px;
   padding: 3px 8px;
@@ -263,10 +263,10 @@ code {
   cursor: pointer;
   display: inline-flex;
   white-space: nowrap;
-  background: var(--innerBorder);
+  background: var(--jf-innerBorder);
 }
 .js-search-api-selected{
-  background: var(--deepGray);
+  background: var(--jf-deepGray);
 }
 .js-search-narrow-scroll::-webkit-scrollbar{
   width: 5px;

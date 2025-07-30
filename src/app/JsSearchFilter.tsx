@@ -29,7 +29,7 @@ const JsSearchFilter: FC<FilterProps> = ({
 
     return (
         <div style={{ width: "100%" }}>
-            <div style={{ display: 'flex', padding: '3px', position: 'relative' }} className={`${values ? 'js-search-has-value' : ''}`}>
+            <div style={{ display: 'flex', padding: '3px', position: 'relative' }} className={`${(values && Object.keys(values).length > 0) ? 'js-search-has-value' : ''}`}>
                 <FilterIcon
                     style={{
                         width: '27px',
@@ -37,7 +37,7 @@ const JsSearchFilter: FC<FilterProps> = ({
                         padding: '4px',
                         cursor: 'pointer',
                         border: '1px solid',
-                        borderColor: 'var(--border)',
+                        borderColor: 'var(--darkGray)',
                         borderRadius: '2px',
                     }}
                     onClick={toggle}

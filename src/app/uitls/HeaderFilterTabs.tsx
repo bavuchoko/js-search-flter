@@ -57,9 +57,9 @@ const HeaderFilterTabs: FC<Props> = ({ filter, values, clicked, setClicked, togg
                             fontWeight: modal? ( clicked? 'normal' : 'bold') : 'normal',
                             fontSize: modal? '13px' : '12px',
                             borderRadius: '2px',
-                            border: modal? 'none' : '1px solid var(--border)',
-                            borderBottom: modal ? (clicked?.label === el.label ? '2px solid black' : '2px solid white') :  '1px solid var(--border)',
-                            color: modal ? (clicked?.label === el.label ? 'black' : 'var(--grayText)') : 'var(--grayText)',
+                            border: modal? 'none' : '1px solid var(--darkGray)',
+                            borderBottom: modal ? (clicked?.label === el.label ? '2px solid black' : '2px solid white') :  '1px solid var(--darkGray)',
+                            color: modal ? (clicked?.label === el.label ? 'black' : 'var(--darkGray)') : 'var(--darkGray)',
                         }}
                         onClick={() => {
                             setClicked?.(el);
