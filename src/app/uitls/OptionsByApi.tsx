@@ -65,7 +65,7 @@ const OptionsByApi:FC<OptionProps> = ({ handle, clicked, remove, values, drawerO
                     display: 'flex',
                     alignItems: 'center',
                     padding: '6px 12px',
-                    borderBottom: '1px solid var(--innerBorder)'
+                    borderBottom: '1px solid var(--jf-innerBorder)'
                 }}
             >
 

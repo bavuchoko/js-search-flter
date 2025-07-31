@@ -36,7 +36,7 @@ const SearChDrawer:FC<Props> =({data, clicked, drawerOpen, closeDrawerHandler, h
             zIndex: 1000,
             }}
         >
-            <div style={{padding:'0 12px', display:'flex', alignItems:'center', width:'100%', height:'25px', borderBottom:'1px solid var(--innerBorder)', position:'absolute', top:0, left:0}}>
+            <div style={{padding:'0 12px', display:'flex', alignItems:'center', width:'100%', height:'25px', borderBottom:'1px solid var(--jf-innerBorder)', position:'absolute', top:0, left:0}}>
                 <div style={{cursor:'pointer', marginRight:'5px', borderRadius:'50%', color:'white', background:'red', lineHeight:'12px', textAlign:'center', height:'14px', width:'14px', }} onClick={closeDrawerHandler}>x</div>
                 <ChevronLeft style={{cursor:'pointer', width:'14px', height:'14px', backgroundColor:'var(--themeBlue)', color:'white', borderRadius:'50%'}} />
             </div>

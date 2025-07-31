@@ -37,7 +37,7 @@ const JsSearchFilter: FC<FilterProps> = ({
                         padding: '4px',
                         cursor: 'pointer',
                         border: '1px solid',
-                        borderColor: 'var(--darkGray)',
+                        borderColor: 'var(--jf-darkGray)',
                         borderRadius: '2px',
                     }}
                     onClick={toggle}

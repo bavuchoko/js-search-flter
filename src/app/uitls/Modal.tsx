@@ -48,7 +48,7 @@ const Modal: FC<ModalProps> = ({
     return (
         <>
             <div
-                style={{ position: 'fixed', zIndex: 100, width: '100%', height: '100%', backgroundColor: 'var(--modalBackground)', top: 0, left: 0 }}
+                style={{ position: 'fixed', zIndex: 100, width: '100%', height: '100%', backgroundColor: 'var(--jf-modalBackground)', top: 0, left: 0 }}
                 onClick={close}
             />
 
@@ -92,7 +92,7 @@ const Modal: FC<ModalProps> = ({
                 <GroupOption clicked={clicked} handle={handle} remove={remove} searchButton={!!onSearch} values={values} />
 
                 {onSearch && (
-                    <div style={{ height: '70px', borderTop: '1px solid var(--innerBorder)', padding: '12px 8px' }}>
+                    <div style={{ height: '70px', borderTop: '1px solid var(--jf-innerBorder)', padding: '12px 8px' }}>
                         <button
                             className="active js-search-button"
                             style={{

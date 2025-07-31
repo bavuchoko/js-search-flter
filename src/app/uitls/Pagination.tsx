@@ -52,8 +52,8 @@ const Pagination: FC<PaginationProps> = ({ page, onPageChange }) => {
                 <div
                     style={{
                         height: "30px",
-                        backgroundColor: "var(--lightGray)",
-                        borderColor: "var(--deepGray)",
+                        backgroundColor: "var(--jf-lightGray)",
+                        borderColor: "var(--jf-deepGray)",
                         lineHeight: "20px",
                     }}
                 >
@@ -79,7 +79,7 @@ const Pagination: FC<PaginationProps> = ({ page, onPageChange }) => {
                                     style={{
                                         border: "1px solid",
                                         borderRadius: "3px",
-                                        borderColor: "var(--deepGray)",
+                                        borderColor: "var(--jf-deepGray)",
                                         textAlign: "right",
                                         fontSize: "12px",
                                         marginRight: "15px",
@@ -117,7 +117,7 @@ const Pagination: FC<PaginationProps> = ({ page, onPageChange }) => {
                                 style={{
                                     margin: "0 5px",
                                     borderLeft: "1px solid",
-                                    borderColor: "var(--deepGray)",
+                                    borderColor: "var(--jf-deepGray)",
                                 }}
                             ></p>
                             <p style={{ margin: 0 }}>{page.totalElements}</p>

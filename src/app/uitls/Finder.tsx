@@ -122,14 +122,14 @@ const Finder:FC<Props> = ({contents, height, handle, clicked}) => {
 
     return (
         <div style={{display: 'flex', boxSizing: 'border-box', overflow:"hidden", paddingTop:'25px' }}>
-            <div className={'js-search-narrow-scroll'} style={{ height:height, width:'calc((100%)/3)', background: 'white',  overflowY:'auto', borderRight:'1px solid var(--background)'}}>
+            <div className={'js-search-narrow-scroll'} style={{ height:height, width:'calc((100%)/3)', background: 'white',  overflowY:'auto', borderRight:'1px solid var(--jf-background)'}}>
             {left?.map((el: any)=>{
                 return(
                     <FinderSub el={el} belong={clickLine?.includes(el.id) } onClick={fistHandler} handle={(v:any)=>clickHandler(v)} />
                 )
             })}
             </div>
-            <div style={{ height:height, width:'calc((100%)/3)', background: 'white', borderRight:'1px solid var(--background)' }}>
+            <div style={{ height:height, width:'calc((100%)/3)', background: 'white', borderRight:'1px solid var(--jf-background)' }}>
             {center && center?.map((el:any)=>{
                 return(
                     <FinderSub el={el} belong={clickLine?.includes(el.id)} onClick={secondHandler}   handle={(v:any)=>clickHandler(v)} />

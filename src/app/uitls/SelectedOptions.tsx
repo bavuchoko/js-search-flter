@@ -84,8 +84,8 @@ const SelectedOptions: FC<Props> = ({
                                 xmlns="http://www.w3.org/2000/svg"
 
                             >
-                                <line x1="5" y1="5" x2="19" y2="19" stroke="var(--red)" strokeWidth="1" />
-                                <line x1="19" y1="5" x2="5" y2="19" stroke="var(--red)" strokeWidth="1" />
+                                <line x1="5" y1="5" x2="19" y2="19" stroke="var(--jf-red)" strokeWidth="1" />
+                                <line x1="19" y1="5" x2="5" y2="19" stroke="var(--jf-red)" strokeWidth="1" />
                             </svg>
                         </button>
                     </div>
@@ -98,8 +98,8 @@ const SelectedOptions: FC<Props> = ({
         <div
             style={{
                 height: '3rem',
-                borderTop: modal ? '1px solid var(--innerBorder)' :'none',
-                background: "var(--background)",
+                borderTop: modal ? '1px solid var(--jf-innerBorder)' :'none',
+                background: "var(--jf-background)",
                 width: "100%",
                 padding: "12px 8px",
                 display: "flex",

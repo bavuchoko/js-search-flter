@@ -15,8 +15,8 @@ const FinderSub: FC<FinderSubProps>  =({el, handle,belong, reverseColor, onClick
     return(
         <div style={{display:'flex', padding:'8px 0 8px 8px',
             background : reverseColor
-                ? belong ? 'white' : 'var(--innerBorder)'
-                : !belong ? 'white' : 'var(--innerBorder)' }} className={'no-drag'}>
+                ? belong ? 'white' : 'var(--jf-innerBorder)'
+                : !belong ? 'white' : 'var(--jf-innerBorder)' }} className={'no-drag'}>
                 <div style={{cursor:'pointer'}} className={`hover-circle`} onClick={()=>onClick(el)}>
                 {el.children ?
                     <FolderIcon style={{width:'15px', height:'15px', display:'inline-block', marginRight:'5px'}} checked={belong} />

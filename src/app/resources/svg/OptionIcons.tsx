@@ -38,9 +38,9 @@ const OptionIcons:FC<IconProps> =({ style, onClick, type, checked} )=>{
                 <svg style={style}  xmlns="http://www.w3.org/2000/svg" className="wd-icon-calendar wd-icon"
                      focusable="false" role="presentation" viewBox="0 0 24 24">
                     <g fillRule="evenodd" className="wd-icon-container">
-                        <path fill="var(--deepGray)" d="M4 5h16v4H4z" className="wd-icon-background"/>
+                        <path fill="var(--jf-deepGray)" d="M4 5h16v4H4z" className="wd-icon-background"/>
                         <path
-                            fill="var(--deepGray)"
+                            fill="var(--jf-deepGray)"
                             d="M7.495 2c.279 0 .505.216.505.495V4h8V2.495c0-.273.214-.495.505-.495h.99c.279 0 .505.216.505.495V4h2.007c.548 0 .993.451.993.99v15.075c0 .47-.368.86-.854.925a.995.995 0 0 1-.14.01H3.994a1 1 0 0 1-.176-.016c-.465-.08-.817-.46-.817-.919V4.991C3 4.444 3.445 4 3.993 4H6V2.495C6 2.222 6.214 2 6.505 2zM19 10H5v9h14v-9zm-8.49 2c.27 0 .49.215.49.49v3.02c0 .27-.215.49-.49.49H7.49a.488.488 0 0 1-.49-.49v-3.02c0-.27.215-.49.49-.49h3.02zM19 6H5v2h14V6z"
                             className="wd-icon-fill"/>
                     </g>
