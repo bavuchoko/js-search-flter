@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactNode} from "react";
 
 
 /**
@@ -66,6 +66,7 @@ export type ValueType = {
 export type Filter = WithSearchBy | WithRecursive;
 
 export type FilterProps ={
+    customIcon?: ReactNode
     filter? : Filter[]
     onValueChange?: (value: ValueType | null) => void;
     onSearch?: (value: ValueType | null) => void;

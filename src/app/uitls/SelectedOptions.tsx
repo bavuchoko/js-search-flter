@@ -99,9 +99,10 @@ const SelectedOptions: FC<Props> = ({
             style={{
                 height: '3rem',
                 borderTop: modal ? '1px solid var(--jf-innerBorder)' :'none',
+                marginTop: modal? '0': '5px',
                 background: "var(--jf-background)",
                 width: "100%",
-                padding: "12px 8px",
+                padding: modal ? "12px 8px" : '0',
                 display: "flex",
                 justifyContent: "space-between",
             }}

@@ -16,7 +16,7 @@ const HeaderFilterTabs: FC<Props> = ({ filter, values, clicked, setClicked, togg
         <div
             className="no-scroll no-drag"
             style={{
-                padding: "0 12px",
+                padding: modal ? "0 12px" : 0,
                 display: 'flex',
                 alignItems: 'flex-end',
                 width: '100%',
@@ -25,7 +25,7 @@ const HeaderFilterTabs: FC<Props> = ({ filter, values, clicked, setClicked, togg
             }}
             ref={containerRef}
         >
-            {filter.map(el => {
+            {filter.map((el, index) => {
 
                 const keys = Array.isArray(el.key)
                     ? el.key.map(k => k.key)
@@ -52,7 +52,7 @@ const HeaderFilterTabs: FC<Props> = ({ filter, values, clicked, setClicked, togg
                             height:'100%',
                             alignItems: 'center',
                             position: 'relative',
-                            margin: modal? '0 3px' : '0 5px',
+                            margin: modal? '0 3px' : index===0 ? '0 5px 0 0 ' : '0 5px',
                             cursor: 'pointer',
                             fontWeight: modal? ( clicked? 'normal' : 'bold') : 'normal',
                             fontSize: modal? '13px' : '12px',

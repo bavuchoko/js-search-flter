@@ -12,6 +12,7 @@ import SelectedOptions from "./uitls/SelectedOptions";
 import '../index.css';
 
 const JsSearchFilter: FC<FilterProps> = ({
+                                             customIcon = false,
                                              filter = [],
                                              onValueChange = undefined,
                                              onSearch = undefined,
@@ -29,20 +30,22 @@ const JsSearchFilter: FC<FilterProps> = ({
 
     return (
         <div style={{ width: "100%" }}>
-            <div style={{ display: 'flex', padding: '3px', position: 'relative' }} className={`${(values && Object.keys(values).length > 0) ? 'js-search-has-value' : ''}`}>
-                <FilterIcon
-                    style={{
-                        width: '27px',
-                        height: '27px',
-                        padding: '4px',
-                        cursor: 'pointer',
-                        border: '1px solid',
-                        borderColor: 'var(--jf-darkGray)',
-                        borderRadius: '2px',
-                    }}
-                    onClick={toggle}
-                />
 
+            <div style={{ display: 'flex', position: 'relative' }} className={`${(values && Object.keys(values).length > 0 && !customIcon ) ? ' js-search-has-value' : ''}`}>
+                {!customIcon &&
+                    <FilterIcon
+                        style={{
+                            width: '27px',
+                            height: '27px',
+                            padding: '4px',
+                            cursor: 'pointer',
+                            border: '1px solid',
+                            borderColor: 'var(--jf-darkGray)',
+                            borderRadius: '2px',
+                        }}
+                        onClick={toggle}
+                    />
+                }
                 <HeaderFilterTabs
                     filter={filter}
                     values={values}
